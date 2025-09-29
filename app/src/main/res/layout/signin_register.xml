@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashActivity">
+
+    <!-- Background hình -->
+
+    <!-- Nút Sign in -->
+
+
+
+    <ImageView
+        android:id="@+id/imageSplashpic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/splash_pic" />
+
+
+    <LinearLayout
+        android:id="@+id/tabContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/loginBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.76"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp">
+
+        <Button
+            android:id="@+id/btnLoginTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/darkBlue"
+            android:text="Login"
+            android:textColor="@android:color/white" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnSignupTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/darkGrey"
+            android:text="Sign Up"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loginBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/bg_login_box"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="32dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ĐĂNG NHẬP"
+                android:textColor="#0D47A1"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginBottom="16dp"
+                tools:ignore="MissingConstraints" />
+
+            <!-- Nhập tài khoản -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhập tài khoản"
+                android:textColor="#FFA000"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/edtUsername"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Nhập tài khoản"
+                android:background="@drawable/bg_edittext"
+                android:padding="10dp"
+                android:layout_marginBottom="12dp"
+                tools:ignore="MissingConstraints" />
+
+            <!-- Nhập mật khẩu -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhập mật khẩu"
+                android:textColor="#FFA000"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Nhập mật khẩu"
+                android:inputType="textPassword"
+                android:background="@drawable/bg_edittext"
+                android:padding="10dp"
+                android:layout_marginBottom="12dp"
+                tools:ignore="MissingConstraints" />
+
+            <!-- Nhớ mật khẩu + Quên mật khẩu -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp"
+                tools:ignore="MissingConstraints">
+
+                <CheckBox
+                    android:id="@+id/chkRemember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="60dp"
+                    android:text="Nhớ mật khẩu"
+                    android:textStyle="bold"
+                    android:textColor="#FFA000" />
+
+                <TextView
+                    android:id="@+id/tvForgot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quên mật khẩu"
+                    android:textColor="#0D47A1"
+                    android:textStyle="bold" />
+            </LinearLayout>
+    </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSignIn"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/background"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sign in"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:cornerRadius="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBox"
+        app:layout_constraintVertical_bias="0.26"
+        app:rippleColor="@android:color/transparent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
