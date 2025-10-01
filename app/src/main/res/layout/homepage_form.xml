@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@drawable/bg_bottom_line"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
+        <LinearLayout
+            android:background="@drawable/logo"
+            android:layout_width="180dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="11dp"
+            android:layout_marginLeft="70dp"
+            app:srcCompat="@drawable/profile" />
+        <TextView
+
+            android:padding="12dp"
+            android:text="Xin chào ,\nHiệp ngu"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/bg_bottom_line"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
+
+        <EditText
+            android:background="@drawable/bg_edttext_search"
+            android:layout_marginLeft="30dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:hint="Nhập tìm kiếm"
+            android:drawableLeft="@drawable/search_icon"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp">
+
+        </EditText>
+
+        <Button
+            android:drawableLeft="@drawable/settings_icon"
+            android:background="#00000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </Button>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </GridView>
+    </LinearLayout>
+
+
+</LinearLayout>

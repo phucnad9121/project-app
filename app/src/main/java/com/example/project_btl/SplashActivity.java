@@ -14,6 +14,11 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         View btnSignIn = findViewById(R.id.btnSignIn);
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+
         if (btnSignIn != null) {
             btnSignIn.setOnClickListener(v -> {
                 Intent intent = new Intent(SplashActivity.this, SignInactivity.class);
