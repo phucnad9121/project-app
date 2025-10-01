@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <CheckBox
+        android:id="@+id/checkboxSelectAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn tất cả" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewProducts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="8dp">
+
+        <EditText
+            android:id="@+id/edtCoupon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Mã giảm giá" />
+
+    <Button
+            android:id="@+id/btnApplyCoupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        android:text="Áp dụng"
+        android:backgroundTint="@color/darkBlue"
+        android:textColor="@color/white" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSubtotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkGrey"
+        android:text="Tạm tính: 0đ"
+        android:paddingTop="8dp" />
+
+    <TextView
+        android:id="@+id/tvDiscount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkGrey"
+        android:text="Giảm: 0đ" />
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/darkGrey"
+        android:text="Tổng: 0đ"
+        android:paddingBottom="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="8dp">
+
+        <Button
+            android:id="@+id/btnDeleteSelected"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="Xóa sản phẩm"
+            android:backgroundTint="@color/darkBlue"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnBuySelected"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="Mua hàng"
+            android:backgroundTint="@color/darkBlue"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>
+
+

@@ -13,20 +13,26 @@
         android:theme="@style/Theme.Project_btl">
 
         <!-- màn SignIn -->
-        <activity android:name=".SignInactivity" />
+		<!-- replaced deprecated SignInactivity with LoginActivity -->
+		<activity android:name=".LoginActivity" />
 
-        <!-- màn Home -->
-        <activity android:name=".MainHomeActivity" />
+		<!-- màn Home -->
+		<activity
+			android:name=".MainHomeActivity"
+			android:exported="true" />
 
-        <!-- màn Splash (màn khởi động app) -->
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+		<!-- ChiTietSP activity (product detail) -->
+		<activity android:name=".ChiTietSPActivity" />
+
+		<!-- màn khởi động app: LoginActivity -->
+		<activity
+			android:name=".MainActivity_giohang"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
 
     </application>
 </manifest>

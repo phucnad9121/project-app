@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quay lại"
+        android:backgroundTint="@color/darkBlue"
+        android:textColor="@color/white" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerProductImages"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/detailProductName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        android:text="Tên sản phẩm" />
+
+    <TextView
+        android:id="@+id/detailProductPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#E91E63"
+        android:text="Giá: 0đ" />
+
+</LinearLayout>
+
+

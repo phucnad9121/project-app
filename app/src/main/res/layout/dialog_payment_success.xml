@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="✅ Thanh toán thành công!"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cảm ơn bạn đã mua hàng"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btnCloseSuccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đóng"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>
+
+
