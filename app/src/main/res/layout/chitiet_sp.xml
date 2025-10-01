@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8">
+
+    <!-- Nội dung cuộn, chiếm từ trên tới trên bottomBar -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- TOP: Title nhỏ (có thể ẩn nếu thích overlay trên ảnh) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnBackTop"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/back"
+                    android:background="@drawable/whitebackground"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chi tiết sản phẩm"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#333333"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Card chứa ảnh + overlay -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ProductImages"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/giaycaulongliningayzu015"/>
+
+                    <!-- overlay icons (top-left / top-right) -->
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btnBack"-->
+<!--                        android:layout_width="40dp"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:layout_margin="12dp"-->
+<!--                        android:src="@drawable/back"-->
+<!--                        android:layout_gravity="top|start"-->
+<!--                        android:padding="8dp"/>-->
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="12dp"
+                        android:layout_gravity="top|end">
+
+                        <ImageButton
+                            android:id="@+id/btnFavorite"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/btn_2"
+                            android:background="@drawable/whitebackground"
+                            android:padding="8dp" />
+
+                        <ImageButton
+                            android:id="@+id/btnShare"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/share"
+                            android:background="@drawable/whitebackground"
+                            android:padding="8dp" />
+                    </LinearLayout>
+
+                </FrameLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Dots indicator (bạn có thể dùng library, hoặc tạo động) -->
+            <LinearLayout
+                android:id="@+id/dotsIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal" />
+
+            <!-- Tên + rating + price -->
+            <TextView
+                android:id="@+id/detailProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LINING AYZU015"
+                android:textColor="#1E66FF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/detailProductPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="200$"
+                    android:textColor="#FF5722"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <Space android:layout_width="280dp" android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/star"
+                    android:contentDescription="rating"/>
+
+                <TextView
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.8"
+                    android:layout_marginStart="6dp"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!-- Chọn size -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Chọn Size:"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/rgSizeGiay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbSize39"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="39" />
+
+                <RadioButton
+                    android:id="@+id/rbSize40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="40" />
+
+                <RadioButton
+                    android:id="@+id/rbSize41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41" />
+
+                <RadioButton
+                    android:id="@+id/rbSize42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="42" />
+
+                <RadioButton
+                    android:id="@+id/rbSize43"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="43" />
+
+            </RadioGroup>
+
+
+            <!-- Số lượng + control -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Số lượng"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/btnGiamSoLuong"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/minus"
+                    android:tint="@null"
+                    android:background="@null"/>
+
+                <TextView
+                    android:id="@+id/tvDetailQuantity"
+                    android:layout_width="56dp"
+                    android:layout_height="44dp"
+                    android:gravity="center"
+                    android:background="#F0F0F0"
+                    android:text="1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginHorizontal="12dp"/>
+
+                <ImageButton
+                    android:id="@+id/btnTangSoLuong"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/add"
+                    android:tint="@null" />
+
+            </LinearLayout>
+
+            <!-- Separator -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="16dp"
+                android:background="#E0E0E0"/>
+
+            <!-- Mô tả -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mô tả sản phẩm"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:id="@+id/MoTa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lately, I've been slippin' away from you..."
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Thông tin bổ sung -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thông tin bổ sung:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/TTBoSung"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Chất liệu: ...\n• Màu sắc: ...\n• Bảo hành: 12 tháng\n• Xuất xứ: Việt Nam"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="80dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom action bar cố định -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="8dp">
+
+        <ImageButton
+            android:id="@+id/btnGioHang"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/btn_3"
+            android:background="@android:color/darker_gray"
+            android:padding="12dp"/>
+
+        <Space android:layout_width="12dp" android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBuyNow"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="BUY NOW"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:enabled="true"
+            app:cornerRadius="10dp"
+            android:backgroundTint="#333333"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
