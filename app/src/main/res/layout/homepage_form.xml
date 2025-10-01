@@ -36,6 +36,7 @@
         </TextView>
     </LinearLayout>
 
+
     <LinearLayout
         android:background="@drawable/bg_bottom_line"
         android:orientation="horizontal"
@@ -66,24 +67,79 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <!-- Banner -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/bannerViewPager"
         android:layout_width="match_parent"
-        android:layout_height="250dp">
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+        android:layout_height="200dp" />
+
+    <!-- Categories -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Categories"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="View All"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end" />
     </LinearLayout>
 
-    <LinearLayout
+    <!-- RecyclerView cho categories -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="350dp">
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:padding="8dp"/>
 
-        <GridView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-        </GridView>
-    </LinearLayout>
+    <!-- Grid sản phẩm -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"/>
+
+
+
+
+
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="250dp">-->
+<!--        <ListView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"></ListView>-->
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="350dp">-->
+
+<!--        <GridView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--        </GridView>-->
+<!--    </LinearLayout>-->
 
 
 </LinearLayout>

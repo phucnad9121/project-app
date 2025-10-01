@@ -1,115 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/splash_pic">
+    android:background="@color/white">
 
-    <!-- Thanh chuyển Login / Sign up -->
-    <LinearLayout
-        android:id="@+id/tabContainer"
+    <!-- App bar: left icon (menu), title, right search icon -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:background="@android:color/transparent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="6dp"
+        app:titleTextAppearance="@style/Toolbar.Title"
+        app:contentInsetStart="0dp">
 
-        <Button
-            android:id="@+id/btnLoginTab"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/purple_500"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <Space
-            android:layout_width="20dp"
-            android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@null"
+                android:src="@drawable/settings_icon"
+                android:contentDescription="menu"
+                android:background="@drawable/bg_circle_transparent"/>
 
-        <Button
-            android:id="@+id/btnSignupTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/darkGrey" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Explore"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black" />
 
-    <!-- ViewSwitcher để chuyển qua lại giữa Login và Sign Up -->
-    <ViewFlipper
-        android:id="@+id/viewFlipper"
+            <ImageButton
+                android:id="@+id/btnSearch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/settings_icon"
+                android:background="@drawable/bg_circle_transparent"
+                android:contentDescription="search" />
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Content container -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:inAnimation="@android:anim/slide_in_left"
-        android:outAnimation="@android:anim/slide_out_right">
+        android:layout_marginBottom="72dp"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- Layout Login -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="24dp">
 
-            <EditText
+            <!-- Promo carousel -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerPromo"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="8dp" />
+
+            <!-- Dots indicator (simple) -->
+            <LinearLayout
+                android:id="@+id/dots"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"/>
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="8dp" />
 
-            <EditText
+            <!-- Categories header -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="textPassword"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="18dp">
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Remember me"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Categories"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
 
-            <Button
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View all"
+                    android:textSize="13sp"
+                    android:textColor="@color/primary" />
+            </LinearLayout>
+
+            <!-- Categories horizontal -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategories"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:scrollbars="none"
+                tools:listitem="@layout/item_category" />
+
+            <!-- Product grid header spacing -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
+            <!-- Grid of products -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProducts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"/>
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_product" />
 
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <!-- Layout Sign Up -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="20dp">
+    <!-- Bottom navigation bar -->
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottomNav"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="64dp"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:background="@drawable/bg_bottom_nav"-->
+<!--        app:itemIconTint="@color/bottom_nav_selector"-->
+<!--        app:itemTextColor="@color/bottom_nav_selector"-->
+<!--        app:menu="@menu/menu_bottom" />-->
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Full Name" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Username" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="textPassword" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Create Account" />
-
-        </LinearLayout>
-
-    </ViewFlipper>
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

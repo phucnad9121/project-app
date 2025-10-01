@@ -15,6 +15,9 @@
         <!-- màn SignIn -->
         <activity android:name=".SignInactivity" />
 
+        <!-- màn Home -->
+        <activity android:name=".MainHomeActivity" />
+
         <!-- màn Splash (màn khởi động app) -->
         <activity
             android:name=".SplashActivity"
