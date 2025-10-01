@@ -9,6 +9,25 @@ public class CategoryModel {
         this.name = name;
     }
 
-    public int getIcon() { return icon; }
-    public String getName() { return name; }
+    public int getIcon() {
+        return icon;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    // Nếu bạn muốn dùng thêm getIconResId thì viết như này
+    public int getIconResId() {
+        return icon;
+    }
+
+    // setter (nếu cần)
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

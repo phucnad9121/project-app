@@ -22,6 +22,8 @@ public class MainHomeActivity extends AppCompatActivity{
             getSupportActionBar().hide();
         }
 
+
+
         // Banner
         bannerViewPager = findViewById(R.id.bannerViewPager);
         List<Integer> banners = new ArrayList<>();
