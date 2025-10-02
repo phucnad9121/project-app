@@ -12,18 +12,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project_btl">
 
-        <!-- màn SignIn -->
-        <activity android:name=".SignInactivity" />
+		<!-- màn SignIn -->
+		<activity android:name=".SignInactivity" />
 
-        <!-- màn Splash (màn khởi động app) -->
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+		<!-- màn Home -->
+		<activity android:name=".MainHomeActivity" />
+
+<!--		&lt;!&ndash; replaced deprecated SignInactivity with LoginActivity &ndash;&gt;-->
+<!--		<activity android:name=".LoginActivity" />-->
+
+
+		<!-- ChiTietSP activity (product detail) -->
+		<activity android:name=".ChiTietSPActivity" />
+
+		<!-- Gio hang activity (product detail) -->
+		<activity android:name=".MainActivity_giohang" />
+
+
+		<!-- màn Splash (màn khởi động app) -->
+		<activity
+			android:name=".SplashActivity"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
 
     </application>
 </manifest>
+
+
