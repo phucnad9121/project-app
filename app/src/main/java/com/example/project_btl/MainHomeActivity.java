@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
+import android.content.Intent;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 import android.os.Bundle;
 
@@ -17,6 +20,34 @@ public class MainHomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage_form);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+
+        // Mặc định chọn Home
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                return true;
+            } else if (id == R.id.nav_cart) {
+                startActivity(new Intent(this, MainActivity_giohang.class));
+                overridePendingTransition(0,0);
+                return true;
+            } else if (id == R.id.nav_notifications) {
+                startActivity(new Intent(this, SignInactivity.class));
+                overridePendingTransition(0,0);
+                return true;
+            } else if (id == R.id.nav_profile) {
+                startActivity(new Intent(this, SplashActivity.class));
+                overridePendingTransition(0,0);
+                return true;
+            }
+            return false;
+        });
+
+
 
         if(getSupportActionBar() != null){
             getSupportActionBar().hide();
@@ -55,5 +86,8 @@ public class MainHomeActivity extends AppCompatActivity{
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         productRecyclerView.setAdapter(productAdapter);
     }
+
+
+
 
 }

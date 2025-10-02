@@ -1,5 +1,6 @@
 package com.example.project_btl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -46,6 +49,41 @@ public class MainActivity_giohang extends AppCompatActivity {
         tvSubtotal = findViewById(R.id.tvSubtotal);
         tvDiscount = findViewById(R.id.tvDiscount);
         tvTotal = findViewById(R.id.tvTotal);
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+
+
+        // Đặt mặc định chọn giỏ hàng
+        bottomNavigationView.setSelectedItemId(R.id.nav_cart);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                startActivity(new Intent(this, MainHomeActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (id == R.id.nav_cart) {
+                // Đang ở giỏ hàng
+                return true;
+            } else if (id == R.id.nav_notifications) {
+                startActivity(new Intent(this, SplashActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (id == R.id.nav_profile) {
+                startActivity(new Intent(this, SignInactivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+
+            return false;
+        });
+
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         seedData();

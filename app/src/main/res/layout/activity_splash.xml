@@ -20,7 +20,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/splash_pic" />
 
     <com.google.android.material.button.MaterialButton
@@ -42,16 +42,21 @@
         android:layout_marginBottom="80dp"/>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnSignIn"
         android:layout_centerHorizontal="true"
-        android:text="Bạn đã có tài khoản chưa ?"
+        android:text="Do you have an account yet ?"
         android:textColor="#00BCD4"
         android:textSize="14sp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="92dp"
-        tools:layout_editor_absoluteY="668dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.389"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
+        app:layout_constraintVertical_bias="0.3"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtRegister"
@@ -60,13 +65,16 @@
         android:layout_below="@id/btnSignIn"
         android:layout_centerHorizontal="true"
         android:text="Register"
-        android:textStyle="italic"
         android:textColor="#E7643C"
         android:textSize="14sp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="265dp"
-        tools:layout_editor_absoluteY="668dp" />
-
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.777"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
+        app:layout_constraintVertical_bias="0.3"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
