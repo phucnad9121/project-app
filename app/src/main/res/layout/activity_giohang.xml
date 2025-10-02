@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -94,6 +95,16 @@
             android:backgroundTint="@color/darkBlue"
             android:textColor="@color/white" />
     </LinearLayout>
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:itemIconTint="@null"
+        app:itemIconSize="26dp"
+        app:itemTextColor="@null"
+        app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>
 

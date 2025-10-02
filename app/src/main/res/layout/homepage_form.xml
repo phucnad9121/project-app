@@ -118,4 +118,17 @@
 
 
 
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:itemIconTint="@null"
+        app:itemIconSize="26dp"
+        app:itemTextColor="@null"
+        app:menu="@menu/bottom_nav_menu" />
+
+
+
 </LinearLayout>
