@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="1dp">
 
     <CheckBox
         android:id="@+id/checkboxSelectAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
         android:text="Chọn tất cả" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@
 
         <EditText
             android:id="@+id/edtCoupon"
+            android:layout_marginLeft="5dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -47,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/darkGrey"
+        android:layout_marginLeft="10dp"
         android:text="Tạm tính: 0đ"
         android:paddingTop="8dp" />
 
@@ -54,6 +57,7 @@
         android:id="@+id/tvDiscount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/darkGrey"
         android:text="Giảm: 0đ" />
 
@@ -62,6 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/darkGrey"
         android:text="Tổng: 0đ"
         android:paddingBottom="8dp" />
@@ -78,6 +83,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Xóa sản phẩm"
@@ -90,6 +96,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="5dp"
             android:gravity="center"
             android:text="Mua hàng"
             android:backgroundTint="@color/darkBlue"
@@ -101,8 +108,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        app:itemIconTint="@null"
         app:itemIconSize="26dp"
+        app:itemIconTint="@null"
         app:itemTextColor="@null"
         app:menu="@menu/bottom_nav_menu" />
 

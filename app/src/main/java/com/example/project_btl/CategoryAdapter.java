@@ -35,6 +35,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
 
+    public interface OnCategoryClickListener {
+        void onCategoryClick(String categoryName);
+    }
+
+    private OnCategoryClickListener listener;
+
+    public void setOnCategoryClickListener(OnCategoryClickListener listener) {
+        this.listener = listener;
+    }
+
+
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") int position) {
         CategoryModel category = categoryList.get(position);
@@ -55,8 +66,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             selectedPosition = position;
             notifyItemChanged(prev);
             notifyItemChanged(position);
+
+            if (listener != null) {
+                listener.onCategoryClick(category.getName());
+            }
         });
     }
+
 
     @Override
     public int getItemCount() {
