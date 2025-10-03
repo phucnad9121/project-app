@@ -71,7 +71,7 @@ public class MainActivity_giohang extends AppCompatActivity {
                 // Đang ở giỏ hàng
                 return true;
             } else if (id == R.id.nav_notifications) {
-                startActivity(new Intent(this, SplashActivity.class));
+                startActivity(new Intent(this, NotificationsActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
             } else if (id == R.id.nav_profile) {

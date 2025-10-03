@@ -29,6 +29,9 @@
 		<activity android:name=".MainActivity_giohang" />
 
 
+		<!-- Form thông báo -->
+		<activity android:name=".NotificationsActivity" />
+
 		<!-- màn Splash (màn khởi động app) -->
 		<activity
 			android:name=".SplashActivity"
