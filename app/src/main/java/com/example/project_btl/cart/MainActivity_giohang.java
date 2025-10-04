@@ -1,11 +1,10 @@
-package com.example.project_btl;
+package com.example.project_btl.cart;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.Button;
@@ -17,6 +16,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.project_btl.notification.NotificationsActivity;
+import com.example.project_btl.R;
+import com.example.project_btl.Login.SignInactivity;
+import com.example.project_btl.home.MainHomeActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.NumberFormat;
@@ -117,8 +120,8 @@ public class MainActivity_giohang extends AppCompatActivity {
 
     private void seedData() {
         items.add(new Sp_giohang("1", "Máy xay", "Mô tả 1", 100000, R.drawable.blender1, 1));
-        items.add(new Sp_giohang("2", "Máy xay Pro", "Mô tả 2", 200000, R.drawable.blender2, 2));
-        items.add(new Sp_giohang("3", "Máy xay Max", "Mô tả 3", 300000, R.drawable.blender3, 1));
+        items.add(new Sp_giohang("2", "Máy xay Pro", "Mô tả 2", 200000, R.drawable.ao_yonex_tjm2886_jet_black, 2));
+        items.add(new Sp_giohang("3", "Máy xay Max", "Mô tả 3", 300000, R.drawable.giay_cau_long_yonex_cascade_accel, 1));
     }
 
     private void recalcTotal() {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashActivity">
+    tools:context=".Login.SplashActivity">
 
 
 
@@ -28,7 +28,7 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        app:srcCompat="@drawable/logo"
+        app:srcCompat="@drawable/ic_logo"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="3dp"
         tools:layout_editor_absoluteY="-73dp" />

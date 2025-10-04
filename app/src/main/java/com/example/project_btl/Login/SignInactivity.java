@@ -1,4 +1,4 @@
-package com.example.project_btl;
+package com.example.project_btl.Login;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -9,6 +9,9 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.project_btl.R;
+import com.example.project_btl.home.MainHomeActivity;
 
 public class SignInactivity extends AppCompatActivity {
     private Button btnLoginTab, btnSignupTab, btnSignIn;

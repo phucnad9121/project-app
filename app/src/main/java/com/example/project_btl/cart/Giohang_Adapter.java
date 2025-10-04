@@ -1,4 +1,4 @@
-package com.example.project_btl;
+package com.example.project_btl.cart;
 
 import android.content.Intent;
 import android.widget.Toast;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.project_btl.ChiTietSPActivity;
+import com.example.project_btl.R;
 
 import java.text.NumberFormat;
 import java.util.List;

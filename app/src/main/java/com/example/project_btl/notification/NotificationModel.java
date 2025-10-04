@@ -1,4 +1,4 @@
-package com.example.project_btl;
+package com.example.project_btl.notification;
 
 public class NotificationModel {
     private String message;
