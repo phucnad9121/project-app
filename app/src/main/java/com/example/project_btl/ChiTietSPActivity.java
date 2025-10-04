@@ -17,13 +17,13 @@ public class ChiTietSPActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("product_name");
         String desc = getIntent().getStringExtra("product_desc");
         int price = (int) getIntent().getLongExtra("product_price", 0);
-        int img = getIntent().getIntExtra("product_image", R.drawable.yonex_astrox_100va_tour);
+        int img = getIntent().getIntExtra("product_image", R.drawable.vot_yonex_astrox_100va_tour);
 
         ViewPager2 pager = findViewById(R.id.viewPagerProductImages);
         ProductImageAdapter adapter = new ProductImageAdapter(Arrays.asList(
                 img,
-                R.drawable.yonex_astrox_99_pro_2025,
-                R.drawable.yonex_nanoflare_700_pro
+                R.drawable.vot_yonex_astrox_99_pro_2025,
+                R.drawable.vot_yonex_nanoflare_700_pro
         ));
         pager.setAdapter(adapter);
 
@@ -35,5 +35,6 @@ public class ChiTietSPActivity extends AppCompatActivity {
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
     }
 }
+
 
 
