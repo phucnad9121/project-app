@@ -14,7 +14,7 @@ import java.util.List;
 public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerViewHolder> {
 
     private Context context;
-    private List<Integer> bannerList; // chứa id ảnh drawable
+    private List<Integer> bannerList;
 
     public BannerAdapter(Context context, List<Integer> bannerList) {
         this.context = context;

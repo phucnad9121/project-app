@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/product_item_border"
+    android:layout_margin="8dp">
 
     <CheckBox
         android:id="@+id/checkboxProduct"
@@ -60,6 +62,13 @@
             android:text="Số lượng: 1" />
     </LinearLayout>
 
+    <!-- Đường kẻ phân cách -->
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="#2196F3"
+        android:layout_marginHorizontal="10dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -97,5 +106,3 @@
     </LinearLayout>
 
 </LinearLayout>
-
-
