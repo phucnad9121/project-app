@@ -112,55 +112,91 @@ public class MainHomeActivity extends AppCompatActivity{
     //  setupProducts()
     private void setupProducts() {
         List<ProductModel> vot = new ArrayList<>();
-        vot.add(new ProductModel(R.drawable.vot_victor_ryuga_ii, "Victor ryuga ii", "$100", 4));
-        vot.add(new ProductModel(R.drawable.vot_victor_ryuga_ii_pro, "Victor ryuga ii pro", "$120", 5));
-        vot.add(new ProductModel(R.drawable.vot_lining_halbertec_8000, "Lining Halbertec 8000", "$79", 3));
-        vot.add(new ProductModel(R.drawable.vot_lining_halbertec_9000, "Lining Halbertec 9000", "$122", 5));
-        vot.add(new ProductModel(R.drawable.vot_victor_brave_sword_12_pro, "victor_brave_sword_12_pro", "$190", 4));
-        vot.add(new ProductModel(R.drawable.vot_cau_long_yonex_astrox_100, "yonex_astrox_100", "$198", 4));
-        vot.add(new ProductModel(R.drawable.vot_yonex_astrox_99_pro_2025, "yonex_astrox_99_pro_2025", "$98", 4));
-        vot.add(new ProductModel(R.drawable.vot_yonex_astrox_100va_tour, "yonex_astrox_100va_tour", "$100", 4));
-        vot.add(new ProductModel(R.drawable.vot_yonex_nanoflare_700_pro, "yonex_nanoflare_700_pro", "$130", 5));
-        vot.add(new ProductModel(R.drawable.vot_victor_ars_90k_metallic, "victor_ars_90k_metallic", "$110", 3));
-        vot.add(new ProductModel(R.drawable.vot_lining_calibar_600i, "lining_calibar_600i", "$160", 5));
+        vot.add(new ProductModel("vot1", "Victor Ryuga II", 100L, R.drawable.vot_victor_ryuga_ii, 4f,
+                "Vợt cầu lông chuyên công", "Tấn công mạnh mẽ, trọng lượng 85g, cán cầm G5", 1, " ", "Vợt"));
+        vot.add(new ProductModel("vot2", "Victor Ryuga II Pro", 120L, R.drawable.vot_victor_ryuga_ii_pro, 5f,
+                "Vợt cầu lông cao cấp", "Khung carbon siêu nhẹ, cân bằng tốt", 1, "Chưa Chọn", "Vợt"));
+        vot.add(new ProductModel("vot3", "Lining Halbertec 8000", 79L, R.drawable.vot_lining_halbertec_8000, 3f,
+                "Vợt cầu lông tầm trung", "Dành cho người chơi thiên công trình cao", 1, "Chưa Chọn", "Vợt"));
+        vot.add(new ProductModel("vot4", "Lining Halbertec 9000", 122L, R.drawable.vot_lining_halbertec_9000, 5f,
+                "Vợt cầu lông cao cấp", "Khung nhẹ, kiểm soát tốt", 1, "Chưa Chọn", "Vợt"));
+        vot.add(new ProductModel("vot5", "Victor Brave Sword 12 Pro", 190L, R.drawable.vot_victor_brave_sword_12_pro, 4f,
+                "Vợt chuyên nghiệp", "Cân bằng, linh hoạt", 1, "Chưa Chọn", "Vợt"));
+        vot.add(new ProductModel("vot6", "Yonex Astrox 100", 198L, R.drawable.vot_cau_long_yonex_astrox_100, 4f,
+                "Vợt cao cấp", "Công nghệ Aerodynamic", 1, "Chưa Chọn", "Vợt"));
+        vot.add(new ProductModel("vot7", "Yonex Astrox 99 Pro 2025", 98L, R.drawable.vot_yonex_astrox_99_pro_2025, 4f,
+                "Vợt chuyên nghiệp", "Độ bền cao, linh hoạt", 1, "Chưa Chọn", "Vợt"));
+        vot.add(new ProductModel("vot8", "Yonex Astrox 100VA Tour", 100L, R.drawable.vot_yonex_astrox_100va_tour, 4f,
+                "Vợt cầu lông chuyên nghiệp", "Cân bằng tốt, tốc độ cao", 1, "Chưa Chọn", "Vợt"));
+        vot.add(new ProductModel("vot9", "Yonex Nanoflare 700 Pro", 130L, R.drawable.vot_yonex_nanoflare_700_pro, 5f,
+                "Vợt tốc độ cao", "Thiết kế nhẹ, linh hoạt", 1, "Chưa Chọn", "Vợt"));
+        vot.add(new ProductModel("vot10", "Victor ARS 90K Metallic", 110L, R.drawable.vot_victor_ars_90k_metallic, 3f,
+                "Vợt kiểm soát", "khả năng điều cầu tốt", 1, "Chưa Chọn", "Vợt"));
+        vot.add(new ProductModel("vot11", "Lining Calibar 600i", 160L, R.drawable.vot_lining_calibar_600i, 5f,
+                "Vợt cao cấp", "Khung carbon, kiểm soát tốt", 1, "Chưa Chọn", "Vợt"));
 
         List<ProductModel> giay = new ArrayList<>();
-        giay.add(new ProductModel(R.drawable.giay_cau_long_lining_ayau005, "Lining Ayau 005", "$100", 3));
-        giay.add(new ProductModel(R.drawable.giay_cau_long_lining_ayzu015, "Lining Ayzu015", "$120", 4));
-        giay.add(new ProductModel(R.drawable.giay_cau_long_victor_a311, "Victor A311", "$99", 5));
-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_aerus_x_navy_blue, "Yonex Aerus X Navy Blue", "$198", 4));
-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_cascade_accel, "Yonex Cascade Accel", "$149", 3));
-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_cascade_blue, "Yonex Cascade Blue", "$110", 5));
-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_power_z3, "Yonex Power z3", "$79", 5));
-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_shb_65z3, "Yonex Shb 65z3", "$130", 4));
-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_shb_65z4, "Yonex Shb 65z4", "$120", 4));
+        giay.add(new ProductModel("giay1", "Lining Ayau 005", 100L, R.drawable.giay_cau_long_lining_ayau005, 3f,
+                "Giày cầu lông nam", "Màu xanh dương, size 39-45", 1, "Chưa Chọn", "Giày"));
+        giay.add(new ProductModel("giay2", "Lining Ayzu 015", 120L, R.drawable.giay_cau_long_lining_ayzu015, 4f,
+                "Giày cầu lông unisex", "Màu trắng, size 38-44", 1, "Chưa Chọn", "Giày"));
+        giay.add(new ProductModel("giay3", "Victor A311", 99L, R.drawable.giay_cau_long_victor_a311, 5f,
+                "Giày cầu lông nam", "Chống trượt, màu trắng", 1, "Chưa Chọn", "Giày"));
+        giay.add(new ProductModel("giay4", "Yonex Aerus X Navy Blue", 198L, R.drawable.giay_cau_long_yonex_aerus_x_navy_blue, 4f,
+                "Giày cầu lông cao cấp", "Màu xanh navy, đế cao su", 1, "Chưa Chọn", "Giày"));
+        giay.add(new ProductModel("giay5", "Yonex Cascade Accel", 149L, R.drawable.giay_cau_long_yonex_cascade_accel, 3f,
+                "Giày cầu lông nam", "Đệm êm, màu xanh dương", 1, "Chưa Chọn", "Giày"));
+        giay.add(new ProductModel("giay6", "Yonex Cascade Blue", 110L, R.drawable.giay_cau_long_yonex_cascade_blue, 5f,
+                "Giày cầu lông nữ", "Màu xanh, size 36-42", 1, "Chưa Chọn", "Giày"));
+        giay.add(new ProductModel("giay7", "Yonex Power Z3", 79L, R.drawable.giay_cau_long_yonex_power_z3, 5f,
+                "Giày cầu lông nam", "Màu đỏ, nhẹ, thoáng khí", 1, "Chưa Chọn", "Giày"));
+        giay.add(new ProductModel("giay8", "Yonex SHB 65Z3", 130L, R.drawable.giay_cau_long_yonex_shb_65z3, 4f,
+                "Giày cầu lông nữ", "Màu xanh, chống trượt", 1, "Chưa Chọn", "Giày"));
+        giay.add(new ProductModel("giay9", "Yonex SHB 65Z4", 120L, R.drawable.giay_cau_long_yonex_shb_65z4, 4f,
+                "Giày cầu lông unisex", "Màu xám, size 37-44", 1, "Chưa Chọn", "Giày"));
 
         List<ProductModel> quan = new ArrayList<>();
-        quan.add(new ProductModel(R.drawable.quan_cau_long_felet_cm202b_black, "felet_cm202b_black", "$20", 4));
-        quan.add(new ProductModel(R.drawable.quan_cau_long_felet_cm202b_white, "felet_cm202b_white", "$30", 5));
-        quan.add(new ProductModel(R.drawable.quan_cau_long_kawasaki_sp, "kawasaki_sp", "$25", 3));
-        quan.add(new ProductModel(R.drawable.quan_cau_long_lining_967_den, "lining_967_den", "$30", 4));
-        quan.add(new ProductModel(R.drawable.quan_cau_long_lining_967_trang, "lining_967_trang", "$30", 5));
-        quan.add(new ProductModel(R.drawable.quan_cau_long_victor_225_hong, "victor_225_hong", "$60", 4));
-        quan.add(new ProductModel(R.drawable.quan_cau_long_victor_901_trang_kem, "victor_901_trang_kem", "$25", 3));
-        quan.add(new ProductModel(R.drawable.quan_cau_long_yonex_7049_xanh_trang, "yonex_7049_xanh_trang", "$40", 3));
-        quan.add(new ProductModel(R.drawable.quan_cau_long_yonex_tsm2844_hemlock, "yonex_tsm2844_hemlock", "$20", 4));
+        quan.add(new ProductModel("quan1", "Felet CM202B Black", 20L, R.drawable.quan_cau_long_felet_cm202b_black, 4f,
+                "Quần cầu lông nam", "Màu đen, size S-XL", 1, "Chưa Chọn", "Quần"));
+        quan.add(new ProductModel("quan2", "Felet CM202B White", 30L, R.drawable.quan_cau_long_felet_cm202b_white, 5f,
+                "Quần cầu lông nữ", "Màu trắng, size S-L", 1, "Chưa Chọn", "Quần"));
+        quan.add(new ProductModel("quan3", "Kawasaki SP", 25L, R.drawable.quan_cau_long_kawasaki_sp, 3f,
+                "Quần cầu lông unisex", "Màu xanh, chất liệu thoáng", 1, "Chưa Chọn", "Quần"));
+        quan.add(new ProductModel("quan4", "Lining 967 Đen", 30L, R.drawable.quan_cau_long_lining_967_den, 4f,
+                "Quần cầu lông nam", "Màu đen, co giãn tốt", 1, "Chưa Chọn", "Quần"));
+        quan.add(new ProductModel("quan5", "Lining 967 Trắng", 30L, R.drawable.quan_cau_long_lining_967_trang, 5f,
+                "Quần cầu lông nữ", "Màu trắng, co giãn tốt", 1, "Chưa Chọn", "Quần"));
+        quan.add(new ProductModel("quan6", "Victor 225 Hồng", 60L, R.drawable.quan_cau_long_victor_225_hong, 4f,
+                "Quần cầu lông nữ", "Màu hồng, size S-L", 1, "Chưa Chọn", "Quần"));
+        quan.add(new ProductModel("quan7", "Victor 901 Trắng Kem", 25L, R.drawable.quan_cau_long_victor_901_trang_kem, 3f,
+                "Quần cầu lông nam", "Màu trắng kem, size M-XL", 1, "Chưa Chọn", "Quần"));
+        quan.add(new ProductModel("quan8", "Yonex 7049 Xanh Trắng", 40L, R.drawable.quan_cau_long_yonex_7049_xanh_trang, 3f,
+                "Quần cầu lông unisex", "Màu xanh trắng, co giãn", 1, "Chưa Chọn", "Quần"));
+        quan.add(new ProductModel("quan9", "Yonex TSM2844 Hemlock", 20L, R.drawable.quan_cau_long_yonex_tsm2844_hemlock, 4f,
+                "Quần cầu lông nam", "Màu xanh, nhẹ, thoáng khí", 1, "Chưa Chọn", "Quần"));
 
         List<ProductModel> ao = new ArrayList<>();
-        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_3136_nam_den_xanh, "lining_3136_nam_den_xanh", "$35", 4));
-        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_3175_trang, "lining_3175_trang", "$24", 3));
-        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_6589_nam_den_xam, "lining_6589_nam_den_xam", "$50", 5));
-        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_t41_nam_den, "lining_t41_nam_den", "$25", 3));
-        ao.add(new ProductModel(R.drawable.ao_cau_long_yonex_tpm2969_patrior_blue, "yonex_tpm2969_patrior_blue", "$29", 4));
-        ao.add(new ProductModel(R.drawable.ao_cau_long_yonex_trm2967_light_taupe, "yonex_trm2967_light_taupe", "$52", 3));
-        ao.add(new ProductModel(R.drawable.ao_khoac_cau_long_yonex_tjm288_oatmeal, "yonex_tjm288_oatmeal", "$25", 5));
-        ao.add(new ProductModel(R.drawable.ao_kamito_galaxy_1, "Kamito Galaxy 1", "$29", 5));
+        ao.add(new ProductModel("ao1", "Lining 3136 Nam Đen Xanh", 35L, R.drawable.ao_cau_long_lining_3136_nam_den_xanh, 4f,
+                "Áo cầu lông nam", "Màu đen xanh, size M-XXL", 1, "Chưa Chọn", "Áo"));
+        ao.add(new ProductModel("ao2", "Lining 3175 Trắng", 24L, R.drawable.ao_cau_long_lining_3175_trang, 3f,
+                "Áo cầu lông nữ", "Màu trắng, size S-L", 1, "Chưa Chọn", "Áo"));
+        ao.add(new ProductModel("ao3", "Lining 6589 Nam Đen Xám", 50L, R.drawable.ao_cau_long_lining_6589_nam_den_xam, 5f,
+                "Áo cầu lông unisex", "Màu đen xám, thoáng khí", 1, "Chưa Chọn", "Áo"));
+        ao.add(new ProductModel("ao4", "Lining T41 Nam Đen", 25L, R.drawable.ao_cau_long_lining_t41_nam_den, 3f,
+                "Áo cầu lông nam", "Màu đen, thấm hút tốt", 1, "Chưa Chọn", "Áo"));
+        ao.add(new ProductModel("ao5", "Yonex TPM2969 Patriot Blue", 29L, R.drawable.ao_cau_long_yonex_tpm2969_patrior_blue, 4f,
+                "Áo cầu lông nữ", "Màu xanh, thoáng khí", 1, "Chưa Chọn", "Áo"));
+        ao.add(new ProductModel("ao6", "Yonex TRM2967 Light Taupe", 52L, R.drawable.ao_cau_long_yonex_trm2967_light_taupe, 3f,
+                "Áo cầu lông unisex", "Màu nâu nhạt, thoáng khí", 1, "Chưa Chọn", "Áo"));
+        ao.add(new ProductModel("ao7", "Yonex TJM288 Oatmeal", 25L, R.drawable.ao_khoac_cau_long_yonex_tjm288_oatmeal, 5f,
+                "Áo khoác cầu lông", "Màu kem, chống gió", 1, "Chưa Chọn", "Áo"));
+        ao.add(new ProductModel("ao8", "Kamito Galaxy 1", 29L, R.drawable.ao_kamito_galaxy_1, 5f,
+                "Áo cầu lông nam", "Màu xanh dương, thoáng khí", 1, "Chưa Chọn", "Áo"));
 
         productByCategory.put("Vợt", vot);
         productByCategory.put("Giày", giay);
         productByCategory.put("Quần", quan);
         productByCategory.put("Áo", ao);
     }
-
 
 }

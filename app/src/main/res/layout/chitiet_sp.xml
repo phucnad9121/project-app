@@ -31,10 +31,11 @@
                 android:gravity="center_vertical"
                 android:layout_marginBottom="8dp">
 
+<!--                Chỉnh sau tại dân lằng nhằng-->
                 <ImageButton
-                    android:id="@+id/btnBackTop"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:id="@+id/btnBack"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/back"
                     android:background="@drawable/whitebackground"
                     android:padding="8dp" />
@@ -71,15 +72,6 @@
                         android:layout_gravity="center"
                         android:src="@drawable/giaycaulongliningayzu015"/>
 
-                    <!-- overlay icons (top-left / top-right) -->
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/btnBack"-->
-<!--                        android:layout_width="40dp"-->
-<!--                        android:layout_height="40dp"-->
-<!--                        android:layout_margin="12dp"-->
-<!--                        android:src="@drawable/back"-->
-<!--                        android:layout_gravity="top|start"-->
-<!--                        android:padding="8dp"/>-->
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -109,16 +101,9 @@
                 </FrameLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Dots indicator (bạn có thể dùng library, hoặc tạo động) -->
-            <LinearLayout
-                android:id="@+id/dotsIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="12dp"
-                android:orientation="horizontal" />
 
-            <!-- Tên + rating + price -->
+
+            <!-- rating + price -->
             <TextView
                 android:id="@+id/detailProductName"
                 android:layout_width="match_parent"
@@ -145,21 +130,31 @@
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
-                <Space android:layout_width="280dp" android:layout_height="wrap_content"/>
+                <Space android:layout_width="250dp" android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/star"
-                    android:contentDescription="rating"/>
+<!--                <ImageView-->
+<!--                    android:layout_width="18dp"-->
+<!--                    android:layout_height="18dp"-->
+<!--                    android:src="@drawable/star"-->
+<!--                    android:contentDescription="rating"/>-->
 
-                <TextView
-                    android:id="@+id/tvRating"
+<!--                <TextView-->
+<!--                    android:id="@+id/tvRating"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="4.8"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    android:textSize="14sp"/>-->
+                <RatingBar
+                    android:id="@+id/productRating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:numStars="5"
+                    android:stepSize="0.5"
+                    android:rating="5"
+                    android:isIndicator="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4.8"
-                    android:layout_marginStart="6dp"
-                    android:textSize="14sp"/>
+                    android:layout_height="wrap_content"/>
+
             </LinearLayout>
 
             <!-- Chọn size -->
@@ -172,43 +167,46 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <RadioGroup
-                android:id="@+id/rgSizeGiay"
+        <!--Layout chứa các radio group các radioButton size giày, quần áo-->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginBottom="8dp">
 
-                <RadioButton
-                    android:id="@+id/rbSize39"
-                    android:layout_width="wrap_content"
+
+                <!-- RadioGroup size giày -->
+                <RadioGroup
+                    android:id="@+id/rgSizeGiay"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="39" />
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
-                <RadioButton
-                    android:id="@+id/rbSize40"
-                    android:layout_width="wrap_content"
+                    <RadioButton android:id="@+id/rbSize39" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="39"/>
+                    <RadioButton android:id="@+id/rbSize40" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="40"/>
+                    <RadioButton android:id="@+id/rbSize41" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="41"/>
+                    <RadioButton android:id="@+id/rbSize42" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="42"/>
+                    <RadioButton android:id="@+id/rbSize43" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="43"/>
+                </RadioGroup>
+
+                <!-- RadioGroup size quần/áo -->
+                <RadioGroup
+                    android:id="@+id/rgSizeClothes"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="40" />
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
-                <RadioButton
-                    android:id="@+id/rbSize41"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="41" />
+                    <RadioButton android:id="@+id/rbSizeS" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S"/>
+                    <RadioButton android:id="@+id/rbSizeM" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="M"/>
+                    <RadioButton android:id="@+id/rbSizeL" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="L"/>
+                    <RadioButton android:id="@+id/rbSizeXL" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="XL"/>
+                    <RadioButton android:id="@+id/rbSizeXXL" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="XXL"/>
+                </RadioGroup>
 
-                <RadioButton
-                    android:id="@+id/rbSize42"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="42" />
+            </LinearLayout>
 
-                <RadioButton
-                    android:id="@+id/rbSize43"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="43" />
-
-            </RadioGroup>
 
 
             <!-- Số lượng + control -->
@@ -221,6 +219,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="8dp"/>
 
+<!--            2 ImageButton tăng giảm số lượng-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -231,9 +230,7 @@
                     android:id="@+id/btnGiamSoLuong"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
-                    android:src="@drawable/minus"
-                    android:tint="@null"
-                    android:background="@null"/>
+                    android:src="@drawable/ic_minus" />
 
                 <TextView
                     android:id="@+id/tvDetailQuantity"
@@ -250,8 +247,7 @@
                     android:id="@+id/btnTangSoLuong"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
-                    android:src="@drawable/add"
-                    android:tint="@null" />
+                    android:src="@drawable/ic_plus"/>
 
             </LinearLayout>
 
@@ -322,8 +318,8 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:src="@drawable/btn_3"
-            android:background="@android:color/darker_gray"
-            android:padding="12dp"/>
+            android:padding="12dp"></ImageButton>
+<!--            android:background="@"-->
 
         <Space android:layout_width="12dp" android:layout_height="wrap_content"/>
 
@@ -340,7 +336,6 @@
             android:backgroundTint="#333333"
             android:textColor="#FFFFFF"
             android:layout_gravity="center"/>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

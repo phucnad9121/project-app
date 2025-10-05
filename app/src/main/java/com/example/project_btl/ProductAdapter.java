@@ -1,12 +1,12 @@
 package com.example.project_btl;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,8 +35,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         ProductModel product = productList.get(position);
         holder.image.setImageResource(product.getImage());
         holder.name.setText(product.getName());
-        holder.price.setText(product.getPrice());
-        holder.ratingBar.setRating(product.getRating());
+        holder.price.setText(product.getPrice() +"$");
+        // Click vào item thì mở ChiTietSPActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ChiTietSPActivity.class);
+            // truyền nguyên object product qua intent
+            intent.putExtra("product", product);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -55,14 +61,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name, price;
-        RatingBar ratingBar;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.productImage);
             name = itemView.findViewById(R.id.productName);
             price = itemView.findViewById(R.id.productPrice);
-            ratingBar = itemView.findViewById(R.id.productRating);
         }
     }
 }
