@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "632808585589",
-    "project_id": "project-btl-6170c",
-    "storage_bucket": "project-btl-6170c.firebasestorage.app"
+    "project_number": "1020217550793",
+    "project_id": "project-btl1",
+    "storage_bucket": "project-btl1.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:632808585589:android:d0b99ea03a7d411e9a3b3c",
+        "mobilesdk_app_id": "1:1020217550793:android:6bc996cc9497438d1a6a18",
         "android_client_info": {
           "package_name": "com.example.project_btl"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAddocslf74t7dHbG2JrPKeJrUONtjUvfY"
+          "current_key": "AIzaSyCWhYp3BeuXVeMTUxWZM6RM-_q3e7XjxTQ"
         }
       ],
       "services": {

@@ -1,4 +1,6 @@
-package com.example.project_btl;
+package com.example.project_btl.cart;
+
+import com.example.project_btl.ProductModel;
 
 import java.util.ArrayList;
 import java.util.List;

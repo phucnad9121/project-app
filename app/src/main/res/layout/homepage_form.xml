@@ -44,6 +44,7 @@
         android:layout_height="65dp">
 
         <EditText
+            android:id="@+id/edtSearch"
             android:background="@drawable/bg_edttext_search"
             android:layout_marginLeft="30dp"
             android:layout_gravity="center"

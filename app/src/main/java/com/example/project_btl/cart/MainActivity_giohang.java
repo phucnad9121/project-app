@@ -16,10 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project_btl.CartManager;
 import com.example.project_btl.ProductModel;
+import com.example.project_btl.profile.ProfileActivity;
 import com.example.project_btl.R;
-import com.example.project_btl.Login.SignInactivity;
 import com.example.project_btl.home.MainHomeActivity;
 import com.example.project_btl.notification.NotificationsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -72,7 +71,7 @@ public class MainActivity_giohang extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 return true;
             } else if (id == R.id.nav_profile) {
-                startActivity(new Intent(this, SignInactivity.class));
+                startActivity(new Intent(this, ProfileActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
             }

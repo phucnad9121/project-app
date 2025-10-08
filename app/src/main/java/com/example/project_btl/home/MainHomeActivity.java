@@ -16,6 +16,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,11 +31,17 @@ public class MainHomeActivity extends AppCompatActivity{
     //du lieuj cho tung câtgories
     private Map<String, List<ProductModel>> productByCategory = new HashMap<>();
     private ProductAdapter productAdapter;
+    private EditText edtSearch;
+    private List<ProductModel> currentProductList = new ArrayList<>();
+    private CategoryAdapter categoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage_form);
+
+        //tim kiem
+        edtSearch = findViewById(R.id.edtSearch);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
@@ -85,7 +94,7 @@ public class MainHomeActivity extends AppCompatActivity{
         categories.add(new CategoryModel(R.drawable.ic_shoes, "Giày"));
         categories.add(new CategoryModel(R.drawable.ic_jeans, "Quần"));
         categories.add(new CategoryModel(R.drawable.ic_shirt, "Áo"));
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
+        categoryAdapter = new CategoryAdapter(this, categories);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         categoryRecyclerView.setAdapter(categoryAdapter);
 
@@ -107,6 +116,78 @@ public class MainHomeActivity extends AppCompatActivity{
                 productAdapter.updateProducts(filteredList);
             }
         });
+
+
+        // Xử lý tìm kiếm
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String keyword = s.toString().trim().toLowerCase();
+                filterProducts(keyword);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+
+    // Hàm lọc sản phẩm theo tên
+    private void filterProducts(String keyword) {
+        keyword = keyword.toLowerCase().trim();
+
+        if (keyword.isEmpty()) {
+            productAdapter.updateProducts(currentProductList);
+            return;
+        }
+
+        // Nếu người dùng gõ từ khóa trùng tên danh mục
+        for (String category : productByCategory.keySet()) {
+            if (category.toLowerCase().contains(keyword)) {
+                currentProductList = new ArrayList<>(productByCategory.get(category));
+                productAdapter.updateProducts(currentProductList);
+
+                // 🟢 Đánh dấu danh mục đang chọn (đổi màu button)
+                categoryAdapter.setSelectedCategory(category);
+
+                return;
+            }
+        }
+
+
+        // Nếu không phải danh mục, thì lọc theo tên sản phẩm
+        List<ProductModel> filtered = new ArrayList<>();
+        String matchedCategory = null;
+
+        for (Map.Entry<String, List<ProductModel>> entry : productByCategory.entrySet()) {
+            for (ProductModel p : entry.getValue()) {
+                if (p.getName().toLowerCase().contains(keyword)) {
+                    filtered.add(p);
+                    matchedCategory = entry.getKey(); // lấy danh mục đầu tiên chứa sp
+                }
+            }
+        }
+
+        if (matchedCategory != null) {
+            categoryAdapter.setSelectedCategory(matchedCategory);
+        }
+
+        productAdapter.updateProducts(filtered);
+
+        // để đổi danh mục được chọn
+        if (keyword.toLowerCase().contains("áo")) {
+            categoryAdapter.setSelectedCategory("Áo");
+        } else if (keyword.toLowerCase().contains("vợt")) {
+            categoryAdapter.setSelectedCategory("Vợt");
+        } else if (keyword.toLowerCase().contains("giày")) {
+            categoryAdapter.setSelectedCategory("Giày");
+        } else {
+            // Nếu không khớp danh mục nào, bỏ chọn
+            categoryAdapter.setSelectedCategory("");
+        }
     }
 
     //  setupProducts()
@@ -198,5 +279,8 @@ public class MainHomeActivity extends AppCompatActivity{
         productByCategory.put("Quần", quan);
         productByCategory.put("Áo", ao);
     }
+
+
+
 
 }

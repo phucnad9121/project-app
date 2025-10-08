@@ -16,4 +16,11 @@
     <color name="darkBlue">#3C8CE7</color>
     <color name="yellow">#67676D</color>
     <color name="primary">#6200EE</color>
+
+    <color name="teal">#2F8F83</color>
+    <color name="teal_dark">#24766B</color>
+    <color name="text_primary">#222222</color>
+    <color name="text_secondary">#7A7A7A</color>
+    <color name="divider">#EAEAEA</color>
+    <color name="bg">#FFFFFFFF</color>
 </resources>
