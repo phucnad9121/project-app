@@ -35,6 +35,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return new CategoryViewHolder(view);
     }
 
+    public void setSelectedCategory(String matchedCategory) {
+    }
+
 
     public interface OnCategoryClickListener {
         void onCategoryClick(String categoryName);

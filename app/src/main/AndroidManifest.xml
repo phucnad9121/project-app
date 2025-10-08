@@ -32,6 +32,12 @@
 		<!-- Form thông báo -->
 		<activity android:name=".notification.NotificationsActivity" />
 
+		<!-- Form profile -->
+		<activity android:name=".profile.ProfileActivity" />
+
+		<!-- Form profile -->
+		<activity android:name=".profile.EditProfileActivity" />
+
 		<!-- màn Splash (màn khởi động app) -->
 		<activity
 			android:name=".Login.SplashActivity"

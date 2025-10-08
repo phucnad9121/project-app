@@ -1,10 +1,5 @@
 package com.example.project_btl.cart;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +12,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.project_btl.CartManager;
 import com.example.project_btl.ProductModel;
 import com.example.project_btl.R;
 import com.example.project_btl.Login.SignInactivity;
@@ -32,6 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -124,6 +125,8 @@ public class MainActivity_giohang extends AppCompatActivity {
                             .delete();
                 }
             }
+            adapter.notifyDataSetChanged();
+            recalcTotal();
         });
 
         btnBuySelected.setOnClickListener(v -> showCheckoutDialog());

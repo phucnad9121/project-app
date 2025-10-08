@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project_btl.profile.ProfileActivity;
 import com.example.project_btl.R;
-import com.example.project_btl.Login.SignInactivity;
 import com.example.project_btl.cart.MainActivity_giohang;
 import com.example.project_btl.home.MainHomeActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,8 +43,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
-
-        // Đặt mặc định chọn thong báo
+        // Đặt mặc định chọn profile
         bottomNavigationView.setSelectedItemId(R.id.nav_notifications);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -65,7 +64,7 @@ public class NotificationsActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 return true;
             } else if (id == R.id.nav_profile) {
-                startActivity(new Intent(this, SignInactivity.class));
+                startActivity(new Intent(this, ProfileActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
             }
