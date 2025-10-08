@@ -15,6 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_btl.cart.MainActivity_giohang;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChiTietSPActivity extends AppCompatActivity {
 
@@ -26,13 +32,24 @@ public class ChiTietSPActivity extends AppCompatActivity {
     private MaterialButton btnBuyNow;
 
     private int quantity = 1; // số lượng mặc định = 1
+    private FirebaseFirestore db;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chitiet_sp); // đúng tên layout bạn đã gửi
+        setContentView(R.layout.chitiet_sp);
+
         if(getSupportActionBar() != null ){
             getSupportActionBar().hide();
+        }
+
+        // Firebase
+        db = FirebaseFirestore.getInstance();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        } else {
+            userId = "guest"; // xử lý guest nếu chưa đăng nhập
         }
 
         // Ánh xạ View
@@ -62,7 +79,7 @@ public class ChiTietSPActivity extends AppCompatActivity {
             ratingBar.setRating(product.getRating());
             moTa.setText(product.getDescription());
             ttBoSung.setText(product.getMoreInfor());
-            // lấy số lượng ban đầu từ model
+
             quantity = product.getQuantity();
             if (quantity <= 0) quantity = 1;
             tvQuantity.setText(String.valueOf(quantity));
@@ -71,36 +88,57 @@ public class ChiTietSPActivity extends AppCompatActivity {
             showSizeOptions(product.getType());
         }
 
-        // Nút back
         btnBack.setOnClickListener(v -> finish());
 
-        // Xử lý tăng/giảm số lượng
         btnTang.setOnClickListener(v -> {
             quantity++;
-            product.setQuantity(quantity);
+            if (product != null) product.setQuantity(quantity);
             tvQuantity.setText(String.valueOf(quantity));
         });
 
         btnGiam.setOnClickListener(v -> {
             if (quantity > 1) {
                 quantity--;
-                product.setQuantity(quantity);
+                if (product != null) product.setQuantity(quantity);
                 tvQuantity.setText(String.valueOf(quantity));
             }
         });
 
-        // Nút thêm giỏ hàng
+        // Nút thêm giỏ hàng lên Firebase
         btnGioHang.setOnClickListener(v -> {
+            if (product == null) return;
+
             String size = getSelectedSize();
-            product.setSelectedSize(size); // lưu size vào model
-            product.setQuantity(quantity); // lưu số lượng vào model
-            // Thêm vào CartManager
-            CartManager.getInstance().addToCart(product, size, quantity);
-            Intent intent = new Intent(ChiTietSPActivity.this, MainActivity_giohang.class);
-            startActivity(intent);
+            product.setSelectedSize(size);
+            product.setQuantity(quantity);
+
+            // Tạo map để lưu Firestore
+            Map<String, Object> cartItem = new HashMap<>();
+            cartItem.put("name", product.getName());
+            cartItem.put("price", product.getPrice());
+            cartItem.put("quantity", product.getQuantity());
+            cartItem.put("selectedSize", product.getSelectedSize());
+            cartItem.put("image", product.getImage());
+            cartItem.put("type", product.getType());
+
+            // Lưu vào Firestore: collection users -> document userId -> collection cartItems -> document productId
+            db.collection("users")
+                    .document(userId)
+                    .collection("cartItems")
+                    .document(product.getId())
+                    .set(cartItem)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                        // Mở giỏ hàng
+                        Intent intent = new Intent(ChiTietSPActivity.this, MainActivity_giohang.class);
+                        startActivity(intent);
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Lỗi khi thêm giỏ hàng", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    });
         });
 
-        // Nút mua ngay
         btnBuyNow.setOnClickListener(v -> {
             String size = getSelectedSize();
             Toast.makeText(this,
@@ -109,9 +147,8 @@ public class ChiTietSPActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             // Chuyển sang màn hình thanh toán
         });
-
     }
-    // Hiển thị RadioGroup theo type sản phẩm
+
     private void showSizeOptions(String type) {
         if (type.equals("Giày")) {
             rgSizeGiay.setVisibility(View.VISIBLE);
@@ -119,14 +156,12 @@ public class ChiTietSPActivity extends AppCompatActivity {
         } else if (type.equals("Quần") || type.equals("Áo")) {
             rgSizeGiay.setVisibility(View.GONE);
             rgSizeClothes.setVisibility(View.VISIBLE);
-        } else { // Vợt hoặc loại khác
+        } else {
             rgSizeGiay.setVisibility(View.GONE);
             rgSizeClothes.setVisibility(View.GONE);
         }
     }
 
-
-    //  lấy size được chọn trong RadioGroup
     private String getSelectedSize() {
         if (rgSizeGiay.getVisibility() == View.VISIBLE) {
             int selectedId = rgSizeGiay.getCheckedRadioButtonId();

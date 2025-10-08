@@ -11,7 +11,8 @@ import com.example.project_btl.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    TextView txtRegister;
+    private TextView txtRegister;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,21 +21,20 @@ public class SplashActivity extends AppCompatActivity {
         View btnSignIn = findViewById(R.id.btnSignIn);
         txtRegister = findViewById(R.id.txtRegister);
 
-        if(getSupportActionBar() != null){
-            getSupportActionBar().hide();
-        }
+        if(getSupportActionBar() != null) getSupportActionBar().hide();
 
+        // Button SignIn
         if (btnSignIn != null) {
             btnSignIn.setOnClickListener(v -> {
                 Intent intent = new Intent(SplashActivity.this, SignInactivity.class);
                 startActivity(intent);
             });
         }
+
+        // TextView Register
         txtRegister.setOnClickListener(v -> {
             Intent intent = new Intent(SplashActivity.this, SignInactivity.class);
-
-            // Truyền "extra" để LoginActivity biết mở tab Đăng ký
-            intent.putExtra("openSignup", true);
+            intent.putExtra("openSignup", true); // mở tab Đăng ký
             startActivity(intent);
         });
     }

@@ -10,188 +10,182 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.project_btl.CreateDatabase;
 import com.example.project_btl.R;
 import com.example.project_btl.home.MainHomeActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignInactivity extends AppCompatActivity {
 
     private Button btnLoginTab, btnSignupTab, btnSignIn, btnSignUp, btnRecoverPassword;
     private ViewFlipper viewFlipper;
-    private EditText edtUsernameLG, edtPasswordLG;
-    private EditText edtNameRG, edtUserNameRG, edtPasswordRG, edtEmailRG;
-    private EditText edtForgotUser, edtForgotName, edtForgotEmail;
+    private EditText edtEmailLG, edtPasswordLG;
+    private EditText edtNameRG, edtEmailRG, edtPasswordRG;
+    private EditText edtForgotEmail;
     private CheckBox chkRemember;
     private TextView tvForgot, txtBackToLogin;
 
-    private CreateDatabase db;
+    private FirebaseAuth auth;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_register);
 
-        // Ẩn ActionBar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        if(getSupportActionBar() != null) getSupportActionBar().hide();
 
-        // Khởi tạo DB
-        db = new CreateDatabase(this);
-        db.getWritableDatabase();
+        auth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
-        // Ánh xạ View
+        // Ánh xạ view
         btnLoginTab = findViewById(R.id.btnLoginTab);
         btnSignupTab = findViewById(R.id.btnSignupTab);
         btnSignIn = findViewById(R.id.btnSignIn);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnRecoverPassword = findViewById(R.id.btnRecoverPassword);
 
-        edtUsernameLG = findViewById(R.id.edtUsernameLG);
+        edtEmailLG = findViewById(R.id.edtUsernameLG);
         edtPasswordLG = findViewById(R.id.edtPasswordLG);
 
         edtNameRG = findViewById(R.id.edtNameRG);
-        edtUserNameRG = findViewById(R.id.edtUserNameRG);
-        edtPasswordRG = findViewById(R.id.edtPasswordRG);
         edtEmailRG = findViewById(R.id.edtEmailRG);
+        edtPasswordRG = findViewById(R.id.edtPasswordRG);
 
-        edtForgotUser = findViewById(R.id.edtForgotUser);
-        edtForgotName = findViewById(R.id.edtForgotName);
         edtForgotEmail = findViewById(R.id.edtForgotEmail);
-
         chkRemember = findViewById(R.id.chkRemember);
         tvForgot = findViewById(R.id.tvForgot);
         txtBackToLogin = findViewById(R.id.txtBackToLogin);
-
         viewFlipper = findViewById(R.id.viewFlipper);
 
-        // Load dữ liệu nhớ mật khẩu
+        // Load thông tin đã lưu nếu có
         loadRememberedUser();
 
-        // Mặc định hiển thị Login
         viewFlipper.setDisplayedChild(0);
         highlightLoginTab();
 
-        // Chuyển tab Login
+        // Chuyển tab
         btnLoginTab.setOnClickListener(v -> {
             viewFlipper.setDisplayedChild(0);
             highlightLoginTab();
         });
-
-        // Chuyển tab Signup
         btnSignupTab.setOnClickListener(v -> {
             viewFlipper.setDisplayedChild(1);
             highlightSignupTab();
         });
-
-        // Chuyển tab Forgot Password
         tvForgot.setOnClickListener(v -> viewFlipper.setDisplayedChild(2));
         txtBackToLogin.setOnClickListener(v -> viewFlipper.setDisplayedChild(0));
 
-        // Xử lý đăng nhập
+        // Xử lý nút
         btnSignIn.setOnClickListener(v -> login());
-
-        // Xử lý đăng ký
         btnSignUp.setOnClickListener(v -> signup());
-
-        // Xử lý recover password
         btnRecoverPassword.setOnClickListener(v -> recoverPassword());
-
-        // Nếu mở Signup từ Intent
-        boolean openSignup = getIntent().getBooleanExtra("openSignup", false);
-        if (openSignup) {
-            btnSignupTab.performClick();
-        }
     }
 
-    // ===================== METHODS =====================
+    // ================= METHODS =================
 
-    private void login() {
-        String user = edtUsernameLG.getText().toString().trim();
-        String pass = edtPasswordLG.getText().toString().trim();
-
-        if (user.isEmpty() || pass.isEmpty()) {
-            Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (db.checkUser(user, pass)) {
-            // Lưu nhớ mật khẩu nếu checkbox tích
-            SharedPreferences.Editor editor = getSharedPreferences("LoginPrefs", MODE_PRIVATE).edit();
-            if (chkRemember.isChecked()) {
-                editor.putString("username", user);
-                editor.putString("password", pass);
-            } else {
-                editor.clear();
-            }
-            editor.apply();
-
-            Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(SignInactivity.this, MainHomeActivity.class);
-            intent.putExtra("username", user);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
-        }
+    // Lưu mật khẩu nếu checked
+    private void saveLogin(String email, String password) {
+        SharedPreferences prefs = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("email", email);
+        editor.putString("password", password);
+        editor.putBoolean("remember", true);
+        editor.apply();
     }
 
-    private void signup() {
-        String name = edtNameRG.getText().toString().trim();
-        String user = edtUserNameRG.getText().toString().trim();
-        String pass = edtPasswordRG.getText().toString().trim();
-        String email = edtEmailRG.getText().toString().trim();
-
-        if (name.isEmpty() || user.isEmpty() || pass.isEmpty() || email.isEmpty()) {
-            Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        boolean success = db.insertUser(user, pass, name, email);
-        if (success) {
-            Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-            btnLoginTab.performClick(); // quay về Login
-        } else {
-            Toast.makeText(this, "Tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void recoverPassword() {
-        String user = edtForgotUser.getText().toString().trim();
-        String name = edtForgotName.getText().toString().trim();
-        String email = edtForgotEmail.getText().toString().trim();
-
-        if (user.isEmpty() || name.isEmpty() || email.isEmpty()) {
-            Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String password = db.getPassword(user, name, email);
-        if (password != null) {
-            // Hiển thị mật khẩu trong AlertDialog
-            new AlertDialog.Builder(this)
-                    .setTitle("Mật khẩu của bạn")
-                    .setMessage("Mật khẩu: " + password)
-                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-                    .show();
-            viewFlipper.setDisplayedChild(0); // quay về Login
-        } else {
-            Toast.makeText(this, "Thông tin không đúng, không tìm thấy tài khoản", Toast.LENGTH_SHORT).show();
-        }
+    private void clearLogin() {
+        SharedPreferences prefs = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
     }
 
     private void loadRememberedUser() {
         SharedPreferences prefs = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
-        String savedUser = prefs.getString("username", "");
-        String savedPass = prefs.getString("password", "");
-        if (!savedUser.isEmpty() && !savedPass.isEmpty()) {
-            edtUsernameLG.setText(savedUser);
-            edtPasswordLG.setText(savedPass);
+        boolean remember = prefs.getBoolean("remember", false);
+        if(remember) {
+            edtEmailLG.setText(prefs.getString("email", ""));
+            edtPasswordLG.setText(prefs.getString("password", ""));
             chkRemember.setChecked(true);
         }
+    }
+
+    private void login() {
+        String email = edtEmailLG.getText().toString().trim();
+        String pass = edtPasswordLG.getText().toString().trim();
+
+        if(email.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        auth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        if(chkRemember.isChecked()) saveLogin(email, pass);
+                        else clearLogin();
+
+                        Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SignInactivity.this, MainHomeActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(this, "Đăng nhập thất bại: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private void signup() {
+        String name = edtNameRG.getText().toString().trim();
+        String email = edtEmailRG.getText().toString().trim();
+        String pass = edtPasswordRG.getText().toString().trim();
+
+        if(name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        auth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        FirebaseUser user = auth.getCurrentUser();
+                        if(user != null) {
+                            String uid = user.getUid();
+                            Map<String,Object> data = new HashMap<>();
+                            data.put("name", name);
+                            data.put("email", email);
+
+                            firestore.collection("users").document(uid)
+                                    .set(data)
+                                    .addOnSuccessListener(aVoid ->
+                                            Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show())
+                                    .addOnFailureListener(e ->
+                                            Toast.makeText(this, "Lưu dữ liệu thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        }
+                    } else {
+                        Toast.makeText(this, "Đăng ký thất bại: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private void recoverPassword() {
+        String email = edtForgotEmail.getText().toString().trim();
+        if(email.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        auth.sendPasswordResetEmail(email)
+                .addOnSuccessListener(aVoid ->
+                        Toast.makeText(this, "Email reset mật khẩu đã được gửi", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "Gửi email thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private void highlightLoginTab() {

@@ -1,5 +1,10 @@
 package com.example.project_btl.cart;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,21 +17,21 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.project_btl.CartManager;
 import com.example.project_btl.ProductModel;
 import com.example.project_btl.R;
 import com.example.project_btl.Login.SignInactivity;
 import com.example.project_btl.home.MainHomeActivity;
 import com.example.project_btl.notification.NotificationsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,14 +43,19 @@ public class MainActivity_giohang extends AppCompatActivity {
     private EditText edtCoupon;
     private TextView tvSubtotal, tvDiscount, tvTotal;
 
-    private final List<ProductModel> items = new ArrayList<>();
+    private List<ProductModel> items = new ArrayList<>();
     private Giohang_Adapter adapter;
+
+    private FirebaseFirestore db;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giohang);
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
+        // Ánh xạ
         recyclerView = findViewById(R.id.recyclerViewProducts);
         checkboxSelectAll = findViewById(R.id.checkboxSelectAll);
         btnDeleteSelected = findViewById(R.id.btnDeleteSelected);
@@ -56,79 +66,98 @@ public class MainActivity_giohang extends AppCompatActivity {
         tvDiscount = findViewById(R.id.tvDiscount);
         tvTotal = findViewById(R.id.tvTotal);
 
-        if (getSupportActionBar() != null) getSupportActionBar().hide();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_cart);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.nav_home) {
-                startActivity(new Intent(this, MainHomeActivity.class));
-                overridePendingTransition(0, 0);
-                return true;
-            } else if (id == R.id.nav_cart) return true;
-            else if (id == R.id.nav_notifications) {
+            if (id == R.id.nav_home) startActivity(new Intent(this, MainHomeActivity.class));
+            else if (id == R.id.nav_notifications)
                 startActivity(new Intent(this, NotificationsActivity.class));
-                overridePendingTransition(0, 0);
-                return true;
-            } else if (id == R.id.nav_profile) {
+            else if (id == R.id.nav_profile)
                 startActivity(new Intent(this, SignInactivity.class));
-                overridePendingTransition(0, 0);
-                return true;
-            }
-            return false;
+            overridePendingTransition(0, 0);
+            return true;
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // Firebase
+        db = FirebaseFirestore.getInstance();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null)
+            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        else userId = "guest";
 
-        // 1️⃣ Lấy sản phẩm mới thêm từ ChiTietSPActivity và thêm vào cart manager
-        ProductModel newProduct = (ProductModel) getIntent().getSerializableExtra("cart_product");
-        if (newProduct != null) {
-            CartManager.getInstance().addToCart(newProduct, newProduct.getSelectedSize(), newProduct.getQuantity());
-        }
-        // 2️⃣ Đồng bộ items với CartManager
-        items.clear();
-        items.addAll(CartManager.getInstance().getCartList());
-
-        // 3️⃣ Khởi tạo adapter
+        // Adapter
         adapter = new Giohang_Adapter(items, new Giohang_Adapter.Listener() {
             @Override
             public void onItemsChanged() { recalcTotal(); }
+
             @Override
             public void onItemRemoved(int position) {
                 ProductModel removed = items.get(position);
-                CartManager.getInstance().removeFromCart(removed); // xóa khỏi CartManager
-                items.remove(position); // Xóa khỏi list local
-                adapter.notifyItemRemoved(position);
-                recalcTotal();
+                db.collection("users").document(userId)
+                        .collection("cartItems")
+                        .document(removed.getId())
+                        .delete();
             }
         });
         recyclerView.setAdapter(adapter);
 
+        // Load giỏ từ Firebase realtime
+        loadCartFromFirebase();
+
         // Checkbox chọn tất cả
-        checkboxSelectAll.setOnCheckedChangeListener((b, c) -> {
-            for (ProductModel it : items) it.setChecked(c);
+        checkboxSelectAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            for (ProductModel it : items) it.setChecked(isChecked);
             adapter.notifyDataSetChanged();
             recalcTotal();
         });
 
+        // Xóa sản phẩm đã chọn
         btnDeleteSelected.setOnClickListener(v -> {
-            Iterator<ProductModel> it = items.iterator();
-            while (it.hasNext()) {
-                ProductModel p = it.next();
+            for (ProductModel p : new ArrayList<>(items)) {
                 if (p.isChecked()) {
-                    CartManager.getInstance().removeFromCart(p); // xóa khỏi CartManager
-                    it.remove(); // xóa khỏi list local
+                    db.collection("users").document(userId)
+                            .collection("cartItems")
+                            .document(p.getId())
+                            .delete();
                 }
             }
-            adapter.notifyDataSetChanged();
-            recalcTotal();
         });
 
         btnBuySelected.setOnClickListener(v -> showCheckoutDialog());
         btnApplyCoupon.setOnClickListener(v -> recalcTotal());
+    }
 
-        recalcTotal();
+    private void loadCartFromFirebase() {
+        db.collection("users").document(userId)
+                .collection("cartItems")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) return;
+                        items.clear();
+                        if (value != null) {
+                            for (DocumentSnapshot doc : value.getDocuments()) {
+                                ProductModel p = new ProductModel(
+                                        doc.getId(),
+                                        doc.getString("name"),
+                                        doc.getLong("price"),
+                                        doc.getLong("image").intValue(),
+                                        0f,
+                                        "", "",
+                                        doc.getLong("quantity").intValue(),
+                                        doc.getString("selectedSize"),
+                                        doc.getString("type")
+                                );
+                                items.add(p);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                        recalcTotal();
+                    }
+                });
     }
 
     private void recalcTotal() {

@@ -1,26 +1,45 @@
 {
   "project_info": {
-    "project_number": "632808585589",
-    "project_id": "project-btl-6170c",
-    "storage_bucket": "project-btl-6170c.firebasestorage.app"
+    "project_number": "346514177431",
+    "firebase_url": "https://roject-btl-default-rtdb.firebaseio.com",
+    "project_id": "roject-btl",
+    "storage_bucket": "roject-btl.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:632808585589:android:d0b99ea03a7d411e9a3b3c",
+        "mobilesdk_app_id": "1:346514177431:android:a15cfc2c801d6df126d8d2",
         "android_client_info": {
           "package_name": "com.example.project_btl"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "346514177431-js14fr0e24bnegj346vmc4hdabuesf6f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.project_btl",
+            "certificate_hash": "12b78b120d056446c247f955bb7d3da891f0143d"
+          }
+        },
+        {
+          "client_id": "346514177431-ks4jcvptsr6p9n8sdcs3kjcvo2jtnpam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAddocslf74t7dHbG2JrPKeJrUONtjUvfY"
+          "current_key": "AIzaSyA6tZAWS6Xab0FGHFwvSy6aHDsK6CvWTG4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346514177431-ks4jcvptsr6p9n8sdcs3kjcvo2jtnpam.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
