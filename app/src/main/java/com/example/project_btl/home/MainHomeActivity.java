@@ -12,6 +12,7 @@ import com.example.project_btl.notification.NotificationsActivity;
 import com.example.project_btl.ProductAdapter;
 import com.example.project_btl.ProductModel;
 import com.example.project_btl.R;
+import com.example.project_btl.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -62,7 +63,7 @@ public class MainHomeActivity extends AppCompatActivity{
                 overridePendingTransition(0,0);
                 return true;
             } else if (id == R.id.nav_profile) {
-                startActivity(new Intent(this, NotificationsActivity.class));
+                startActivity(new Intent(this, ProfileActivity.class));
                 overridePendingTransition(0,0);
                 return true;
             }

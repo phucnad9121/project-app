@@ -1,0 +1,183 @@
+[33mcommit 73e0c1ac8e249a0e572d7991b3a87a6076bec66b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: regandtng <nguyendat2k5nss@gamil.com>
+Date:   Wed Oct 8 19:23:16 2025 +0700
+
+    Lưu tạm code của tôi
+
+[33mcommit c189c792b8788adfbc22508b6601d8245aab81b1[m
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Sun Oct 5 10:21:19 2025 +0700
+
+    Hiep day lan 12: chi tiet sp va gio hang
+
+[33mcommit e29fc73dcc6743fc8ff024ebbf51c2df8d07e943[m
+Merge: b106cd7 f1d2223
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Sun Oct 5 10:13:30 2025 +0700
+
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit f1d2223e3335d5458d5cf8acfc1cae3ec3907ff0[m
+Author: regandtng <nguyendat2k5nss@gamil.com>
+Date:   Sun Oct 5 00:19:29 2025 +0700
+
+    Dat day lan 12 nho mk signinup quen mk
+
+[33mcommit b106cd71e9b96c291a73f8edde84cd4301dc5701[m
+Merge: 68115a8 c9099f3
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Sat Oct 4 22:54:51 2025 +0700
+
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit c9099f3b0e8193e671a555eef98cc6463ef4fa30[m
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Sat Oct 4 18:11:33 2025 +0700
+
+    dan day lan 11 - anh va package
+
+[33mcommit 3114d25129a846980f457fa9e5428ad15b760b2b[m
+Author: thanhxuan2k5 <xuanng205@gmail.com>
+Date:   Sat Oct 4 16:03:32 2025 +0700
+
+    Xuan day lan 11
+
+[33mcommit 68115a802bd6bf7ff7f26f9cecee9e0503adecfe[m
+Merge: c6de419 3114d25
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Sat Oct 4 16:03:25 2025 +0700
+
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit c6de41906a87ee395a8d000bda376b49e875f9d6[m
+Merge: 4421cbd 199c09e
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Sat Oct 4 00:16:04 2025 +0700
+
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit 199c09e5bc5fd86bcedabe0c7deb365d2607a42c[m
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Fri Oct 3 23:58:05 2025 +0700
+
+    dan day lan 10
+
+[33mcommit 9af517239a640941aff93eb27d37bb2d82251758[m
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Fri Oct 3 16:10:26 2025 +0700
+
+    dan day lan 9
+
+[33mcommit 4421cbdddc18a4bd0ff86fe9c0a7fa5060f41ade[m
+Merge: 6dfad8b 923ab07
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Thu Oct 2 23:08:35 2025 +0700
+
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit 923ab078e10571781d82ef7e45a53fe5dcd47402[m
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Thu Oct 2 22:37:35 2025 +0700
+
+    dan day lan 8
+
+[33mcommit 6dfad8b8f5dad91371140738233d9d414119dc3b[m
+Merge: 5af2180 b16cf93
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Thu Oct 2 14:30:13 2025 +0700
+
+    Merge remote-tracking branch 'origin/main'
+    
+    # Conflicts:
+    #       app/src/main/res/drawable/minus.png
+    #       app/src/main/res/layout/chitiet_sp.xml
+    #       app/src/main/res/layout/homepage_form.xml
+
+[33mcommit 5af2180bd6006b4002bf67b6e70fdc64f270ac71[m
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Thu Oct 2 01:02:12 2025 +0700
+
+    Lưu thay đổi local trước khi merge
+
+[33mcommit b16cf9333c0c9cae66bacab0a55002c6bdcc7c16[m
+Merge: 7552ad7 2e7b3e6
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Thu Oct 2 00:27:44 2025 +0700
+
+    Merge branch 'main' of https://github.com/phucnad9121/project-app
+
+[33mcommit 7552ad78117a53f2319b5d43c9750a939287e1c0[m
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Thu Oct 2 00:23:55 2025 +0700
+
+    dan day lan 7
+
+[33mcommit 2e7b3e6eebfa30c57a275e20a2ce0e656c128ac4[m
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Wed Oct 1 23:55:44 2025 +0700
+
+    Update README.md
+
+[33mcommit 6aa4aae951bc66226e50209475bb3a069d9d2392[m
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Wed Oct 1 23:47:43 2025 +0700
+
+    Create README.md
+
+[33mcommit 19a64908cc1016f8dfa9570c89467d610d619664[m
+Author: thanhxuan2k5 <xuanng205@gmail.com>
+Date:   Wed Oct 1 23:25:08 2025 +0700
+
+    Cập nhật tính năng giỏ hàng
+
+[33mcommit e17202819630cf93a5e102201d5a8d11d5459a04[m
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Wed Oct 1 15:08:46 2025 +0700
+
+    dan day lan 6
+
+[33mcommit e7876864371fef3667ea254ab517341bbdc79dd8[m
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Wed Oct 1 10:02:17 2025 +0700
+
+    dan day lan 5
+
+[33mcommit 5084f61f7649a49a5a0df6b0430e782bee7e8abf[m
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Mon Sep 29 21:45:14 2025 +0700
+
+    Hiep day lan 4
+
+[33mcommit b7732254e2387b64bf0f2c04a16a1ee62ee4d50b[m
+Merge: 3b148d1 0ef776f
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Mon Sep 29 21:40:35 2025 +0700
+
+    Merge remote-tracking branch 'origin/main'
+    
+    # Conflicts:
+    #       app/src/main/res/layout/signin_register.xml
+
+[33mcommit 3b148d1fdaf71c180cd1c944150b554752ec82ae[m
+Author: HiepDangK5 <nguyendanghiep23@gmail.com>
+Date:   Mon Sep 29 21:38:43 2025 +0700
+
+    Hiep day lan 4
+
+[33mcommit 0ef776f7f0869138ffd935e080961a687f3eaf7a[m
+Author: thanhxuan2k5 <xuanng205@gmail.com>
+Date:   Mon Sep 29 17:24:23 2025 +0700
+
+    Xuan day lan 3
+
+[33mcommit 1628e621cd97f6c6938f57c80faea07ed1d61193[m
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Mon Sep 29 17:17:09 2025 +0700
+
+    dan day lan 2
+
+[33mcommit 78f47ff186766a692cf8430beecd7df35be78624[m
+Author: phucnad9121 <dunghiep6b@gmail.com>
+Date:   Mon Sep 29 13:53:32 2025 +0700
+
+    dan da day lan dau tien
