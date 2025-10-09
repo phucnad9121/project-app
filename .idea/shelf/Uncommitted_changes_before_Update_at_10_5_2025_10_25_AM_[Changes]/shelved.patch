@@ -1,0 +1,22 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/iconlogo\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/iconlogo\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Project_btl\">\r\n\r\n\t\t<!-- màn SignIn -->\r\n\t\t<activity android:name=\".Login.SignInactivity\" />\r\n\r\n\t\t<!-- màn Home -->\r\n\t\t<activity android:name=\".home.MainHomeActivity\" />\r\n\r\n<!--\t\t&lt;!&ndash; replaced deprecated SignInactivity with LoginActivity &ndash;&gt;-->\r\n<!--\t\t<activity android:name=\".LoginActivity\" />-->\r\n\r\n\r\n\t\t<!-- ChiTietSP activity (product detail) -->\r\n\t\t<activity android:name=\".ChiTietSPActivity\" />\r\n\r\n\t\t<!-- Gio hang activity (product detail) -->\r\n\t\t<activity android:name=\".cart.MainActivity_giohang\" />\r\n\r\n\r\n\t\t<!-- Form thông báo -->\r\n\t\t<activity android:name=\".notification.NotificationsActivity\" />\r\n\r\n\t\t<!-- màn Splash (màn khởi động app) -->\r\n\t\t<activity\r\n\t\t\tandroid:name=\".Login.SplashActivity\"\r\n\t\t\tandroid:exported=\"true\">\r\n\t\t\t<intent-filter>\r\n\t\t\t\t<action android:name=\"android.intent.action.MAIN\" />\r\n\t\t\t\t<category android:name=\"android.intent.category.LAUNCHER\" />\r\n\t\t\t</intent-filter>\r\n\t\t</activity>\r\n\r\n    </application>\r\n</manifest>\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision f1d2223e3335d5458d5cf8acfc1cae3ec3907ff0)
++++ b/app/src/main/AndroidManifest.xml	(date 1759633103090)
+@@ -6,9 +6,9 @@
+         android:allowBackup="true"
+         android:dataExtractionRules="@xml/data_extraction_rules"
+         android:fullBackupContent="@xml/backup_rules"
+-        android:icon="@mipmap/iconlogo"
++        android:icon="@mipmap/ic_launcher"
+         android:label="@string/app_name"
+-        android:roundIcon="@mipmap/iconlogo"
++        android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/Theme.Project_btl">
+ 

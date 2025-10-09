@@ -101,15 +101,6 @@
                 android:background="@color/divider" />
 
             <include
-                android:id="@+id/rowAddress"
-                layout="@layout/item_profile_row" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider" />
-
-            <include
                 android:id="@+id/rowPassword"
                 layout="@layout/item_profile_row" />
         </LinearLayout>
@@ -132,7 +123,7 @@
         <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="170dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"

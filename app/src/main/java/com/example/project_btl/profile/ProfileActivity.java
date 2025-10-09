@@ -65,9 +65,6 @@ public class ProfileActivity extends AppCompatActivity {
         setupRow((View) findViewById(R.id.rowHistory),
                 R.drawable.ic_bell, "Order History");
 
-        setupRow((View) findViewById(R.id.rowAddress),
-                R.drawable.ic_location, "Shipping Address");
-
         setupRow((View) findViewById(R.id.rowPassword),
                 R.drawable.ic_lock, "Change Password");
 
