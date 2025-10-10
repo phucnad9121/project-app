@@ -36,7 +36,6 @@ public class CreateDatabase extends SQLiteOpenHelper {
                 COL_EMAIL + " TEXT)";
         db.execSQL(createUserTable);
     }
-
     // Thêm
     public boolean insertUser(String username, String password, String fullname, String email) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -81,7 +80,6 @@ public class CreateDatabase extends SQLiteOpenHelper {
     public String getPassword(String username, String fullname, String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         String pass = null;
-
         Cursor cursor = null;
         try {
             cursor = db.rawQuery(
@@ -99,9 +97,6 @@ public class CreateDatabase extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
             db.close();
         }
-
         return pass;
     }
-
-
 }

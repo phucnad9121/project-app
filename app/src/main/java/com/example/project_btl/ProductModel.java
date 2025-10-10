@@ -8,12 +8,17 @@ public class ProductModel implements Serializable {
     private String selectedSize;
     private Long price;
     private int image;
+    private String imageUrl; // ✅ ảnh online (dùng nếu lấy từ Firestore)
     private String description;
     private String moreInfor;
     private float rating;
     private int quantity;
     private boolean checked;    // để dùng trong giỏ hàng
     private String type;
+
+    // 🔹 Bổ sung constructor trống cho Firestore
+    public ProductModel() {
+    }
     // constructor
     public ProductModel(String id, String name, Long price, int image, float rating,
                         String description, String moreInfor, int quantity, String selectedSize, String type) {
@@ -62,4 +67,7 @@ public class ProductModel implements Serializable {
     public void setChecked(boolean checked) { this.checked = checked; }
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }

@@ -68,6 +68,9 @@ public class ProfileActivity extends AppCompatActivity {
         setupRow((View) findViewById(R.id.rowPassword),
                 R.drawable.ic_lock, "Change Password");
 
+        findViewById(R.id.rowPassword).setOnClickListener(v ->
+                startActivity(new Intent(this, ChangePasswordActivity.class)));
+
         // click Edit Profile -> mở màn 2
         findViewById(R.id.rowEditProfile).setOnClickListener(v ->
                 startActivity(new Intent(this, EditProfileActivity.class)));

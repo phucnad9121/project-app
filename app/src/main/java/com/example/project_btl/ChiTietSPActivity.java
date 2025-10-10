@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,8 +70,8 @@ public class ChiTietSPActivity extends AppCompatActivity {
         btnGioHang = findViewById(R.id.btnGioHang);
         btnBuyNow = findViewById(R.id.btnBuyNow);
         btnBack = findViewById(R.id.btnBack);
-
         // Lấy object từ Intent
+
         ProductModel product = (ProductModel) getIntent().getSerializableExtra("product");
 
         if (product != null) {
@@ -140,13 +141,24 @@ public class ChiTietSPActivity extends AppCompatActivity {
                     });
         });
 
+        //Bấm buy now sẽ hiển thị luôn form thanh toán
         btnBuyNow.setOnClickListener(v -> {
+            if (product == null) return;
+
             String size = getSelectedSize();
-            Toast.makeText(this,
-                    "Mua ngay: " + product.getName() +
-                            " - Size " + size + " - SL: " + quantity,
-                    Toast.LENGTH_LONG).show();
-            // Chuyển sang màn hình thanh toán
+            product.setSelectedSize(size);
+            product.setQuantity(quantity);
+
+            // Gửi sản phẩm hiện tại sang CheckOutActivity
+            ArrayList<ProductModel> selectedItems = new ArrayList<>();
+            selectedItems.add(product);
+
+            Intent intent = new Intent(ChiTietSPActivity.this, CheckOutActivity.class);
+            intent.putExtra("selectedItems", selectedItems); // Truyền danh sách có 1 sản phẩm
+            startActivity(intent);
+
+            // Hiệu ứng chuyển trang
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         });
     }
 

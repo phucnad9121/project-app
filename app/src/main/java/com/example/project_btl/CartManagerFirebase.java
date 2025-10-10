@@ -13,16 +13,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class CartManagerFirebase {
-
     private static CartManagerFirebase instance;
     private FirebaseFirestore db;
-
     private CartManagerFirebase() {
         db = FirebaseFirestore.getInstance();
     }
-
     public static CartManagerFirebase getInstance() {
         if (instance == null) {
             instance = new CartManagerFirebase();

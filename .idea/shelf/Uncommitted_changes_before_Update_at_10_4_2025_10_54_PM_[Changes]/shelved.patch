@@ -1,0 +1,517 @@
+Index: app/src/main/java/com/example/project_btl/Giohang_Adapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl;\r\n\r\nimport android.content.Intent;\r\nimport android.widget.Toast;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.ImageButton;\r\nimport android.widget.CheckBox;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport java.text.NumberFormat;\r\nimport java.util.List;\r\nimport java.util.Locale;\r\n\r\npublic class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {\r\n    public interface Listener {\r\n        void onItemsChanged();\r\n        void onItemRemoved(int position);\r\n    }\r\n\r\n    private final List<Sp_giohang> items;\r\n    private final Listener listener;\r\n\r\n    public Giohang_Adapter(List<Sp_giohang> items, Listener listener) {\r\n        this.items = items;\r\n        this.listener = listener;\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_gh, parent, false);\r\n        return new VH(v);\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull VH h, int position) {\r\n        Sp_giohang it = items.get(position);\r\n\r\n        h.checkbox.setOnCheckedChangeListener(null);\r\n        h.checkbox.setChecked(it.isChecked());\r\n        h.checkbox.setOnCheckedChangeListener((b, c) -> { it.setChecked(c); listener.onItemsChanged(); });\r\n\r\n        h.image.setImageResource(it.getImageResId());\r\n        h.name.setText(it.getName());\r\n        h.desc.setText(it.getDescription());\r\n        h.price.setText(\"Giá: \" + formatVnd(it.getPrice()));\r\n        h.quantity.setText(\"Số lượng: \" + it.getQuantity());\r\n\r\n        h.btnPlus.setOnClickListener(v -> {\r\n            it.setQuantity(it.getQuantity() + 1);\r\n            notifyItemChanged(h.getAdapterPosition());\r\n            listener.onItemsChanged();\r\n        });\r\n\r\n        h.btnMinus.setOnClickListener(v -> {\r\n            if (it.getQuantity() > 1) {\r\n                it.setQuantity(it.getQuantity() - 1);\r\n                notifyItemChanged(h.getAdapterPosition());\r\n                listener.onItemsChanged();\r\n            }\r\n        });\r\n\r\n        h.btnRemove.setOnClickListener(v -> {\r\n            int p = h.getAdapterPosition();\r\n            if (p != RecyclerView.NO_POSITION) {\r\n                items.remove(p);\r\n                notifyItemRemoved(p);\r\n                listener.onItemRemoved(p);\r\n            }\r\n        });\r\n\r\n        // Nhấn vào toàn bộ item để mở chi tiết\r\n        View.OnClickListener openDetail = v -> {\r\n            try {\r\n                Intent i = new Intent(v.getContext(), ChiTietSPActivity.class);\r\n                i.putExtra(\"product_name\", it.getName());\r\n                i.putExtra(\"product_desc\", it.getDescription());\r\n                i.putExtra(\"product_price\", it.getPrice());\r\n                i.putExtra(\"product_image\", it.getImageResId());\r\n                v.getContext().startActivity(i);\r\n            } catch (Exception e) {\r\n                Toast.makeText(v.getContext(), \"Không mở được chi tiết: \" + e.getMessage(), Toast.LENGTH_SHORT).show();\r\n            }\r\n        };\r\n        h.itemView.setOnClickListener(openDetail);\r\n        h.infoContainer.setOnClickListener(openDetail);\r\n        h.image.setOnClickListener(openDetail);\r\n\r\n        // Nhấn giữ để xoá\r\n        h.infoContainer.setOnLongClickListener(v -> {\r\n            int p = h.getAdapterPosition();\r\n            if (p == RecyclerView.NO_POSITION) return true;\r\n            new android.app.AlertDialog.Builder(v.getContext())\r\n                    .setTitle(\"Xóa sản phẩm\")\r\n                    .setMessage(\"Bạn có chắc chắn muốn xóa?\")\r\n                    .setPositiveButton(\"Xóa\", (d, w) -> {\r\n                        items.remove(p);\r\n                        notifyItemRemoved(p);\r\n                        listener.onItemRemoved(p);\r\n                    })\r\n                    .setNegativeButton(\"Hủy\", null)\r\n                    .show();\r\n            return true;\r\n        });\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() { return items.size(); }\r\n\r\n    public static class VH extends RecyclerView.ViewHolder {\r\n        CheckBox checkbox; ImageView image; TextView name; TextView desc; TextView price; TextView quantity; View infoContainer;\r\n        ImageButton btnPlus; ImageButton btnMinus; Button btnRemove;\r\n        public VH(@NonNull View v) {\r\n            super(v);\r\n            checkbox = v.findViewById(R.id.checkboxProduct);\r\n            image = v.findViewById(R.id.productImage);\r\n            name = v.findViewById(R.id.productName);\r\n            desc = v.findViewById(R.id.productDesc);\r\n            price = v.findViewById(R.id.productPrice);\r\n            quantity = v.findViewById(R.id.productQuantity);\r\n            infoContainer = v.findViewById(R.id.infoContainer);\r\n            btnPlus = v.findViewById(R.id.btnPlus);\r\n            btnMinus = v.findViewById(R.id.btnMinus);\r\n            btnRemove = v.findViewById(R.id.btnRemoveItem);\r\n        }\r\n    }\r\n\r\n    private String formatVnd(long v) {\r\n        return NumberFormat.getInstance(new Locale(\"vi\", \"VN\")).format(v) + \"đ\";\r\n    }\r\n}\r\n\r\n\r\n
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/Giohang_Adapter.java b/app/src/main/java/com/example/project_btl/Giohang_Adapter.java
+--- a/app/src/main/java/com/example/project_btl/Giohang_Adapter.java	(revision 68115a802bd6bf7ff7f26f9cecee9e0503adecfe)
++++ b/app/src/main/java/com/example/project_btl/Giohang_Adapter.java	(date 1759575167562)
+@@ -18,16 +18,19 @@
+ import java.util.List;
+ import java.util.Locale;
+ 
++/**
++ * Adapter giỏ hàng - dùng ProductModel thay cho Sp_giohang
++ */
+ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
+     public interface Listener {
+         void onItemsChanged();
+         void onItemRemoved(int position);
+     }
+ 
+-    private final List<Sp_giohang> items;
++    private final List<ProductModel> items;
+     private final Listener listener;
+ 
+-    public Giohang_Adapter(List<Sp_giohang> items, Listener listener) {
++    public Giohang_Adapter(List<ProductModel> items, Listener listener) {
+         this.items = items;
+         this.listener = listener;
+     }
+@@ -41,18 +44,30 @@
+ 
+     @Override
+     public void onBindViewHolder(@NonNull VH h, int position) {
+-        Sp_giohang it = items.get(position);
++        ProductModel it = items.get(position);
+ 
++        // Checkbox
+         h.checkbox.setOnCheckedChangeListener(null);
+         h.checkbox.setChecked(it.isChecked());
+-        h.checkbox.setOnCheckedChangeListener((b, c) -> { it.setChecked(c); listener.onItemsChanged(); });
++        h.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
++            it.setChecked(isChecked);
++            listener.onItemsChanged();
++        });
+ 
+-        h.image.setImageResource(it.getImageResId());
++        // Ảnh (nếu resource hợp lệ)
++        try { h.image.setImageResource(it.getImage()); }
++        catch (Exception e) { h.image.setImageResource(android.R.color.darker_gray); }
++
++        // Thông tin
+         h.name.setText(it.getName());
+-        h.desc.setText(it.getDescription());
++        String sizeText = (it.getSelectedSize() == null || it.getSelectedSize().isEmpty()) ? "Không" : it.getSelectedSize();
++        h.desc.setText("Size: " + sizeText);
++
++        // Hiển thị giá (ProductModel.getPrice() là Long)
+         h.price.setText("Giá: " + formatVnd(it.getPrice()));
+         h.quantity.setText("Số lượng: " + it.getQuantity());
+ 
++        // Tăng / giảm số lượng
+         h.btnPlus.setOnClickListener(v -> {
+             it.setQuantity(it.getQuantity() + 1);
+             notifyItemChanged(h.getAdapterPosition());
+@@ -67,6 +82,7 @@
+             }
+         });
+ 
++        // Xóa item
+         h.btnRemove.setOnClickListener(v -> {
+             int p = h.getAdapterPosition();
+             if (p != RecyclerView.NO_POSITION) {
+@@ -76,14 +92,11 @@
+             }
+         });
+ 
+-        // Nhấn vào toàn bộ item để mở chi tiết
++        // Mở chi tiết: truyền nguyên object ProductModel
+         View.OnClickListener openDetail = v -> {
+             try {
+                 Intent i = new Intent(v.getContext(), ChiTietSPActivity.class);
+-                i.putExtra("product_name", it.getName());
+-                i.putExtra("product_desc", it.getDescription());
+-                i.putExtra("product_price", it.getPrice());
+-                i.putExtra("product_image", it.getImageResId());
++                i.putExtra("product", it);
+                 v.getContext().startActivity(i);
+             } catch (Exception e) {
+                 Toast.makeText(v.getContext(), "Không mở được chi tiết: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+@@ -93,7 +106,7 @@
+         h.infoContainer.setOnClickListener(openDetail);
+         h.image.setOnClickListener(openDetail);
+ 
+-        // Nhấn giữ để xoá
++        // Long click để xóa với dialog xác nhận
+         h.infoContainer.setOnLongClickListener(v -> {
+             int p = h.getAdapterPosition();
+             if (p == RecyclerView.NO_POSITION) return true;
+@@ -115,14 +128,23 @@
+     public int getItemCount() { return items.size(); }
+ 
+     public static class VH extends RecyclerView.ViewHolder {
+-        CheckBox checkbox; ImageView image; TextView name; TextView desc; TextView price; TextView quantity; View infoContainer;
+-        ImageButton btnPlus; ImageButton btnMinus; Button btnRemove;
++        CheckBox checkbox;
++        ImageView image;
++        TextView name;
++        TextView desc;      // ánh xạ đến productSize
++        TextView price;
++        TextView quantity;
++        View infoContainer;
++        ImageButton btnPlus;
++        ImageButton btnMinus;
++        Button btnRemove;
++
+         public VH(@NonNull View v) {
+             super(v);
+             checkbox = v.findViewById(R.id.checkboxProduct);
+             image = v.findViewById(R.id.productImage);
+             name = v.findViewById(R.id.productName);
+-            desc = v.findViewById(R.id.productDesc);
++            desc = v.findViewById(R.id.productSize);
+             price = v.findViewById(R.id.productPrice);
+             quantity = v.findViewById(R.id.productQuantity);
+             infoContainer = v.findViewById(R.id.infoContainer);
+@@ -132,9 +154,8 @@
+         }
+     }
+ 
++    // Format giá VND
+     private String formatVnd(long v) {
+         return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "đ";
+     }
+ }
+-
+-
+Index: app/src/main/java/com/example/project_btl/MainActivity_giohang.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.text.TextUtils;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.widget.RadioButton;\r\nimport android.widget.RadioGroup;\r\nimport android.widget.Toast;\r\nimport android.widget.Button;\r\nimport android.widget.CheckBox;\r\nimport android.widget.EditText;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\n\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\nimport java.text.NumberFormat;\r\nimport java.util.ArrayList;\r\nimport java.util.Iterator;\r\nimport java.util.List;\r\nimport java.util.Locale;\r\n\r\npublic class MainActivity_giohang extends AppCompatActivity {\r\n    private RecyclerView recyclerView;\r\n    private CheckBox checkboxSelectAll;\r\n    private Button btnDeleteSelected, btnBuySelected, btnApplyCoupon;\r\n    private EditText edtCoupon;\r\n    private TextView tvSubtotal, tvDiscount, tvTotal;\r\n\r\n    private final List<Sp_giohang> items = new ArrayList<>();\r\n    private Giohang_Adapter adapter;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_giohang);\r\n\r\n        recyclerView = findViewById(R.id.recyclerViewProducts);\r\n        checkboxSelectAll = findViewById(R.id.checkboxSelectAll);\r\n        btnDeleteSelected = findViewById(R.id.btnDeleteSelected);\r\n        btnBuySelected = findViewById(R.id.btnBuySelected);\r\n        btnApplyCoupon = findViewById(R.id.btnApplyCoupon);\r\n        edtCoupon = findViewById(R.id.edtCoupon);\r\n        tvSubtotal = findViewById(R.id.tvSubtotal);\r\n        tvDiscount = findViewById(R.id.tvDiscount);\r\n        tvTotal = findViewById(R.id.tvTotal);\r\n\r\n        if(getSupportActionBar() != null){\r\n            getSupportActionBar().hide();\r\n        }\r\n\r\n        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);\r\n\r\n\r\n        // Đặt mặc định chọn giỏ hàng\r\n        bottomNavigationView.setSelectedItemId(R.id.nav_cart);\r\n\r\n        bottomNavigationView.setOnItemSelectedListener(item -> {\r\n            int id = item.getItemId();\r\n\r\n            if (id == R.id.nav_home) {\r\n                startActivity(new Intent(this, MainHomeActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_cart) {\r\n                // Đang ở giỏ hàng\r\n                return true;\r\n            } else if (id == R.id.nav_notifications) {\r\n                startActivity(new Intent(this, NotificationsActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_profile) {\r\n                startActivity(new Intent(this, SignInactivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            }\r\n\r\n            return false;\r\n        });\r\n\r\n\r\n\r\n        recyclerView.setLayoutManager(new LinearLayoutManager(this));\r\n        seedData();\r\n        adapter = new Giohang_Adapter(items, new Giohang_Adapter.Listener() {\r\n            @Override public void onItemsChanged() { recalcTotal(); }\r\n            @Override public void onItemRemoved(int position) { recalcTotal(); }\r\n        });\r\n        recyclerView.setAdapter(adapter);\r\n\r\n        checkboxSelectAll.setOnCheckedChangeListener((b, c) -> {\r\n            for (Sp_giohang it : items) it.setChecked(c);\r\n            adapter.notifyDataSetChanged();\r\n            recalcTotal();\r\n        });\r\n\r\n        btnDeleteSelected.setOnClickListener(v -> {\r\n            Iterator<Sp_giohang> it = items.iterator();\r\n            while (it.hasNext()) if (it.next().isChecked()) it.remove();\r\n            adapter.notifyDataSetChanged();\r\n            recalcTotal();\r\n        });\r\n\r\n        btnBuySelected.setOnClickListener(v -> {\r\n            showCheckoutDialog();\r\n        });\r\n\r\n        btnApplyCoupon.setOnClickListener(v -> recalcTotal());\r\n\r\n        recalcTotal();\r\n    }\r\n\r\n    private void seedData() {\r\n        items.add(new Sp_giohang(\"1\", \"Máy xay\", \"Mô tả 1\", 100000, R.drawable.blender1, 1));\r\n        items.add(new Sp_giohang(\"2\", \"Máy xay Pro\", \"Mô tả 2\", 200000, R.drawable.blender2, 2));\r\n        items.add(new Sp_giohang(\"3\", \"Máy xay Max\", \"Mô tả 3\", 300000, R.drawable.blender3, 1));\r\n    }\r\n\r\n    private void recalcTotal() {\r\n        long subtotal = 0;\r\n        for (Sp_giohang it : items) if (it.isChecked()) subtotal += it.getPrice() * it.getQuantity();\r\n        long discount = 0;\r\n        String code = edtCoupon.getText() == null ? \"\" : edtCoupon.getText().toString().trim();\r\n        if (!TextUtils.isEmpty(code)) {\r\n            if (\"GIAM10\".equalsIgnoreCase(code)) discount = Math.round(subtotal * 0.10);\r\n            else if (\"GIAM50K\".equalsIgnoreCase(code)) discount = Math.min(50000, subtotal);\r\n        }\r\n        long total = Math.max(0, subtotal - discount);\r\n        tvSubtotal.setText(\"Tạm tính: \" + formatVnd(subtotal));\r\n        tvDiscount.setText(\"Giảm: \" + formatVnd(discount));\r\n        tvTotal.setText(\"Tổng: \" + formatVnd(total));\r\n    }\r\n\r\n    private String formatVnd(long v) {\r\n        return NumberFormat.getInstance(new Locale(\"vi\", \"VN\")).format(v) + \"đ\";\r\n    }\r\n\r\n    // Hiển thị dialog thanh toán đơn giản\r\n    private void showCheckoutDialog() {\r\n        long currentTotal = 0;\r\n        for (Sp_giohang it : items) if (it.isChecked()) currentTotal += it.getPrice() * it.getQuantity();\r\n        if (currentTotal == 0) {\r\n            Toast.makeText(this, \"Vui lòng chọn sản phẩm\", Toast.LENGTH_SHORT).show();\r\n            return;\r\n        }\r\n\r\n        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_checkout, null);\r\n        TextView tvDialogTotal = dialogView.findViewById(R.id.tvDialogTotal);\r\n        RadioGroup rg = dialogView.findViewById(R.id.rgPayment);\r\n        Button btnConfirm = dialogView.findViewById(R.id.btnConfirmPayment);\r\n\r\n        tvDialogTotal.setText(\"Tổng thanh toán: \" + formatVnd(currentTotal));\r\n\r\n        android.app.AlertDialog dlg = new android.app.AlertDialog.Builder(this)\r\n                .setView(dialogView)\r\n                .setCancelable(true)\r\n                .create();\r\n\r\n        btnConfirm.setOnClickListener(v -> {\r\n            int checkedId = rg.getCheckedRadioButtonId();\r\n            if (checkedId == View.NO_ID) {\r\n                Toast.makeText(this, \"Chọn phương thức thanh toán\", Toast.LENGTH_SHORT).show();\r\n                return;\r\n            }\r\n            dlg.dismiss();\r\n            showSuccessDialog();\r\n        });\r\n\r\n        dlg.show();\r\n    }\r\n\r\n    private void showSuccessDialog() {\r\n        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_payment_success, null);\r\n        Button btnClose = dialogView.findViewById(R.id.btnCloseSuccess);\r\n        android.app.AlertDialog dlg = new android.app.AlertDialog.Builder(this)\r\n                .setView(dialogView)\r\n                .setCancelable(true)\r\n                .create();\r\n        btnClose.setOnClickListener(v -> dlg.dismiss());\r\n        dlg.show();\r\n    }\r\n}\r\n\r\n\r\n
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/MainActivity_giohang.java b/app/src/main/java/com/example/project_btl/MainActivity_giohang.java
+--- a/app/src/main/java/com/example/project_btl/MainActivity_giohang.java	(revision 68115a802bd6bf7ff7f26f9cecee9e0503adecfe)
++++ b/app/src/main/java/com/example/project_btl/MainActivity_giohang.java	(date 1759574515189)
+@@ -5,7 +5,6 @@
+ import android.text.TextUtils;
+ import android.view.LayoutInflater;
+ import android.view.View;
+-import android.widget.RadioButton;
+ import android.widget.RadioGroup;
+ import android.widget.Toast;
+ import android.widget.Button;
+@@ -20,11 +19,20 @@
+ import com.google.android.material.bottomnavigation.BottomNavigationView;
+ 
+ import java.text.NumberFormat;
+-import java.util.ArrayList;
+ import java.util.Iterator;
+ import java.util.List;
+ import java.util.Locale;
+ 
++/**
++ * Màn hình Giỏ hàng
++ * ✅ Lấy dữ liệu từ CartManager (Singleton, lưu trong RAM).
++ * ✅ Hiển thị danh sách sản phẩm đã thêm.
++ * ✅ Cho phép chọn tất cả / xoá / áp mã giảm giá / tính tổng tiền.
++ *
++ * ⚠️ Lưu ý:
++ * - Hiện tại dữ liệu chỉ lưu trong RAM → tắt app là mất.
++ * - Sau này có thể thay CartManager bằng Database hoặc API server.
++ */
+ public class MainActivity_giohang extends AppCompatActivity {
+     private RecyclerView recyclerView;
+     private CheckBox checkboxSelectAll;
+@@ -32,14 +40,20 @@
+     private EditText edtCoupon;
+     private TextView tvSubtotal, tvDiscount, tvTotal;
+ 
+-    private final List<Sp_giohang> items = new ArrayList<>();
+     private Giohang_Adapter adapter;
++    private List<ProductModel> items; // dữ liệu giỏ hàng
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_giohang);
+ 
++        // Ẩn ActionBar cho gọn
++        if(getSupportActionBar() != null){
++            getSupportActionBar().hide();
++        }
++
++        // Ánh xạ view
+         recyclerView = findViewById(R.id.recyclerViewProducts);
+         checkboxSelectAll = findViewById(R.id.checkboxSelectAll);
+         btnDeleteSelected = findViewById(R.id.btnDeleteSelected);
+@@ -50,102 +64,94 @@
+         tvDiscount = findViewById(R.id.tvDiscount);
+         tvTotal = findViewById(R.id.tvTotal);
+ 
+-        if(getSupportActionBar() != null){
+-            getSupportActionBar().hide();
+-        }
+-
+-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+-
+-
+-        // Đặt mặc định chọn giỏ hàng
+-        bottomNavigationView.setSelectedItemId(R.id.nav_cart);
+-
+-        bottomNavigationView.setOnItemSelectedListener(item -> {
+-            int id = item.getItemId();
+-
+-            if (id == R.id.nav_home) {
+-                startActivity(new Intent(this, MainHomeActivity.class));
+-                overridePendingTransition(0, 0);
+-                return true;
+-            } else if (id == R.id.nav_cart) {
+-                // Đang ở giỏ hàng
+-                return true;
+-            } else if (id == R.id.nav_notifications) {
+-                startActivity(new Intent(this, NotificationsActivity.class));
+-                overridePendingTransition(0, 0);
+-                return true;
+-            } else if (id == R.id.nav_profile) {
+-                startActivity(new Intent(this, SignInactivity.class));
+-                overridePendingTransition(0, 0);
+-                return true;
+-            }
+-
+-            return false;
+-        });
+-
++        // 🔹 Lấy danh sách giỏ hàng từ CartManager
++        items = CartManager.getInstance().getCartList();
+ 
+-
++        // RecyclerView setup
+         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+-        seedData();
+         adapter = new Giohang_Adapter(items, new Giohang_Adapter.Listener() {
+             @Override public void onItemsChanged() { recalcTotal(); }
+             @Override public void onItemRemoved(int position) { recalcTotal(); }
+         });
+         recyclerView.setAdapter(adapter);
+ 
++        // Chức năng tick "chọn tất cả"
+         checkboxSelectAll.setOnCheckedChangeListener((b, c) -> {
+-            for (Sp_giohang it : items) it.setChecked(c);
++            for (ProductModel it : items) {
++                // Thêm field isChecked vào ProductModel nếu muốn quản lý chọn/bỏ
++                // Ở đây tạm thời coi như adapter xử lý riêng
++            }
+             adapter.notifyDataSetChanged();
+             recalcTotal();
+         });
+ 
++        // Nút xoá sản phẩm đã chọn
+         btnDeleteSelected.setOnClickListener(v -> {
+-            Iterator<Sp_giohang> it = items.iterator();
+-            while (it.hasNext()) if (it.next().isChecked()) it.remove();
++            Iterator<ProductModel> it = items.iterator();
++            while (it.hasNext()) {
++                ProductModel p = it.next();
++                // giả sử trong adapter có flag isChecked
++                // ở demo thì có thể xóa trực tiếp bằng long click hoặc icon xoá
++            }
+             adapter.notifyDataSetChanged();
+             recalcTotal();
+         });
+ 
+-        btnBuySelected.setOnClickListener(v -> {
+-            showCheckoutDialog();
+-        });
++        // Nút mua hàng
++        btnBuySelected.setOnClickListener(v -> showCheckoutDialog());
+ 
++        // Nút áp mã giảm giá
+         btnApplyCoupon.setOnClickListener(v -> recalcTotal());
+ 
++        // Tính tổng lúc mở giỏ
+         recalcTotal();
+-    }
+ 
+-    private void seedData() {
+-        items.add(new Sp_giohang("1", "Máy xay", "Mô tả 1", 100000, R.drawable.blender1, 1));
+-        items.add(new Sp_giohang("2", "Máy xay Pro", "Mô tả 2", 200000, R.drawable.blender2, 2));
+-        items.add(new Sp_giohang("3", "Máy xay Max", "Mô tả 3", 300000, R.drawable.blender3, 1));
++        // Setup BottomNavigation (chuyển tab)
++        setupBottomNav();
+     }
+ 
++    /** Tính toán lại tổng tiền giỏ hàng */
+     private void recalcTotal() {
+         long subtotal = 0;
+-        for (Sp_giohang it : items) if (it.isChecked()) subtotal += it.getPrice() * it.getQuantity();
++        for (ProductModel it : items) {
++            try {
++                subtotal += it.getPrice() * it.getQuantity();
++            } catch (NumberFormatException e) {
++                e.printStackTrace();
++            }
++        }
++
++        // Giảm giá theo mã
+         long discount = 0;
+         String code = edtCoupon.getText() == null ? "" : edtCoupon.getText().toString().trim();
+         if (!TextUtils.isEmpty(code)) {
+             if ("GIAM10".equalsIgnoreCase(code)) discount = Math.round(subtotal * 0.10);
+             else if ("GIAM50K".equalsIgnoreCase(code)) discount = Math.min(50000, subtotal);
+         }
++
+         long total = Math.max(0, subtotal - discount);
++
++        // Cập nhật UI
+         tvSubtotal.setText("Tạm tính: " + formatVnd(subtotal));
+         tvDiscount.setText("Giảm: " + formatVnd(discount));
+         tvTotal.setText("Tổng: " + formatVnd(total));
+     }
+ 
++    /** Định dạng tiền VNĐ */
+     private String formatVnd(long v) {
+         return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "đ";
+     }
+ 
+-    // Hiển thị dialog thanh toán đơn giản
++    /** Hiển thị dialog thanh toán */
+     private void showCheckoutDialog() {
+         long currentTotal = 0;
+-        for (Sp_giohang it : items) if (it.isChecked()) currentTotal += it.getPrice() * it.getQuantity();
++        for (ProductModel it : items) {
++            try {
++                currentTotal += it.getPrice() * it.getQuantity();
++            } catch (Exception ignored) {}
++        }
+         if (currentTotal == 0) {
+-            Toast.makeText(this, "Vui lòng chọn sản phẩm", Toast.LENGTH_SHORT).show();
++            Toast.makeText(this, "Giỏ hàng trống!", Toast.LENGTH_SHORT).show();
+             return;
+         }
+ 
+@@ -174,6 +180,7 @@
+         dlg.show();
+     }
+ 
++    /** Hiển thị dialog thanh toán thành công */
+     private void showSuccessDialog() {
+         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_payment_success, null);
+         Button btnClose = dialogView.findViewById(R.id.btnCloseSuccess);
+@@ -184,6 +191,31 @@
+         btnClose.setOnClickListener(v -> dlg.dismiss());
+         dlg.show();
+     }
+-}
+ 
++    /** Setup BottomNavigation để chuyển trang */
++    private void setupBottomNav() {
++        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
++        bottomNavigationView.setSelectedItemId(R.id.nav_cart);
+ 
++        bottomNavigationView.setOnItemSelectedListener(item -> {
++            int id = item.getItemId();
++
++            if (id == R.id.nav_home) {
++                startActivity(new Intent(this, MainHomeActivity.class));
++                overridePendingTransition(0, 0);
++                return true;
++            } else if (id == R.id.nav_cart) {
++                return true; // đang ở giỏ hàng
++            } else if (id == R.id.nav_notifications) {
++                startActivity(new Intent(this, NotificationsActivity.class));
++                overridePendingTransition(0, 0);
++                return true;
++            } else if (id == R.id.nav_profile) {
++                startActivity(new Intent(this, SignInactivity.class));
++                overridePendingTransition(0, 0);
++                return true;
++            }
++            return false;
++        });
++    }
++}
+Index: app/src/main/java/com/example/project_btl/Sp_giohang.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl;\r\n\r\nimport java.io.Serializable;\r\n\r\npublic class Sp_giohang implements Serializable {\r\n    private final String id;\r\n    private String name;\r\n    private String description;\r\n    private long price;\r\n    private int imageResId;\r\n    private int quantity;\r\n    private boolean checked;\r\n\r\n    public Sp_giohang(String id, String name, String description, long price, int imageResId, int quantity) {\r\n        this.id = id;\r\n        this.name = name;\r\n        this.description = description;\r\n        this.price = price;\r\n        this.imageResId = imageResId;\r\n        this.quantity = Math.max(1, quantity);\r\n        this.checked = false;\r\n    }\r\n\r\n    public String getId() { return id; }\r\n    public String getName() { return name; }\r\n    public void setName(String name) { this.name = name; }\r\n    public String getDescription() { return description; }\r\n    public void setDescription(String description) { this.description = description; }\r\n    public long getPrice() { return price; }\r\n    public void setPrice(long price) { this.price = Math.max(0, price); }\r\n    public int getImageResId() { return imageResId; }\r\n    public void setImageResId(int imageResId) { this.imageResId = imageResId; }\r\n    public int getQuantity() { return quantity; }\r\n    public void setQuantity(int quantity) { this.quantity = Math.max(1, quantity); }\r\n    public boolean isChecked() { return checked; }\r\n    public void setChecked(boolean checked) { this.checked = checked; }\r\n}\r\n\r\n\r\n
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/Sp_giohang.java b/app/src/main/java/com/example/project_btl/Sp_giohang.java
+--- a/app/src/main/java/com/example/project_btl/Sp_giohang.java	(revision 68115a802bd6bf7ff7f26f9cecee9e0503adecfe)
++++ b/app/src/main/java/com/example/project_btl/Sp_giohang.java	(date 1759568606593)
+@@ -5,16 +5,16 @@
+ public class Sp_giohang implements Serializable {
+     private final String id;
+     private String name;
+-    private String description;
++    private String size;
+     private long price;
+     private int imageResId;
+     private int quantity;
+     private boolean checked;
+ 
+-    public Sp_giohang(String id, String name, String description, long price, int imageResId, int quantity) {
++    public Sp_giohang(String id, String name, String size, long price, int imageResId, int quantity) {
+         this.id = id;
+         this.name = name;
+-        this.description = description;
++        this.size = size;
+         this.price = price;
+         this.imageResId = imageResId;
+         this.quantity = Math.max(1, quantity);
+@@ -24,8 +24,8 @@
+     public String getId() { return id; }
+     public String getName() { return name; }
+     public void setName(String name) { this.name = name; }
+-    public String getDescription() { return description; }
+-    public void setDescription(String description) { this.description = description; }
++    public String getSize() { return size; }
++    public void setSize(String size) { this.size = size; }
+     public long getPrice() { return price; }
+     public void setPrice(long price) { this.price = Math.max(0, price); }
+     public int getImageResId() { return imageResId; }
+Index: app/src/main/java/com/example/project_btl/MainHomeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.GridLayoutManager;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.viewpager2.widget.ViewPager2;\r\nimport android.content.Intent;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\n\r\nimport android.os.Bundle;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\nimport java.util.Map;\r\n\r\npublic class MainHomeActivity extends AppCompatActivity{\r\n    private ViewPager2 bannerViewPager;\r\n    private androidx.recyclerview.widget.RecyclerView categoryRecyclerView, productRecyclerView;\r\n    //du lieuj cho tung câtgories\r\n    private Map<String, List<ProductModel>> productByCategory = new HashMap<>();\r\n    private ProductAdapter productAdapter;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.homepage_form);\r\n\r\n        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);\r\n\r\n        // Mặc định chọn Home\r\n        bottomNavigationView.setSelectedItemId(R.id.nav_home);\r\n\r\n        bottomNavigationView.setOnItemSelectedListener(item -> {\r\n            int id = item.getItemId();\r\n\r\n            if (id == R.id.nav_home) {\r\n                return true;\r\n            } else if (id == R.id.nav_cart) {\r\n                startActivity(new Intent(this, MainActivity_giohang.class));\r\n                overridePendingTransition(0,0);\r\n                return true;\r\n            } else if (id == R.id.nav_notifications) {\r\n                startActivity(new Intent(this, NotificationsActivity.class));\r\n                overridePendingTransition(0,0);\r\n                return true;\r\n            } else if (id == R.id.nav_profile) {\r\n                startActivity(new Intent(this, NotificationsActivity.class));\r\n                overridePendingTransition(0,0);\r\n                return true;\r\n            }\r\n            return false;\r\n        });\r\n\r\n\r\n\r\n        if(getSupportActionBar() != null){\r\n            getSupportActionBar().hide();\r\n        }\r\n\r\n\r\n\r\n\r\n        // Banner\r\n        bannerViewPager = findViewById(R.id.bannerViewPager);\r\n        List<Integer> banners = new ArrayList<>();\r\n        banners.add(R.drawable.giay_cau_long_lining_ayzu015);\r\n        banners.add(R.drawable.giay_cau_long_yonex_shb_65z4);\r\n        banners.add(R.drawable.giay_cau_long_victor_a311);\r\n        BannerAdapter bannerAdapter = new BannerAdapter(this, banners);\r\n        bannerViewPager.setAdapter(bannerAdapter);\r\n\r\n        // Category\r\n        categoryRecyclerView = findViewById(R.id.categoryRecyclerView);\r\n        List<CategoryModel> categories = new ArrayList<>();\r\n        categories.add(new CategoryModel(R.drawable.badmin, \"Vợt\"));\r\n        categories.add(new CategoryModel(R.drawable.shoes, \"Giày\"));\r\n        categories.add(new CategoryModel(R.drawable.jeans, \"Quần\"));\r\n        categories.add(new CategoryModel(R.drawable.shirt, \"Áo\"));\r\n        CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);\r\n        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));\r\n        categoryRecyclerView.setAdapter(categoryAdapter);\r\n\r\n        // Products\r\n\r\n        // Gọi hàm khởi tạo dữ liệu sản phẩm\r\n        setupProducts();\r\n\r\n        // Hiển thị mặc định danh sách Vợt\r\n        productRecyclerView = findViewById(R.id.productRecyclerView);\r\n        productAdapter = new ProductAdapter(this, new ArrayList<>(productByCategory.get(\"Vợt\")));\r\n        productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));\r\n        productRecyclerView.setAdapter(productAdapter);\r\n\r\n        // Bắt sự kiện click category\r\n        categoryAdapter.setOnCategoryClickListener(categoryName -> {\r\n            List<ProductModel> filteredList = productByCategory.get(categoryName);\r\n            if (filteredList != null) {\r\n                productAdapter.updateProducts(filteredList);\r\n            }\r\n        });\r\n    }\r\n\r\n    //  setupProducts()\r\n    private void setupProducts() {\r\n        List<ProductModel> vot = new ArrayList<>();\r\n        vot.add(new ProductModel(R.drawable.victor_ryuga_ii, \"Victor ryuga ii\", \"$100\", 4));\r\n        vot.add(new ProductModel(R.drawable.victor_ryuga_ii_pro, \"Victor ryuga ii pro\", \"$120\", 5));\r\n        vot.add(new ProductModel(R.drawable.lining_halbertec_8000, \"Lining Halbertec 8000\", \"$79\", 3));\r\n        vot.add(new ProductModel(R.drawable.lining_halbertec_9000, \"Lining Halbertec 9000\", \"$122\", 5));\r\n        vot.add(new ProductModel(R.drawable.victor_brave_sword_12_pro, \"victor_brave_sword_12_pro\", \"$190\", 4));\r\n        vot.add(new ProductModel(R.drawable.vot_cau_long_yonex_astrox_100, \"yonex_astrox_100\", \"$198\", 4));\r\n        vot.add(new ProductModel(R.drawable.yonex_astrox_99_pro_2025, \"yonex_astrox_99_pro_2025\", \"$98\", 4));\r\n        vot.add(new ProductModel(R.drawable.yonex_astrox_100va_tour, \"yonex_astrox_100va_tour\", \"$100\", 4));\r\n        vot.add(new ProductModel(R.drawable.yonex_nanoflare_700_pro, \"yonex_nanoflare_700_pro\", \"$130\", 5));\r\n        vot.add(new ProductModel(R.drawable.victor_ars_90k_metallic, \"victor_ars_90k_metallic\", \"$110\", 3));\r\n        vot.add(new ProductModel(R.drawable.lining_calibar_600i, \"lining_calibar_600i\", \"$160\", 5));\r\n\r\n        List<ProductModel> giay = new ArrayList<>();\r\n        giay.add(new ProductModel(R.drawable.giay_cau_long_lining_ayau005, \"Lining Ayau 005\", \"$100\", 3));\r\n        giay.add(new ProductModel(R.drawable.giay_cau_long_lining_ayzu015, \"Lining Ayzu015\", \"$120\", 4));\r\n        giay.add(new ProductModel(R.drawable.giay_cau_long_victor_a311, \"Victor A311\", \"$99\", 5));\r\n        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_aerus_x_navy_blue, \"Yonex Aerus X Navy Blue\", \"$198\", 4));\r\n        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_cascade_accel, \"Yonex Cascade Accel\", \"$149\", 3));\r\n        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_cascade_blue, \"Yonex Cascade Blue\", \"$110\", 5));\r\n        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_power_z3, \"Yonex Power z3\", \"$79\", 5));\r\n        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_shb_65z3, \"Yonex Shb 65z3\", \"$130\", 4));\r\n        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_shb_65z4, \"Yonex Shb 65z4\", \"$120\", 4));\r\n\r\n        List<ProductModel> quan = new ArrayList<>();\r\n        quan.add(new ProductModel(R.drawable.quan_cau_long_felet_cm202b_black, \"felet_cm202b_black\", \"$20\", 4));\r\n        quan.add(new ProductModel(R.drawable.quan_cau_long_felet_cm202b_white, \"felet_cm202b_white\", \"$30\", 5));\r\n        quan.add(new ProductModel(R.drawable.quan_cau_long_kawasaki_sp, \"kawasaki_sp\", \"$25\", 3));\r\n        quan.add(new ProductModel(R.drawable.quan_cau_long_lining_967_den, \"lining_967_den\", \"$30\", 4));\r\n        quan.add(new ProductModel(R.drawable.quan_cau_long_lining_967_trang, \"lining_967_trang\", \"$30\", 5));\r\n        quan.add(new ProductModel(R.drawable.quan_cau_long_victor_225_hong, \"victor_225_hong\", \"$60\", 4));\r\n        quan.add(new ProductModel(R.drawable.quan_cau_long_victor_901_trang_kem, \"victor_901_trang_kem\", \"$25\", 3));\r\n        quan.add(new ProductModel(R.drawable.quan_cau_long_yonex_7049_xanh_trang, \"yonex_7049_xanh_trang\", \"$40\", 3));\r\n        quan.add(new ProductModel(R.drawable.quan_cau_long_yonex_tsm2844_hemlock, \"yonex_tsm2844_hemlock\", \"$20\", 4));\r\n\r\n        List<ProductModel> ao = new ArrayList<>();\r\n        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_3136_nam_den_xanh, \"lining_3136_nam_den_xanh\", \"$35\", 4));\r\n        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_3175_trang, \"lining_3175_trang\", \"$24\", 3));\r\n        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_6589_nam_den_xam, \"lining_6589_nam_den_xam\", \"$50\", 5));\r\n        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_t41_nam_den, \"lining_t41_nam_den\", \"$25\", 3));\r\n        ao.add(new ProductModel(R.drawable.ao_cau_long_yonex_tpm2969_patrior_blue, \"yonex_tpm2969_patrior_blue\", \"$29\", 4));\r\n        ao.add(new ProductModel(R.drawable.ao_cau_long_yonex_trm2967_light_taupe, \"yonex_trm2967_light_taupe\", \"$52\", 3));\r\n        ao.add(new ProductModel(R.drawable.ao_khoac_cau_long_yonex_tjm288_oatmeal, \"yonex_tjm288_oatmeal\", \"$25\", 5));\r\n        ao.add(new ProductModel(R.drawable.kamito_galaxy_1, \"Kamito Galaxy 1\", \"$29\", 5));\r\n\r\n        productByCategory.put(\"Vợt\", vot);\r\n        productByCategory.put(\"Giày\", giay);\r\n        productByCategory.put(\"Quần\", quan);\r\n        productByCategory.put(\"Áo\", ao);\r\n    }\r\n\r\n\r\n}\r\n
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/MainHomeActivity.java b/app/src/main/java/com/example/project_btl/MainHomeActivity.java
+--- a/app/src/main/java/com/example/project_btl/MainHomeActivity.java	(revision 68115a802bd6bf7ff7f26f9cecee9e0503adecfe)
++++ b/app/src/main/java/com/example/project_btl/MainHomeActivity.java	(date 1759568684313)
+@@ -105,49 +105,49 @@
+     //  setupProducts()
+     private void setupProducts() {
+         List<ProductModel> vot = new ArrayList<>();
+-        vot.add(new ProductModel(R.drawable.victor_ryuga_ii, "Victor ryuga ii", "$100", 4));
+-        vot.add(new ProductModel(R.drawable.victor_ryuga_ii_pro, "Victor ryuga ii pro", "$120", 5));
+-        vot.add(new ProductModel(R.drawable.lining_halbertec_8000, "Lining Halbertec 8000", "$79", 3));
+-        vot.add(new ProductModel(R.drawable.lining_halbertec_9000, "Lining Halbertec 9000", "$122", 5));
+-        vot.add(new ProductModel(R.drawable.victor_brave_sword_12_pro, "victor_brave_sword_12_pro", "$190", 4));
+-        vot.add(new ProductModel(R.drawable.vot_cau_long_yonex_astrox_100, "yonex_astrox_100", "$198", 4));
+-        vot.add(new ProductModel(R.drawable.yonex_astrox_99_pro_2025, "yonex_astrox_99_pro_2025", "$98", 4));
+-        vot.add(new ProductModel(R.drawable.yonex_astrox_100va_tour, "yonex_astrox_100va_tour", "$100", 4));
+-        vot.add(new ProductModel(R.drawable.yonex_nanoflare_700_pro, "yonex_nanoflare_700_pro", "$130", 5));
+-        vot.add(new ProductModel(R.drawable.victor_ars_90k_metallic, "victor_ars_90k_metallic", "$110", 3));
+-        vot.add(new ProductModel(R.drawable.lining_calibar_600i, "lining_calibar_600i", "$160", 5));
++        vot.add(new ProductModel(R.drawable.victor_ryuga_ii, "Victor ryuga ii", "$100", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.victor_ryuga_ii_pro, "Victor ryuga ii pro", "$120", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.lining_halbertec_8000, "Lining Halbertec 8000", "$79", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.lining_halbertec_9000, "Lining Halbertec 9000", "$122", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.victor_brave_sword_12_pro, "victor_brave_sword_12_pro", "$190", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.vot_cau_long_yonex_astrox_100, "yonex_astrox_100", "$198", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.yonex_astrox_99_pro_2025, "yonex_astrox_99_pro_2025", "$98", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.yonex_astrox_100va_tour, "yonex_astrox_100va_tour", "$100", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.yonex_nanoflare_700_pro, "yonex_nanoflare_700_pro", "$130", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.victor_ars_90k_metallic, "victor_ars_90k_metallic", "$110", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        vot.add(new ProductModel(R.drawable.lining_calibar_600i, "lining_calibar_600i", "$160", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
+ 
+         List<ProductModel> giay = new ArrayList<>();
+-        giay.add(new ProductModel(R.drawable.giay_cau_long_lining_ayau005, "Lining Ayau 005", "$100", 3));
+-        giay.add(new ProductModel(R.drawable.giay_cau_long_lining_ayzu015, "Lining Ayzu015", "$120", 4));
+-        giay.add(new ProductModel(R.drawable.giay_cau_long_victor_a311, "Victor A311", "$99", 5));
+-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_aerus_x_navy_blue, "Yonex Aerus X Navy Blue", "$198", 4));
+-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_cascade_accel, "Yonex Cascade Accel", "$149", 3));
+-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_cascade_blue, "Yonex Cascade Blue", "$110", 5));
+-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_power_z3, "Yonex Power z3", "$79", 5));
+-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_shb_65z3, "Yonex Shb 65z3", "$130", 4));
+-        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_shb_65z4, "Yonex Shb 65z4", "$120", 4));
++        giay.add(new ProductModel(R.drawable.giay_cau_long_lining_ayau005, "Lining Ayau 005", "$100", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        giay.add(new ProductModel(R.drawable.giay_cau_long_lining_ayzu015, "Lining Ayzu015", "$120", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        giay.add(new ProductModel(R.drawable.giay_cau_long_victor_a311, "Victor A311", "$99", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_aerus_x_navy_blue, "Yonex Aerus X Navy Blue", "$198", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_cascade_accel, "Yonex Cascade Accel", "$149", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_cascade_blue, "Yonex Cascade Blue", "$110", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_power_z3, "Yonex Power z3", "$79", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_shb_65z3, "Yonex Shb 65z3", "$130", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        giay.add(new ProductModel(R.drawable.giay_cau_long_yonex_shb_65z4, "Yonex Shb 65z4", "$120", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
+ 
+         List<ProductModel> quan = new ArrayList<>();
+-        quan.add(new ProductModel(R.drawable.quan_cau_long_felet_cm202b_black, "felet_cm202b_black", "$20", 4));
+-        quan.add(new ProductModel(R.drawable.quan_cau_long_felet_cm202b_white, "felet_cm202b_white", "$30", 5));
+-        quan.add(new ProductModel(R.drawable.quan_cau_long_kawasaki_sp, "kawasaki_sp", "$25", 3));
+-        quan.add(new ProductModel(R.drawable.quan_cau_long_lining_967_den, "lining_967_den", "$30", 4));
+-        quan.add(new ProductModel(R.drawable.quan_cau_long_lining_967_trang, "lining_967_trang", "$30", 5));
+-        quan.add(new ProductModel(R.drawable.quan_cau_long_victor_225_hong, "victor_225_hong", "$60", 4));
+-        quan.add(new ProductModel(R.drawable.quan_cau_long_victor_901_trang_kem, "victor_901_trang_kem", "$25", 3));
+-        quan.add(new ProductModel(R.drawable.quan_cau_long_yonex_7049_xanh_trang, "yonex_7049_xanh_trang", "$40", 3));
+-        quan.add(new ProductModel(R.drawable.quan_cau_long_yonex_tsm2844_hemlock, "yonex_tsm2844_hemlock", "$20", 4));
++        quan.add(new ProductModel(R.drawable.quan_cau_long_felet_cm202b_black, "felet_cm202b_black", "$20", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        quan.add(new ProductModel(R.drawable.quan_cau_long_felet_cm202b_white, "felet_cm202b_white", "$30", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        quan.add(new ProductModel(R.drawable.quan_cau_long_kawasaki_sp, "kawasaki_sp", "$25", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        quan.add(new ProductModel(R.drawable.quan_cau_long_lining_967_den, "lining_967_den", "$30", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        quan.add(new ProductModel(R.drawable.quan_cau_long_lining_967_trang, "lining_967_trang", "$30", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        quan.add(new ProductModel(R.drawable.quan_cau_long_victor_225_hong, "victor_225_hong", "$60", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        quan.add(new ProductModel(R.drawable.quan_cau_long_victor_901_trang_kem, "victor_901_trang_kem", "$25", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        quan.add(new ProductModel(R.drawable.quan_cau_long_yonex_7049_xanh_trang, "yonex_7049_xanh_trang", "$40", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        quan.add(new ProductModel(R.drawable.quan_cau_long_yonex_tsm2844_hemlock, "yonex_tsm2844_hemlock", "$20", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
+ 
+         List<ProductModel> ao = new ArrayList<>();
+-        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_3136_nam_den_xanh, "lining_3136_nam_den_xanh", "$35", 4));
+-        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_3175_trang, "lining_3175_trang", "$24", 3));
+-        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_6589_nam_den_xam, "lining_6589_nam_den_xam", "$50", 5));
+-        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_t41_nam_den, "lining_t41_nam_den", "$25", 3));
+-        ao.add(new ProductModel(R.drawable.ao_cau_long_yonex_tpm2969_patrior_blue, "yonex_tpm2969_patrior_blue", "$29", 4));
+-        ao.add(new ProductModel(R.drawable.ao_cau_long_yonex_trm2967_light_taupe, "yonex_trm2967_light_taupe", "$52", 3));
+-        ao.add(new ProductModel(R.drawable.ao_khoac_cau_long_yonex_tjm288_oatmeal, "yonex_tjm288_oatmeal", "$25", 5));
+-        ao.add(new ProductModel(R.drawable.kamito_galaxy_1, "Kamito Galaxy 1", "$29", 5));
++        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_3136_nam_den_xanh, "lining_3136_nam_den_xanh", "$35", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_3175_trang, "lining_3175_trang", "$24", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_6589_nam_den_xam, "lining_6589_nam_den_xam", "$50", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        ao.add(new ProductModel(R.drawable.ao_cau_long_lining_t41_nam_den, "lining_t41_nam_den", "$25", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        ao.add(new ProductModel(R.drawable.ao_cau_long_yonex_tpm2969_patrior_blue, "yonex_tpm2969_patrior_blue", "$29", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        ao.add(new ProductModel(R.drawable.ao_cau_long_yonex_trm2967_light_taupe, "yonex_trm2967_light_taupe", "$52", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        ao.add(new ProductModel(R.drawable.ao_khoac_cau_long_yonex_tjm288_oatmeal, "yonex_tjm288_oatmeal", "$25", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
++        ao.add(new ProductModel(R.drawable.kamito_galaxy_1, "Kamito Galaxy 1", "$29", "Vợt đũa dài hỗ trợ tấn công","Trọng lượng 4U, Cán G5", 4,1));
+ 
+         productByCategory.put("Vợt", vot);
+         productByCategory.put("Giày", giay);

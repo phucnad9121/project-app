@@ -28,6 +28,8 @@
 		<!-- Gio hang activity (product detail) -->
 		<activity android:name=".cart.MainActivity_giohang" />
 
+		<!-- Form Thanh toán lý Hóa -->
+		<activity android:name=".CheckOutActivity" />
 
 		<!-- Form thông báo -->
 		<activity android:name=".notification.NotificationsActivity" />
