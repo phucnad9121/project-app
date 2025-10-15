@@ -17,14 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.project_btl.cart.MainActivity_giohang;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChiTietSPActivity extends AppCompatActivity {
+public class DetailSPActivity extends AppCompatActivity {
 
     private ImageView productImage;
     private TextView productName, productPrice, tvQuantity, moTa, ttBoSung;
@@ -40,7 +39,7 @@ public class ChiTietSPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chitiet_sp);
+        setContentView(R.layout.detail_sp);
 
         if(getSupportActionBar() != null ){
             getSupportActionBar().hide();
@@ -132,7 +131,7 @@ public class ChiTietSPActivity extends AppCompatActivity {
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                         // Mở giỏ hàng
-                        Intent intent = new Intent(ChiTietSPActivity.this, MainActivity_giohang.class);
+                        Intent intent = new Intent(DetailSPActivity.this, MainActivity_giohang.class);
                         startActivity(intent);
                     })
                     .addOnFailureListener(e -> {
@@ -153,7 +152,7 @@ public class ChiTietSPActivity extends AppCompatActivity {
             ArrayList<ProductModel> selectedItems = new ArrayList<>();
             selectedItems.add(product);
 
-            Intent intent = new Intent(ChiTietSPActivity.this, CheckOutActivity.class);
+            Intent intent = new Intent(DetailSPActivity.this, CheckOutActivity.class);
             intent.putExtra("selectedItems", selectedItems); // Truyền danh sách có 1 sản phẩm
             startActivity(intent);
 

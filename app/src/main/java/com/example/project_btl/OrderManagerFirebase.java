@@ -1,10 +1,11 @@
 package com.example.project_btl;
 
-import com.example.project_btl.ProductModel;
+import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.google.firebase.firestore.Query;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,12 +59,12 @@ public class OrderManagerFirebase {
         List<Map<String, Object>> items = new ArrayList<>();
         for (ProductModel p : products) {
             Map<String, Object> item = new HashMap<>();
-            item.put("id", p.getId());
             item.put("name", p.getName());
             item.put("price", p.getPrice());
             item.put("quantity", p.getQuantity());
             item.put("size", p.getSelectedSize());
             item.put("image", p.getImage());
+            item.put("imageUrl", p.getImageUrl());
             items.add(item);
         }
         order.put("items", items);
@@ -77,9 +78,87 @@ public class OrderManagerFirebase {
                 });
     }
 
-    public interface OnOrderSavedListener {
-        void onSuccess();
+    public void loadOrders(OnOrdersLoadedListener listener) {
+        CollectionReference orderRef = getOrderRef();
+        if (orderRef == null) {
+            if (listener != null) listener.onFailed(new Exception("Người dùng chưa đăng nhập"));
+            return;
+        }
 
-        void onFailed(Exception e);
+        orderRef.orderBy("orderDate", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener(query -> {
+                    List<OrderData> orders = new ArrayList<>();
+                    for (DocumentSnapshot doc : query) {
+                        try {
+                            String id = doc.getId();
+                            String orderDate = doc.getString("orderDate");
+                            String paymentMethod = doc.getString("paymentMethod");
+                            String status = doc.getString("status");
+                            String address = doc.getString("address");
+                            long total = toLong(doc.get("total"));
+
+                            List<Map<String, Object>> itemsData = (List<Map<String, Object>>) doc.get("items");
+                            List<OrderItem> items = new ArrayList<>();
+
+                            if (itemsData != null) {
+                                for (Map<String, Object> itemData : itemsData) {
+                                    OrderItem item = new OrderItem();
+                                    item.setName((String) itemData.get("name"));
+                                    item.setPrice(toLong(itemData.get("price")));
+                                    item.setQuantity(toInt(itemData.get("quantity")));
+                                    item.setSize((String) itemData.get("size"));
+                                    item.setImage(toInt(itemData.get("image")));
+                                    item.setImageUrl((String) itemData.get("imageUrl"));
+                                    items.add(item);
+                                }
+                            }
+                            orders.add(new OrderData(id, orderDate, total, paymentMethod, address, status, items));
+                        } catch (Exception e) {
+                            Log.e("OrderManager", "Lỗi phân tích đơn hàng: " + doc.getId(), e);
+                        }
+                    }
+                    if (listener != null) listener.onSuccess(orders);
+                })
+                .addOnFailureListener(e -> {
+                    if (listener != null) listener.onFailed(e);
+                });
+    }
+
+    private long toLong(Object obj) { if (obj instanceof Number) return ((Number) obj).longValue(); return 0; }
+    private int toInt(Object obj) { if (obj instanceof Number) return ((Number) obj).intValue(); return 0; }
+
+    public interface OnOrderSavedListener { void onSuccess(); void onFailed(Exception e); }
+    public interface OnOrdersLoadedListener { void onSuccess(List<OrderData> orders); void onFailed(Exception e); }
+
+    public static class OrderData {
+        private String id, orderDate, paymentMethod, address, status;
+        private long total;
+        private List<OrderItem> items;
+        public OrderData(String id, String orderDate, long total, String paymentMethod, String address, String status, List<OrderItem> items) {
+            this.id = id; this.orderDate = orderDate; this.total = total; this.paymentMethod = paymentMethod; this.address = address; this.status = status; this.items = items;
+        }
+        public String getId() { return id; }
+        public String getOrderDate() { return orderDate; }
+        public String getStatus() { return status; }
+        public long getTotal() { return total; }
+        public List<OrderItem> getItems() { return items; }
+    }
+    public static class OrderItem {
+        private String name, size, imageUrl;
+        private long price;
+        private int quantity, image;
+        public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+        public long getPrice() { return price; }
+        public void setPrice(long price) { this.price = price; }
+        public int getQuantity() { return quantity; }
+        public void setQuantity(int quantity) { this.quantity = quantity; }
+        public String getSize() { return size; }
+        public void setSize(String size) { this.size = size; }
+        public int getImage() { return image; }
+        public void setImage(int image) { this.image = image; }
+        public String getImageUrl() { return imageUrl; }
+        public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     }
 }

@@ -23,7 +23,7 @@
 
 
 		<!-- ChiTietSP activity (product detail) -->
-		<activity android:name=".ChiTietSPActivity" />
+		<activity android:name=".DetailSPActivity" />
 
 		<!-- Gio hang activity (product detail) -->
 		<activity android:name=".cart.MainActivity_giohang" />
@@ -38,7 +38,13 @@
 		<activity android:name=".profile.ProfileActivity" />
 
 		<!-- Form profile -->
+		<activity android:name=".profile.ChangePasswordActivity" />
+
+		<!-- Form profile -->
 		<activity android:name=".profile.EditProfileActivity" />
+
+		<!-- Form orders history -->
+		<activity android:name=".OrderHistoryActivity" />
 
 		<!-- màn Splash (màn khởi động app) -->
 		<activity

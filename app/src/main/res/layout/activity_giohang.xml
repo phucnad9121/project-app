@@ -6,6 +6,31 @@
     android:orientation="vertical"
     android:padding="1dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giỏ hàng"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/text_primary"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="2dp"
+        android:background="@color/GreyLight">
+    </LinearLayout>
+
     <CheckBox
         android:id="@+id/checkboxSelectAll"
         android:layout_width="wrap_content"

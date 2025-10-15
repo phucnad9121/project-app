@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_btl.Login.SignInactivity;
+import com.example.project_btl.OrderHistoryActivity;
 import com.example.project_btl.R;
 import com.example.project_btl.cart.MainActivity_giohang;
 import com.example.project_btl.home.MainHomeActivity;
@@ -63,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
                 R.drawable.ic_bell, "Edit Profile");
 
         setupRow((View) findViewById(R.id.rowHistory),
-                R.drawable.ic_bell, "Order History");
+                R.drawable.ic_orders_history, "Order History");
 
         setupRow((View) findViewById(R.id.rowPassword),
                 R.drawable.ic_lock, "Change Password");
@@ -74,6 +75,11 @@ public class ProfileActivity extends AppCompatActivity {
         // click Edit Profile -> mở màn 2
         findViewById(R.id.rowEditProfile).setOnClickListener(v ->
                 startActivity(new Intent(this, EditProfileActivity.class)));
+
+        // click Order History -> navigate to order history screen
+        findViewById(R.id.rowHistory).setOnClickListener(v ->
+                startActivity(new Intent(this, OrderHistoryActivity.class)));
+
 
         findViewById(R.id.btnSignOut).setOnClickListener(v -> {
             // Xóa session hoặc token ở đây nếu có

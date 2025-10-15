@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project_btl.ChiTietSPActivity;
+import com.example.project_btl.DetailSPActivity;
 import com.example.project_btl.ProductModel;
 import com.example.project_btl.R;
 
@@ -90,7 +90,7 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
         // Nhấn vào item mở chi tiết
         View.OnClickListener openDetail = v -> {
             try {
-                Intent i = new Intent(v.getContext(), ChiTietSPActivity.class);
+                Intent i = new Intent(v.getContext(), DetailSPActivity.class);
                 i.putExtra("product", it);
                 v.getContext().startActivity(i);
             } catch (Exception e) {

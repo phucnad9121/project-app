@@ -1,0 +1,311 @@
+Index: app/src/main/res/layout/formchangepassword.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/bg\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\"\r\n        android:padding=\"10dp\">\r\n\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:gravity=\"center_vertical\">\r\n\r\n            <Button\r\n                android:id=\"@+id/btnBack\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:backgroundTint=\"@color/darkBlue\"\r\n                android:text=\"Quay lại\"\r\n                android:textColor=\"@color/white\" />\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Change Password\"\r\n                android:textStyle=\"bold\"\r\n                android:textSize=\"20sp\"\r\n                android:layout_weight=\"1\"\r\n                android:layout_marginLeft=\"20dp\"/>\r\n        </LinearLayout>\r\n\r\n        <Space android:layout_width=\"match_parent\" android:layout_height=\"12dp\"/>\r\n\r\n        <!-- Form -->\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Name\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etName\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Đào Phúc Dân\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Username\"\r\n            android:layout_marginTop=\"12dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etUsername\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"dandan\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Email\"\r\n            android:layout_marginTop=\"12dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etEmail\"\r\n                android:inputType=\"textEmailAddress\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"dan@email.com\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Password old\"\r\n            android:layout_marginTop=\"12dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etPassOld\"\r\n                android:inputType=\"textEmailAddress\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"dandan\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Password new\"\r\n            android:layout_marginTop=\"12dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etPassNew\"\r\n                android:inputType=\"textEmailAddress\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"dandz123\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n        <Button\r\n            android:id=\"@+id/btnSave\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"52dp\"\r\n            android:text=\"Thay đổi\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"17sp\"\r\n            android:textAllCaps=\"false\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:background=\"@drawable/bg_primary_btn\"\r\n            android:textColor=\"@android:color/white\"/>\r\n    </LinearLayout>\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/formchangepassword.xml b/app/src/main/res/layout/formchangepassword.xml
+--- a/app/src/main/res/layout/formchangepassword.xml	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
++++ b/app/src/main/res/layout/formchangepassword.xml	(date 1760030597747)
+@@ -36,74 +36,49 @@
+         <Space android:layout_width="match_parent" android:layout_height="12dp"/>
+ 
+         <!-- Form -->
++
++
+         <com.google.android.material.textfield.TextInputLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:hint="Name">
+-
+-            <com.google.android.material.textfield.TextInputEditText
+-                android:id="@+id/etName"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:text="Đào Phúc Dân"/>
+-        </com.google.android.material.textfield.TextInputLayout>
+-
+-        <com.google.android.material.textfield.TextInputLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:hint="Username"
++            android:hint="Password old"
+             android:layout_marginTop="12dp">
+ 
+             <com.google.android.material.textfield.TextInputEditText
+-                android:id="@+id/etUsername"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:text="dandan"/>
+-        </com.google.android.material.textfield.TextInputLayout>
+-
+-
+-        <com.google.android.material.textfield.TextInputLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:hint="Email"
+-            android:layout_marginTop="12dp">
+-
+-            <com.google.android.material.textfield.TextInputEditText
+-                android:id="@+id/etEmail"
++                android:id="@+id/etPassOld"
+                 android:inputType="textEmailAddress"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+-                android:text="dan@email.com"/>
++                android:text="Điền mật khẩu cũ"/>
+         </com.google.android.material.textfield.TextInputLayout>
+ 
+ 
+         <com.google.android.material.textfield.TextInputLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:hint="Password old"
++            android:hint="Password new"
+             android:layout_marginTop="12dp">
+ 
+             <com.google.android.material.textfield.TextInputEditText
+-                android:id="@+id/etPassOld"
++                android:id="@+id/etPassNew"
+                 android:inputType="textEmailAddress"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+-                android:text="dandan"/>
++                android:text="Điền mật khẩu mới"/>
+         </com.google.android.material.textfield.TextInputLayout>
+ 
+-
+         <com.google.android.material.textfield.TextInputLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:hint="Password new"
++            android:hint="Password new again"
+             android:layout_marginTop="12dp">
+ 
+             <com.google.android.material.textfield.TextInputEditText
+-                android:id="@+id/etPassNew"
++                android:id="@+id/etPassNewAgain"
+                 android:inputType="textEmailAddress"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+-                android:text="dandz123"/>
++                android:text="Điền lại mật khẩu mới"/>
+         </com.google.android.material.textfield.TextInputLayout>
+ 
+         <Button
+Index: app/src/main/java/com/example/project_btl/profile/ProfileActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl.profile;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.example.project_btl.Login.SignInactivity;\r\nimport com.example.project_btl.R;\r\nimport com.example.project_btl.cart.MainActivity_giohang;\r\nimport com.example.project_btl.home.MainHomeActivity;\r\nimport com.example.project_btl.notification.NotificationsActivity;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\npublic class ProfileActivity extends AppCompatActivity {\r\n\r\n    private View rowEditProfile, rowNotification, rowAddress, rowPassword;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_profile);\r\n        if(getSupportActionBar() != null)\r\n            getSupportActionBar().hide();\r\n\r\n\r\n\r\n        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);\r\n\r\n        // Đặt mặc định chọn profile\r\n        bottomNavigationView.setSelectedItemId(R.id.nav_profile);\r\n\r\n        bottomNavigationView.setOnItemSelectedListener(item -> {\r\n            int id = item.getItemId();\r\n\r\n            if (id == R.id.nav_home) {\r\n                startActivity(new Intent(this, MainHomeActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_cart) {\r\n                startActivity(new Intent(this, MainActivity_giohang.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_notifications) {\r\n                startActivity(new Intent(this, NotificationsActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_profile) {\r\n                Intent intent = new Intent(this, ProfileActivity.class);\r\n                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\r\n                startActivity(intent);\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            }\r\n\r\n            return false;\r\n        });\r\n\r\n        setupRow((View) findViewById(R.id.rowEditProfile),\r\n                R.drawable.ic_bell, \"Edit Profile\");\r\n\r\n        setupRow((View) findViewById(R.id.rowHistory),\r\n                R.drawable.ic_bell, \"Order History\");\r\n\r\n        setupRow((View) findViewById(R.id.rowPassword),\r\n                R.drawable.ic_lock, \"Change Password\");\r\n\r\n        // click Edit Profile -> mở màn 2\r\n        findViewById(R.id.rowEditProfile).setOnClickListener(v ->\r\n                startActivity(new Intent(this, EditProfileActivity.class)));\r\n\r\n        findViewById(R.id.btnSignOut).setOnClickListener(v -> {\r\n            // Xóa session hoặc token ở đây nếu có\r\n\r\n            Intent intent = new Intent(ProfileActivity.this, SignInactivity.class);\r\n            // Xóa tất cả activity cũ để không quay lại bằng nút back\r\n            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);\r\n            startActivity(intent);\r\n            finish();\r\n        });\r\n    }\r\n\r\n    private void setupRow(View row, int iconRes, String title) {\r\n        ImageView iv = row.findViewById(R.id.ivIcon);\r\n        TextView tv = row.findViewById(R.id.tvTitle);\r\n        iv.setImageResource(iconRes);\r\n        tv.setText(title);\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java b/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java
+--- a/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
++++ b/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java	(date 1760031000141)
+@@ -68,6 +68,9 @@
+         setupRow((View) findViewById(R.id.rowPassword),
+                 R.drawable.ic_lock, "Change Password");
+ 
++        findViewById(R.id.rowPassword).setOnClickListener(v ->
++                startActivity(new Intent(this, ChangePasswordActivity.class)));
++
+         // click Edit Profile -> mở màn 2
+         findViewById(R.id.rowEditProfile).setOnClickListener(v ->
+                 startActivity(new Intent(this, EditProfileActivity.class)));
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    alias(libs.plugins.android.application)\r\n    id(\"com.google.gms.google-services\")\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.example.project_btl\"\r\n    compileSdk = 36\r\n\r\n    defaultConfig {\r\n        applicationId = \"com.example.project_btl\"\r\n        minSdk = 28\r\n        targetSdk = 36\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(\r\n                getDefaultProguardFile(\"proguard-android-optimize.txt\"),\r\n                \"proguard-rules.pro\"\r\n            )\r\n        }\r\n    }\r\n\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_11\r\n        targetCompatibility = JavaVersion.VERSION_11\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation(libs.appcompat)\r\n    implementation(libs.material)\r\n    implementation(libs.activity)\r\n    implementation(libs.constraintlayout)\r\n\r\n    // Firebase BoM (Bill of Materials)\r\n    implementation(platform(\"com.google.firebase:firebase-bom:33.2.0\"))\r\n\r\n// Firebase Firestore (Database)\r\n    implementation(\"com.google.firebase:firebase-firestore\")\r\n\r\n// Firebase Authentication (Đăng nhập)\r\n    implementation(\"com.google.firebase:firebase-auth\")\r\n\r\n// Firebase Storage (Lưu ảnh, video, file)\r\n    implementation(\"com.google.firebase:firebase-storage\")\r\n\r\n\r\n    testImplementation(libs.junit)\r\n    androidTestImplementation(libs.ext.junit)\r\n    androidTestImplementation(libs.espresso.core)\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
++++ b/app/build.gradle.kts	(date 1760091912586)
+@@ -55,4 +55,4 @@
+     testImplementation(libs.junit)
+     androidTestImplementation(libs.ext.junit)
+     androidTestImplementation(libs.espresso.core)
+-}
++}
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Project_btl\">\r\n\r\n\t\t<!-- màn SignIn -->\r\n\t\t<activity android:name=\".Login.SignInactivity\" />\r\n\r\n\t\t<!-- màn Home -->\r\n\t\t<activity android:name=\".home.MainHomeActivity\" />\r\n\r\n<!--\t\t&lt;!&ndash; replaced deprecated SignInactivity with LoginActivity &ndash;&gt;-->\r\n<!--\t\t<activity android:name=\".LoginActivity\" />-->\r\n\r\n\r\n\t\t<!-- ChiTietSP activity (product detail) -->\r\n\t\t<activity android:name=\".ChiTietSPActivity\" />\r\n\r\n\t\t<!-- Gio hang activity (product detail) -->\r\n\t\t<activity android:name=\".cart.MainActivity_giohang\" />\r\n\r\n\r\n\t\t<!-- Form thông báo -->\r\n\t\t<activity android:name=\".notification.NotificationsActivity\" />\r\n\r\n\t\t<!-- Form profile -->\r\n\t\t<activity android:name=\".profile.ProfileActivity\" />\r\n\r\n\t\t<!-- Form profile -->\r\n\t\t<activity android:name=\".profile.EditProfileActivity\" />\r\n\r\n\t\t<!-- màn Splash (màn khởi động app) -->\r\n\t\t<activity\r\n\t\t\tandroid:name=\".Login.SplashActivity\"\r\n\t\t\tandroid:exported=\"true\">\r\n\t\t\t<intent-filter>\r\n\t\t\t\t<action android:name=\"android.intent.action.MAIN\" />\r\n\t\t\t\t<category android:name=\"android.intent.category.LAUNCHER\" />\r\n\t\t\t</intent-filter>\r\n\t\t</activity>\r\n\r\n    </application>\r\n</manifest>\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
++++ b/app/src/main/AndroidManifest.xml	(date 1760030743996)
+@@ -35,6 +35,9 @@
+ 		<!-- Form profile -->
+ 		<activity android:name=".profile.ProfileActivity" />
+ 
++		<!-- Form profile -->
++		<activity android:name=".profile.ChangePasswordActivity" />
++
+ 		<!-- Form profile -->
+ 		<activity android:name=".profile.EditProfileActivity" />
+ 
+Index: app/google-services.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"project_info\": {\r\n    \"project_number\": \"346514177431\",\r\n    \"firebase_url\": \"https://roject-btl-default-rtdb.firebaseio.com\",\r\n    \"project_id\": \"roject-btl\",\r\n    \"storage_bucket\": \"roject-btl.firebasestorage.app\"\r\n  },\r\n  \"client\": [\r\n    {\r\n      \"client_info\": {\r\n        \"mobilesdk_app_id\": \"1:346514177431:android:a15cfc2c801d6df126d8d2\",\r\n        \"android_client_info\": {\r\n          \"package_name\": \"com.example.project_btl\"\r\n        }\r\n      },\r\n      \"oauth_client\": [\r\n        {\r\n          \"client_id\": \"346514177431-js14fr0e24bnegj346vmc4hdabuesf6f.apps.googleusercontent.com\",\r\n          \"client_type\": 1,\r\n          \"android_info\": {\r\n            \"package_name\": \"com.example.project_btl\",\r\n            \"certificate_hash\": \"12b78b120d056446c247f955bb7d3da891f0143d\"\r\n          }\r\n        },\r\n        {\r\n          \"client_id\": \"346514177431-ks4jcvptsr6p9n8sdcs3kjcvo2jtnpam.apps.googleusercontent.com\",\r\n          \"client_type\": 3\r\n        }\r\n      ],\r\n      \"api_key\": [\r\n        {\r\n          \"current_key\": \"AIzaSyA6tZAWS6Xab0FGHFwvSy6aHDsK6CvWTG4\"\r\n        }\r\n      ],\r\n      \"services\": {\r\n        \"appinvite_service\": {\r\n          \"other_platform_oauth_client\": [\r\n            {\r\n              \"client_id\": \"346514177431-ks4jcvptsr6p9n8sdcs3kjcvo2jtnpam.apps.googleusercontent.com\",\r\n              \"client_type\": 3\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \"configuration_version\": \"1\"\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/google-services.json b/app/google-services.json
+--- a/app/google-services.json	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
++++ b/app/google-services.json	(date 1760092242957)
+@@ -15,6 +15,14 @@
+       },
+       "oauth_client": [
+         {
++          "client_id": "346514177431-i91asls2pq0e1la9m1vfc9qmfo3nco8r.apps.googleusercontent.com",
++          "client_type": 1,
++          "android_info": {
++            "package_name": "com.example.project_btl",
++            "certificate_hash": "e23a65705ced13bd1c435ed273a016904454f391"
++          }
++        },
++        {
+           "client_id": "346514177431-js14fr0e24bnegj346vmc4hdabuesf6f.apps.googleusercontent.com",
+           "client_type": 1,
+           "android_info": {
+@@ -45,4 +53,7 @@
+     }
+   ],
+   "configuration_version": "1"
+-}
+\ No newline at end of file
++}
++
++
++
+Index: gradle/libs.versions.toml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[versions]\r\nagp = \"8.12.1\"\r\njunit = \"4.13.2\"\r\njunitVersion = \"1.3.0\"\r\nespressoCore = \"3.7.0\"\r\nappcompat = \"1.7.1\"\r\nmaterial = \"1.13.0\"\r\nactivity = \"1.11.0\"\r\nconstraintlayout = \"2.2.1\"\r\n\r\n[libraries]\r\njunit = { group = \"junit\", name = \"junit\", version.ref = \"junit\" }\r\next-junit = { group = \"androidx.test.ext\", name = \"junit\", version.ref = \"junitVersion\" }\r\nespresso-core = { group = \"androidx.test.espresso\", name = \"espresso-core\", version.ref = \"espressoCore\" }\r\nappcompat = { group = \"androidx.appcompat\", name = \"appcompat\", version.ref = \"appcompat\" }\r\nmaterial = { group = \"com.google.android.material\", name = \"material\", version.ref = \"material\" }\r\nactivity = { group = \"androidx.activity\", name = \"activity\", version.ref = \"activity\" }\r\nconstraintlayout = { group = \"androidx.constraintlayout\", name = \"constraintlayout\", version.ref = \"constraintlayout\" }\r\n\r\n[plugins]\r\nandroid-application = { id = \"com.android.application\", version.ref = \"agp\" }\r\nandroid-library = { id = \"com.android.library\", version.ref = \"agp\" }\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gradle/libs.versions.toml b/gradle/libs.versions.toml
+--- a/gradle/libs.versions.toml	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
++++ b/gradle/libs.versions.toml	(date 1760084781069)
+@@ -7,6 +7,8 @@
+ material = "1.13.0"
+ activity = "1.11.0"
+ constraintlayout = "2.2.1"
++firebaseAppcheckDebug = "19.0.1"
++firebaseAppcheckPlayintegrity = "19.0.1"
+ 
+ [libraries]
+ junit = { group = "junit", name = "junit", version.ref = "junit" }
+@@ -16,6 +18,8 @@
+ material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+ activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
++firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug", version.ref = "firebaseAppcheckDebug" }
++firebase-appcheck-playintegrity = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity", version.ref = "firebaseAppcheckPlayintegrity" }
+ 
+ [plugins]
+ android-application = { id = "com.android.application", version.ref = "agp" }
+Index: app/src/main/java/com/example/project_btl/profile/ChangePasswordActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/profile/ChangePasswordActivity.java b/app/src/main/java/com/example/project_btl/profile/ChangePasswordActivity.java
+new file mode 100644
+--- /dev/null	(date 1760030709786)
++++ b/app/src/main/java/com/example/project_btl/profile/ChangePasswordActivity.java	(date 1760030709786)
+@@ -0,0 +1,84 @@
++package com.example.project_btl.profile;
++
++import android.os.Bundle;
++import android.text.TextUtils;
++import android.widget.Toast;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++import com.example.project_btl.R;
++import com.google.android.material.textfield.TextInputEditText;
++import com.google.firebase.auth.AuthCredential;
++import com.google.firebase.auth.EmailAuthProvider;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.auth.FirebaseUser;
++
++import java.util.Objects;
++
++public class ChangePasswordActivity extends AppCompatActivity {
++
++    private TextInputEditText etPassOld, etPassNew, etPassNewAgain;
++    private FirebaseAuth auth;
++    private FirebaseUser currentUser;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.formchangepassword);
++
++        if (getSupportActionBar() != null)
++            getSupportActionBar().hide();
++        etPassOld = findViewById(R.id.etPassOld);
++        etPassNew = findViewById(R.id.etPassNew);
++        etPassNewAgain = findViewById(R.id.etPassNewAgain);
++
++        auth = FirebaseAuth.getInstance();
++        currentUser = auth.getCurrentUser();
++
++        findViewById(R.id.btnBack).setOnClickListener(v -> onBackPressed());
++        findViewById(R.id.btnSave).setOnClickListener(v -> changePassword());
++    }
++    //Chỗ này là đổi mật khẩu
++    private void changePassword() {
++        String oldPass = Objects.requireNonNull(etPassOld.getText()).toString().trim();
++        String newPass = Objects.requireNonNull(etPassNew.getText()).toString().trim();
++        String confirmPass = Objects.requireNonNull(etPassNewAgain.getText()).toString().trim();
++
++        // Kiểm tra dữ liệu mấy gà nhâpj vào có hợp lệ không
++        if (TextUtils.isEmpty(oldPass) || TextUtils.isEmpty(newPass) || TextUtils.isEmpty(confirmPass)) {
++            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
++            return;
++        }
++
++        if (!newPass.equals(confirmPass)) {
++            Toast.makeText(this, "Mật khẩu mới không khớp", Toast.LENGTH_SHORT).show();
++            return;
++        }
++
++        if (newPass.length() < 6) {
++            Toast.makeText(this, "Mật khẩu mới phải ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
++            return;
++        }
++
++        if (currentUser == null || currentUser.getEmail() == null) {
++            Toast.makeText(this, "Không tìm thấy người dùng đang đăng nhập", Toast.LENGTH_SHORT).show();
++            return;
++        }
++
++        AuthCredential credential = EmailAuthProvider.getCredential(currentUser.getEmail(), oldPass);
++
++        currentUser.reauthenticate(credential)
++                .addOnSuccessListener(aVoid -> {
++                    //  Đẩy mật khẩu mới lên
++                    currentUser.updatePassword(newPass)
++                            .addOnSuccessListener(unused -> {
++                                Toast.makeText(this, "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
++                                finish();
++                            })
++                            .addOnFailureListener(e ->
++                                    Toast.makeText(this, "Lỗi khi đổi mật khẩu: " + e.getMessage(), Toast.LENGTH_LONG).show());
++                })
++                .addOnFailureListener(e ->
++                        Toast.makeText(this, "Mật khẩu cũ không chính xác", Toast.LENGTH_SHORT).show());
++    }
++}
+\ No newline at end of file

@@ -38,7 +38,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.price.setText(product.getPrice() +"$");
         // Click vào item thì mở ChiTietSPActivity
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ChiTietSPActivity.class);
+            Intent intent = new Intent(context, DetailSPActivity.class);
             // truyền nguyên object product qua intent
             intent.putExtra("product", product);
             context.startActivity(intent);
