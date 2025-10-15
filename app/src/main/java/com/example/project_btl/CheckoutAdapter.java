@@ -38,7 +38,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.VH> {
         h.name.setText(p.getName());
         h.size.setText("Phân loại: " + p.getSelectedSize());
         h.quantity.setText("Số lượng: " + p.getQuantity());
-        h.price.setText(formatVnd(p.getPrice() * p.getQuantity()));
+        h.price.setText(formatVnd(p.getPrice()));
         h.image.setImageResource(p.getImage());
     }
 

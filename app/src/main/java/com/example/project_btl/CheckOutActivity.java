@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -26,12 +27,13 @@ import java.util.Locale;
 
 public class CheckOutActivity extends AppCompatActivity {
 
-    private TextView tvName, tvPhone, tvDiaChi, tvTotal;
+    private TextView tvName, tvPhone, tvDiaChi;
+    private TextView tvTongTienHang, tvGiamGia, tvTongThanhToan, tvTotal;
     private RecyclerView rcvSanPham;
     private RadioGroup radioThanhToan;
     private Button btnDatHang;
-    private List<ProductModel> selectedItems = new ArrayList<>();
-    private long totalAmount = 0;
+    private ImageButton btnBack;
+    private List<ProductModel> checkoutList = new ArrayList<>();
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private CheckoutAdapter adapter;
@@ -42,31 +44,59 @@ public class CheckOutActivity extends AppCompatActivity {
         setContentView(R.layout.checkout_activity);
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
+        // Ánh xạ các View từ layout
         tvName = findViewById(R.id.tvName);
         tvPhone = findViewById(R.id.tvPhone);
         tvDiaChi = findViewById(R.id.tvDiaChi);
-        tvTotal = findViewById(R.id.tvTotal);
         rcvSanPham = findViewById(R.id.rcvSanPham);
         radioThanhToan = findViewById(R.id.radioThanhToan);
         btnDatHang = findViewById(R.id.btnDatHang);
+        btnBack = findViewById(R.id.btnBack);
+
+        tvTongTienHang = findViewById(R.id.tvTongTienHang);
+        tvGiamGia = findViewById(R.id.tvGiamGia);
+        tvTongThanhToan = findViewById(R.id.tvTongThanhToan);
+        tvTotal = findViewById(R.id.tvTotal);
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        selectedItems = (List<ProductModel>) getIntent().getSerializableExtra("selectedItems");
-        if (selectedItems == null) selectedItems = new ArrayList<>();
+        checkoutList = (ArrayList<ProductModel>) getIntent().getSerializableExtra("selectedItems");
+        if (checkoutList == null || checkoutList.isEmpty()) {
+            Log.e("CheckOutActivity", "Danh sách thanh toán rỗng hoặc null.");
+            Toast.makeText(this, "Không có sản phẩm để thanh toán.", Toast.LENGTH_SHORT).show();
+            checkoutList = new ArrayList<>();
+        }
 
-        adapter = new CheckoutAdapter(selectedItems);
+        adapter = new CheckoutAdapter(checkoutList);
         rcvSanPham.setLayoutManager(new LinearLayoutManager(this));
         rcvSanPham.setAdapter(adapter);
 
-        for (ProductModel p : selectedItems) totalAmount += p.getPrice() * p.getQuantity();
-        tvTotal.setText("Tổng thanh toán: " + formatVnd(totalAmount));
-
-        // Tải thông tin người dùng (tên, sđt, địa chỉ) một lần duy nhất
+        updateTotalAmount();
         loadUserData();
 
         btnDatHang.setOnClickListener(v -> placeOrder());
+        btnBack.setOnClickListener(v -> finish());
+    }
+
+    private void updateTotalAmount() {
+        double subtotal = 0;
+        if (checkoutList != null) {
+            for (ProductModel item : checkoutList) {
+                if (item != null) {
+                    subtotal += item.getPrice() * item.getQuantity();
+                }
+            }
+        }
+        Log.d("CheckOutActivity", "Tổng tiền hàng đã tính: " + subtotal);
+
+        double discount = 0;
+        double totalAmount = subtotal - discount;
+
+        tvTongTienHang.setText(formatVnd(subtotal));
+        tvGiamGia.setText("- " + formatVnd(discount));
+        tvTongThanhToan.setText(formatVnd(totalAmount));
+        tvTotal.setText("Tổng tiền: " + formatVnd(totalAmount));
     }
 
     private void loadUserData() {
@@ -77,7 +107,6 @@ public class CheckOutActivity extends AppCompatActivity {
                     .get()
                     .addOnSuccessListener(doc -> {
                         if (doc.exists()) {
-                            // Hãy chắc chắn tên trường trong Firestore của bạn là "name", "phone", "address"
                             String name = doc.getString("name");
                             String phone = doc.getString("phone");
                             String address = doc.getString("address");
@@ -100,15 +129,25 @@ public class CheckOutActivity extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng chọn phương thức thanh toán", Toast.LENGTH_SHORT).show();
             return;
         }
+
         RadioButton rb = findViewById(checkedId);
         String paymentMethod = rb.getText().toString();
         String address = tvDiaChi.getText().toString();
 
-        OrderManagerFirebase.getInstance().saveOrder(selectedItems, totalAmount, paymentMethod, address,
+        double totalAmountDouble = 0;
+        for(ProductModel p : checkoutList) {
+            totalAmountDouble += p.getPrice() * p.getQuantity();
+        }
+
+        // *** ĐÂY LÀ CHỖ SỬA LỖI ***
+        // Chuyển đổi (ép kiểu) totalAmount từ double sang long trước khi gọi hàm
+        long totalAmountLong = (long) totalAmountDouble;
+
+        OrderManagerFirebase.getInstance().saveOrder(checkoutList, totalAmountLong, paymentMethod, address,
                 new OrderManagerFirebase.OnOrderSavedListener() {
                     @Override
                     public void onSuccess() {
-                        for (ProductModel p : selectedItems) {
+                        for (ProductModel p : checkoutList) {
                             CartManagerFirebase.getInstance().removeFromCart(p.getId());
                         }
                         showSuccessDialog();
@@ -129,10 +168,6 @@ public class CheckOutActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
 
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        }
-
         view.findViewById(R.id.btnCloseSuccess).setOnClickListener(v -> {
             dialog.dismiss();
             Intent intent = new Intent(this, MainHomeActivity.class);
@@ -144,7 +179,7 @@ public class CheckOutActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private String formatVnd(long v) {
-        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "₫";
+    private String formatVnd(double amount) {
+        return NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(amount);
     }
 }
