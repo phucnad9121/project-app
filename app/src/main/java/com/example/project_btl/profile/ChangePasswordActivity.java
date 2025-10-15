@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_btl.R;
+import com.example.project_btl.notification.NotificationManagerFirebase;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -73,6 +74,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     currentUser.updatePassword(newPass)
                             .addOnSuccessListener(unused -> {
                                 Toast.makeText(this, "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+
+                                // 🟢 Gửi thông báo đổi mật khẩu
+                                NotificationManagerFirebase.getInstance()
+                                        .addNotification("Đổi mật khẩu thành công!", "security", R.drawable.key);
                                 finish();
                             })
                             .addOnFailureListener(e ->

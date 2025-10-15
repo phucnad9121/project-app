@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
+    android:layout_marginBottom="6dp"
     android:background="@drawable/bg_bottom_line">
 
     <ImageView

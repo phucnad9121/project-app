@@ -25,25 +25,29 @@ public class NotificationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        rvNotifications = findViewById(R.id.rvNotifications);
-        rvNotifications.setLayoutManager(new LinearLayoutManager(this));
-
-        // Tạo dữ liệu giả lập
-        notificationList = new ArrayList<>();
-        notificationList.add(new NotificationModel("Đơn hàng #1234 đã được xác nhận", "5 phút trước", R.drawable.cart_icon));
-        notificationList.add(new NotificationModel("Giảm giá 20% cho giày Yonex", "1 giờ trước", R.drawable.notification));
-        notificationList.add(new NotificationModel("Bạn quên mua 2 sản phẩm trong giỏ hàng", "Hôm qua", R.drawable.notification));
-
-        adapter = new NotificationAdapter(notificationList);
-        rvNotifications.setAdapter(adapter);
-
-        if(getSupportActionBar() != null){
+        // Ẩn ActionBar cho gọn
+        if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        // Khởi tạo RecyclerView
+        rvNotifications = findViewById(R.id.rvNotifications);
+        rvNotifications.setLayoutManager(new LinearLayoutManager(this));
 
-        // Đặt mặc định chọn profile
+        // Danh sách chứa thông báo
+        notificationList = new ArrayList<>();
+        adapter = new NotificationAdapter(notificationList);
+        rvNotifications.setAdapter(adapter);
+
+        // 🔹 Load thông báo thật từ Firestore (theo user đang đăng nhập)
+        NotificationManagerFirebase.getInstance().loadNotifications(list -> {
+            notificationList.clear();
+            notificationList.addAll(list);
+            adapter.notifyDataSetChanged();
+        });
+
+        // 🔹 Thanh điều hướng dưới cùng
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_notifications);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -53,16 +57,16 @@ public class NotificationsActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainHomeActivity.class));
                 overridePendingTransition(0, 0);
                 return true;
+
             } else if (id == R.id.nav_cart) {
                 startActivity(new Intent(this, MainActivity_giohang.class));
                 overridePendingTransition(0, 0);
                 return true;
+
             } else if (id == R.id.nav_notifications) {
-                Intent intent = new Intent(this, NotificationsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
+                // Nếu đang ở trang này thì không cần reload
                 return true;
+
             } else if (id == R.id.nav_profile) {
                 startActivity(new Intent(this, ProfileActivity.class));
                 overridePendingTransition(0, 0);

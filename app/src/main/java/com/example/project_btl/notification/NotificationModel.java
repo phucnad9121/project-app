@@ -14,11 +14,9 @@ public class NotificationModel {
     public String getMessage() {
         return message;
     }
-
     public String getTime() {
         return time;
     }
-
     public int getIcon() {
         return icon;
     }

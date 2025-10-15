@@ -1,18 +1,17 @@
 package com.example.project_btl;
 
 import android.util.Log;
+
+import com.example.project_btl.notification.NotificationManagerFirebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class OrderManagerFirebase {
 
@@ -29,9 +28,8 @@ public class OrderManagerFirebase {
     }
 
     private String getUserId() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null)
             return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        }
         return null;
     }
 
@@ -41,6 +39,7 @@ public class OrderManagerFirebase {
         return db.collection("users").document(userId).collection("orders");
     }
 
+    // ✅ ĐÃ CHỈNH: Trả về thông tin OrderData sau khi lưu
     public void saveOrder(List<ProductModel> products, long total, String payment, String address,
                           OnOrderSavedListener listener) {
         CollectionReference orderRef = getOrderRef();
@@ -69,13 +68,43 @@ public class OrderManagerFirebase {
         }
         order.put("items", items);
 
+        // 🔹 Lưu đơn hàng vào Firestore
         orderRef.add(order)
-                .addOnSuccessListener(r -> {
-                    if (listener != null) listener.onSuccess();
+                .addOnSuccessListener((DocumentReference ref) -> {
+                    String id = ref.getId();
+                    OrderData orderData = new OrderData(
+                            id,
+                            (String) order.get("orderDate"),
+                            total,
+                            payment,
+                            address,
+                            "Đã đặt hàng",
+                            convertToOrderItems(items)
+                    );
+                    // 🟢 Gửi thông báo đặt hàng
+                    NotificationManagerFirebase.getInstance()
+                            .addNotification("Đơn hàng #" + id + " đã được đặt thành công!", "order", R.drawable.cart_icon);
+
+                    if (listener != null) listener.onSuccess(orderData); // ✅ Trả về dữ liệu đơn hàng
                 })
                 .addOnFailureListener(e -> {
                     if (listener != null) listener.onFailed(e);
                 });
+    }
+
+    private List<OrderItem> convertToOrderItems(List<Map<String, Object>> itemsData) {
+        List<OrderItem> items = new ArrayList<>();
+        for (Map<String, Object> itemData : itemsData) {
+            OrderItem item = new OrderItem();
+            item.setName((String) itemData.get("name"));
+            item.setPrice(toLong(itemData.get("price")));
+            item.setQuantity(toInt(itemData.get("quantity")));
+            item.setSize((String) itemData.get("size"));
+            item.setImage(toInt(itemData.get("image")));
+            item.setImageUrl((String) itemData.get("imageUrl"));
+            items.add(item);
+        }
+        return items;
     }
 
     public void loadOrders(OnOrdersLoadedListener listener) {
@@ -99,20 +128,7 @@ public class OrderManagerFirebase {
                             long total = toLong(doc.get("total"));
 
                             List<Map<String, Object>> itemsData = (List<Map<String, Object>>) doc.get("items");
-                            List<OrderItem> items = new ArrayList<>();
-
-                            if (itemsData != null) {
-                                for (Map<String, Object> itemData : itemsData) {
-                                    OrderItem item = new OrderItem();
-                                    item.setName((String) itemData.get("name"));
-                                    item.setPrice(toLong(itemData.get("price")));
-                                    item.setQuantity(toInt(itemData.get("quantity")));
-                                    item.setSize((String) itemData.get("size"));
-                                    item.setImage(toInt(itemData.get("image")));
-                                    item.setImageUrl((String) itemData.get("imageUrl"));
-                                    items.add(item);
-                                }
-                            }
+                            List<OrderItem> items = convertToOrderItems(itemsData);
                             orders.add(new OrderData(id, orderDate, total, paymentMethod, address, status, items));
                         } catch (Exception e) {
                             Log.e("OrderManager", "Lỗi phân tích đơn hàng: " + doc.getId(), e);
@@ -128,26 +144,46 @@ public class OrderManagerFirebase {
     private long toLong(Object obj) { if (obj instanceof Number) return ((Number) obj).longValue(); return 0; }
     private int toInt(Object obj) { if (obj instanceof Number) return ((Number) obj).intValue(); return 0; }
 
-    public interface OnOrderSavedListener { void onSuccess(); void onFailed(Exception e); }
-    public interface OnOrdersLoadedListener { void onSuccess(List<OrderData> orders); void onFailed(Exception e); }
+    // ✅ ĐÃ SỬA: Interface nhận OrderData khi lưu thành công
+    public interface OnOrderSavedListener {
+        void onSuccess(OrderData orderData);
+        void onFailed(Exception e);
+    }
+
+    public interface OnOrdersLoadedListener {
+        void onSuccess(List<OrderData> orders);
+        void onFailed(Exception e);
+    }
 
     public static class OrderData {
         private String id, orderDate, paymentMethod, address, status;
         private long total;
         private List<OrderItem> items;
+
         public OrderData(String id, String orderDate, long total, String paymentMethod, String address, String status, List<OrderItem> items) {
-            this.id = id; this.orderDate = orderDate; this.total = total; this.paymentMethod = paymentMethod; this.address = address; this.status = status; this.items = items;
+            this.id = id;
+            this.orderDate = orderDate;
+            this.total = total;
+            this.paymentMethod = paymentMethod;
+            this.address = address;
+            this.status = status;
+            this.items = items;
         }
+
         public String getId() { return id; }
         public String getOrderDate() { return orderDate; }
         public String getStatus() { return status; }
         public long getTotal() { return total; }
+        public String getPaymentMethod() { return paymentMethod; }
+        public String getAddress() { return address; }
         public List<OrderItem> getItems() { return items; }
     }
+
     public static class OrderItem {
         private String name, size, imageUrl;
         private long price;
         private int quantity, image;
+
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
         public long getPrice() { return price; }

@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,11 +20,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project_btl.home.MainHomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class CheckOutActivity extends AppCompatActivity {
 
@@ -44,7 +49,7 @@ public class CheckOutActivity extends AppCompatActivity {
         setContentView(R.layout.checkout_activity);
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-        // Ánh xạ các View từ layout
+        // Ánh xạ các view
         tvName = findViewById(R.id.tvName);
         tvPhone = findViewById(R.id.tvPhone);
         tvDiaChi = findViewById(R.id.tvDiaChi);
@@ -61,12 +66,9 @@ public class CheckOutActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        // Lấy danh sách sản phẩm từ Intent
         checkoutList = (ArrayList<ProductModel>) getIntent().getSerializableExtra("selectedItems");
-        if (checkoutList == null || checkoutList.isEmpty()) {
-            Log.e("CheckOutActivity", "Danh sách thanh toán rỗng hoặc null.");
-            Toast.makeText(this, "Không có sản phẩm để thanh toán.", Toast.LENGTH_SHORT).show();
-            checkoutList = new ArrayList<>();
-        }
+        if (checkoutList == null) checkoutList = new ArrayList<>();
 
         adapter = new CheckoutAdapter(checkoutList);
         rcvSanPham.setLayoutManager(new LinearLayoutManager(this));
@@ -81,16 +83,11 @@ public class CheckOutActivity extends AppCompatActivity {
 
     private void updateTotalAmount() {
         double subtotal = 0;
-        if (checkoutList != null) {
-            for (ProductModel item : checkoutList) {
-                if (item != null) {
-                    subtotal += item.getPrice() * item.getQuantity();
-                }
-            }
+        for (ProductModel item : checkoutList) {
+            if (item != null) subtotal += item.getPrice() * item.getQuantity();
         }
-        Log.d("CheckOutActivity", "Tổng tiền hàng đã tính: " + subtotal);
 
-        double discount = 0;
+        double discount = 0; // nếu có giảm giá, cập nhật ở đây
         double totalAmount = subtotal - discount;
 
         tvTongTienHang.setText(formatVnd(subtotal));
@@ -134,22 +131,22 @@ public class CheckOutActivity extends AppCompatActivity {
         String paymentMethod = rb.getText().toString();
         String address = tvDiaChi.getText().toString();
 
-        double totalAmountDouble = 0;
-        for(ProductModel p : checkoutList) {
-            totalAmountDouble += p.getPrice() * p.getQuantity();
-        }
+        long totalAmount = 0;
+        for (ProductModel p : checkoutList) totalAmount += p.getPrice() * p.getQuantity();
 
-        // *** ĐÂY LÀ CHỖ SỬA LỖI ***
-        // Chuyển đổi (ép kiểu) totalAmount từ double sang long trước khi gọi hàm
-        long totalAmountLong = (long) totalAmountDouble;
-
-        OrderManagerFirebase.getInstance().saveOrder(checkoutList, totalAmountLong, paymentMethod, address,
+        OrderManagerFirebase.getInstance().saveOrder(checkoutList, totalAmount, paymentMethod, address,
                 new OrderManagerFirebase.OnOrderSavedListener() {
                     @Override
-                    public void onSuccess() {
+                    public void onSuccess(OrderManagerFirebase.OrderData orderData) {
+                        // Ghi thông báo vào Firestore
+                        recordOrderNotification(orderData);
+
+                        // Xóa sản phẩm khỏi giỏ hàng
                         for (ProductModel p : checkoutList) {
                             CartManagerFirebase.getInstance().removeFromCart(p.getId());
                         }
+
+                        // Hiển thị dialog thành công
                         showSuccessDialog();
                     }
 
@@ -158,6 +155,23 @@ public class CheckOutActivity extends AppCompatActivity {
                         Toast.makeText(CheckOutActivity.this, "Lưu đơn hàng thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void recordOrderNotification(OrderManagerFirebase.OrderData orderData) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) return;
+
+        String userId = currentUser.getUid();
+        Map<String, Object> notification = new HashMap<>();
+        notification.put("type", "order_success");
+        notification.put("message", "Đơn hàng #" + orderData.getId() + " đã đặt thành công!");
+        notification.put("timestamp", System.currentTimeMillis());
+
+        db.collection("users").document(userId)
+                .collection("notifications")
+                .add(notification)
+                .addOnSuccessListener(doc -> Log.d("CheckOutActivity", "Ghi thông báo thành công"))
+                .addOnFailureListener(e -> Log.w("CheckOutActivity", "Ghi thông báo thất bại", e));
     }
 
     private void showSuccessDialog() {
