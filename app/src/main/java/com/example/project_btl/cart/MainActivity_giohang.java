@@ -20,6 +20,7 @@ import com.example.project_btl.Login.SignInactivity;
 import com.example.project_btl.home.MainHomeActivity;
 import com.example.project_btl.notification.NotificationsActivity;
 import com.example.project_btl.CheckOutActivity;
+import com.example.project_btl.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -129,7 +130,7 @@ public class MainActivity_giohang extends AppCompatActivity {
             else if (id == R.id.nav_notifications)
                 startActivity(new Intent(this, NotificationsActivity.class));
             else if (id == R.id.nav_profile)
-                startActivity(new Intent(this, SignInactivity.class));
+                startActivity(new Intent(this, ProfileActivity.class));
             overridePendingTransition(0, 0);
             return true;
         });

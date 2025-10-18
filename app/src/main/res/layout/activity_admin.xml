@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quản Lý"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/text_primary"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="2dp"
+            android:background="@color/GreyLight">
+        </LinearLayout>
+
+        <!-- Ảnh + Tên người dùng -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/meme"
+                android:scaleType="centerCrop"
+                android:background="@drawable/bg_circle_teal"
+                android:clipToOutline="true" />
+
+            <!-- Icon chỉnh sửa ảnh -->
+            <ImageView
+                android:id="@+id/ivEditPhoto"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="-28dp"
+                android:layout_marginStart="45dp"
+                android:src="@drawable/ic_edit"
+                android:background="@drawable/bg_category_selected"
+                android:padding="6dp" />
+        </LinearLayout>
+
+        <!-- Thông tin người dùng -->
+        <TextView
+            android:id="@+id/tvFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đào Phúc Dân"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvRole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:textColor="@color/text_secondary"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"/>
+
+        <!-- Danh sách tùy chọn -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:layout_marginHorizontal="0dp"
+            android:paddingHorizontal="0dp">
+
+            <include
+                android:id="@+id/rowManagerAccount"
+                layout="@layout/item_profile_row" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+
+            <include
+                android:id="@+id/rowManagerProduce"
+                layout="@layout/item_profile_row" />
+
+
+        </LinearLayout>
+
+        <!-- Nút Sign Out -->
+        <Button
+            android:id="@+id/btnSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            android:text="Sign Out"
+            android:textAllCaps="false"
+            android:drawableStart="@drawable/ic_exit"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_primary_btn"
+            android:textColor="@android:color/white" />
+
+        <!-- Bottom Navigation -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_marginTop="170dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:itemIconSize="26dp"
+            app:itemIconTint="@null"
+            app:itemTextColor="@null"
+            app:menu="@menu/bottom_nav_menu" />
+    </LinearLayout>
+
+</ScrollView>

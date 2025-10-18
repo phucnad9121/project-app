@@ -12,6 +12,7 @@ import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.project_btl.AdminMainHomeActivity;
 import com.example.project_btl.R;
 import com.example.project_btl.home.MainHomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -79,6 +80,12 @@ public class SignInactivity extends AppCompatActivity {
             viewFlipper.setDisplayedChild(1);
             highlightSignupTab();
         });
+
+        boolean openSignup = getIntent().getBooleanExtra("openSignup", false);
+        if (openSignup) {
+            btnSignupTab.performClick(); // Tự động click vào tab Đăng ký
+        }
+
         tvForgot.setOnClickListener(v -> viewFlipper.setDisplayedChild(2));
         txtBackToLogin.setOnClickListener(v -> viewFlipper.setDisplayedChild(0));
 
@@ -132,9 +139,49 @@ public class SignInactivity extends AppCompatActivity {
                         if(chkRemember.isChecked()) saveLogin(email, pass);
                         else clearLogin();
 
-                        Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignInactivity.this, MainHomeActivity.class));
-                        finish();
+                        // --- THAY ĐỔI TỪ ĐÂY ---
+                        FirebaseUser firebaseUser = auth.getCurrentUser();
+                        if (firebaseUser != null) {
+                            String userId = firebaseUser.getUid();
+                            // Truy vấn Firestore để lấy thông tin role
+                            firestore.collection("users").document(userId).get()
+                                    .addOnSuccessListener(documentSnapshot -> {
+                                        if (documentSnapshot.exists()) {
+                                            String userRole = documentSnapshot.getString("role");
+                                            if ("admin".equals(userRole)) {
+                                                // Nếu là admin, chuyển sang màn hình Admin (bạn cần tạo Activity này)
+                                                Toast.makeText(this, "Đăng nhập với quyền Admin thành công", Toast.LENGTH_SHORT).show();
+                                                // Ví dụ: startActivity(new Intent(SignInactivity.this, AdminDashboardActivity.class));
+                                                // Tạm thời vẫn vào Home để demo
+                                                Intent intent = new Intent(SignInactivity.this, AdminMainHomeActivity.class);
+                                                intent.putExtra("USER_ROLE", userRole); // Truyền vai trò "admin"
+                                                startActivity(intent);
+                                            } else {
+                                                // Nếu là user thường, chuyển sang màn hình Home
+                                                Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(SignInactivity.this, MainHomeActivity.class);
+                                                intent.putExtra("USER_ROLE", userRole); // Truyền vai trò "user"
+                                                startActivity(intent);
+                                            }
+                                            finish(); // Đóng màn hình đăng nhập
+                                        } else {
+                                            // Không tìm thấy thông tin user trong Firestore (ít xảy ra nếu đăng ký đúng)
+                                            Toast.makeText(this, "Không tìm thấy thông tin người dùng.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Lỗi khi đọc Firestore
+                                        Toast.makeText(this, "Lỗi khi kiểm tra quyền: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    });
+                        } else {
+                            // Lỗi không lấy được user sau khi đăng nhập (hiếm khi xảy ra)
+                            Toast.makeText(this, "Lỗi xác thực người dùng.", Toast.LENGTH_SHORT).show();
+                        }
+
+//                        Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(SignInactivity.this, MainHomeActivity.class));
+//                        finish();
+
                     } else {
                         Toast.makeText(this, "Đăng nhập thất bại: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -160,6 +207,7 @@ public class SignInactivity extends AppCompatActivity {
                             Map<String,Object> data = new HashMap<>();
                             data.put("name", name);
                             data.put("email", email);
+                            data.put("role", "user"); // Mặc định là user
 
                             firestore.collection("users").document(uid)
                                     .set(data)

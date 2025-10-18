@@ -46,6 +46,12 @@
 		<!-- Form orders history -->
 		<activity android:name=".OrderHistoryActivity" />
 
+		<!-- Form adminmainhome -->
+		<activity android:name=".AdminMainHomeActivity" />
+
+		<!-- Form adminactivity -->
+		<activity android:name=".AdminActivity" />
+
 		<!-- màn Splash (màn khởi động app) -->
 		<activity
 			android:name=".Login.SplashActivity"
