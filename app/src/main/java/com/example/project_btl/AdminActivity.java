@@ -62,10 +62,10 @@ public class AdminActivity extends AppCompatActivity {
             return false;
         });
 
-        setupRow((View) findViewById(R.id.rowEditProfile),
+        setupRow((View) findViewById(R.id.rowManagerAccount),
                 R.drawable.ic_bell, "Manager Account");
 
-        setupRow((View) findViewById(R.id.rowHistory),
+        setupRow((View) findViewById(R.id.rowManagerProduce),
                 R.drawable.ic_orders_history, "Manager Produce");
 
 

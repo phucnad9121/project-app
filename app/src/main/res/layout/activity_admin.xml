@@ -125,7 +125,7 @@
         <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="270dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
