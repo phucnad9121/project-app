@@ -52,6 +52,7 @@ dependencies {
 
 // Firebase Storage (Lưu ảnh, video, file)
     implementation("com.google.firebase:firebase-storage")
+    implementation(libs.firebase.database)
 
 
     testImplementation(libs.junit)
@@ -59,4 +60,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
 }

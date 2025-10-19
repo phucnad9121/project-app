@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Project_btl"
 include(":app")
+include(":OrderManagerFirebase")
