@@ -69,5 +69,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             price = itemView.findViewById(R.id.productPrice);
         }
     }
+
 }
 

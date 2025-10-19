@@ -45,14 +45,15 @@
 
         <EditText
             android:id="@+id/edtSearch"
-            android:background="@drawable/bg_edttext_search"
-            android:layout_marginLeft="30dp"
-            android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="45dp"
-            android:hint="Nhập tìm kiếm"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edttext_search"
             android:drawableLeft="@drawable/search_icon"
             android:drawablePadding="10dp"
+            android:hint="Nhập tìm kiếm"
+            android:inputType="textMultiLine"
             android:paddingLeft="10dp">
 
         </EditText>

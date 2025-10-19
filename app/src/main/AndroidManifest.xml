@@ -52,6 +52,9 @@
 		<!-- Form adminactivity -->
 		<activity android:name=".AdminActivity" />
 
+		<!-- Form accountmanagenment -->
+		<activity android:name=".MainAccountManagenment" />
+
 		<!-- màn Splash (màn khởi động app) -->
 		<activity
 			android:name=".Login.SplashActivity"

@@ -70,7 +70,7 @@ public class AdminActivity extends AppCompatActivity {
 
 
         findViewById(R.id.rowManagerAccount).setOnClickListener(v ->
-                startActivity(new Intent(this, ChangePasswordActivity.class)));
+                startActivity(new Intent(this, MainAccountManagenment.class)));
 
         // click Edit Profile -> mở màn 2
         findViewById(R.id.rowManagerProduce).setOnClickListener(v ->

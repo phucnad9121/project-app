@@ -29,7 +29,7 @@ import java.util.Map;
 public class MainHomeActivity extends AppCompatActivity{
     private ViewPager2 bannerViewPager;
     private androidx.recyclerview.widget.RecyclerView categoryRecyclerView, productRecyclerView;
-    //du lieuj cho tung câtgories
+    //du lieu cho tung catagories
     private Map<String, List<ProductModel>> productByCategory = new HashMap<>();
     private ProductAdapter productAdapter;
     private EditText edtSearch;

@@ -1,0 +1,935 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM_[Changes]/shelved.patch	(revision 75842e5afd512b57860e843c000a8942bcbfdd08)
++++ /dev/null	(revision 75842e5afd512b57860e843c000a8942bcbfdd08)
+@@ -1,311 +0,0 @@
+-Index: app/src/main/res/layout/formchangepassword.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/bg\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\"\r\n        android:padding=\"10dp\">\r\n\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:gravity=\"center_vertical\">\r\n\r\n            <Button\r\n                android:id=\"@+id/btnBack\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:backgroundTint=\"@color/darkBlue\"\r\n                android:text=\"Quay lại\"\r\n                android:textColor=\"@color/white\" />\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Change Password\"\r\n                android:textStyle=\"bold\"\r\n                android:textSize=\"20sp\"\r\n                android:layout_weight=\"1\"\r\n                android:layout_marginLeft=\"20dp\"/>\r\n        </LinearLayout>\r\n\r\n        <Space android:layout_width=\"match_parent\" android:layout_height=\"12dp\"/>\r\n\r\n        <!-- Form -->\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Name\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etName\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Đào Phúc Dân\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Username\"\r\n            android:layout_marginTop=\"12dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etUsername\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"dandan\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Email\"\r\n            android:layout_marginTop=\"12dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etEmail\"\r\n                android:inputType=\"textEmailAddress\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"dan@email.com\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Password old\"\r\n            android:layout_marginTop=\"12dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etPassOld\"\r\n                android:inputType=\"textEmailAddress\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"dandan\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n\r\n        <com.google.android.material.textfield.TextInputLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:hint=\"Password new\"\r\n            android:layout_marginTop=\"12dp\">\r\n\r\n            <com.google.android.material.textfield.TextInputEditText\r\n                android:id=\"@+id/etPassNew\"\r\n                android:inputType=\"textEmailAddress\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"dandz123\"/>\r\n        </com.google.android.material.textfield.TextInputLayout>\r\n\r\n        <Button\r\n            android:id=\"@+id/btnSave\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"52dp\"\r\n            android:text=\"Thay đổi\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"17sp\"\r\n            android:textAllCaps=\"false\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:background=\"@drawable/bg_primary_btn\"\r\n            android:textColor=\"@android:color/white\"/>\r\n    </LinearLayout>\r\n</LinearLayout>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/res/layout/formchangepassword.xml b/app/src/main/res/layout/formchangepassword.xml
+---- a/app/src/main/res/layout/formchangepassword.xml	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
+-+++ b/app/src/main/res/layout/formchangepassword.xml	(date 1760030597747)
+-@@ -36,74 +36,49 @@
+-         <Space android:layout_width="match_parent" android:layout_height="12dp"/>
+- 
+-         <!-- Form -->
+-+
+-+
+-         <com.google.android.material.textfield.TextInputLayout
+-             android:layout_width="match_parent"
+-             android:layout_height="wrap_content"
+--            android:hint="Name">
+--
+--            <com.google.android.material.textfield.TextInputEditText
+--                android:id="@+id/etName"
+--                android:layout_width="match_parent"
+--                android:layout_height="wrap_content"
+--                android:text="Đào Phúc Dân"/>
+--        </com.google.android.material.textfield.TextInputLayout>
+--
+--        <com.google.android.material.textfield.TextInputLayout
+--            android:layout_width="match_parent"
+--            android:layout_height="wrap_content"
+--            android:hint="Username"
+-+            android:hint="Password old"
+-             android:layout_marginTop="12dp">
+- 
+-             <com.google.android.material.textfield.TextInputEditText
+--                android:id="@+id/etUsername"
+--                android:layout_width="match_parent"
+--                android:layout_height="wrap_content"
+--                android:text="dandan"/>
+--        </com.google.android.material.textfield.TextInputLayout>
+--
+--
+--        <com.google.android.material.textfield.TextInputLayout
+--            android:layout_width="match_parent"
+--            android:layout_height="wrap_content"
+--            android:hint="Email"
+--            android:layout_marginTop="12dp">
+--
+--            <com.google.android.material.textfield.TextInputEditText
+--                android:id="@+id/etEmail"
+-+                android:id="@+id/etPassOld"
+-                 android:inputType="textEmailAddress"
+-                 android:layout_width="match_parent"
+-                 android:layout_height="wrap_content"
+--                android:text="dan@email.com"/>
+-+                android:text="Điền mật khẩu cũ"/>
+-         </com.google.android.material.textfield.TextInputLayout>
+- 
+- 
+-         <com.google.android.material.textfield.TextInputLayout
+-             android:layout_width="match_parent"
+-             android:layout_height="wrap_content"
+--            android:hint="Password old"
+-+            android:hint="Password new"
+-             android:layout_marginTop="12dp">
+- 
+-             <com.google.android.material.textfield.TextInputEditText
+--                android:id="@+id/etPassOld"
+-+                android:id="@+id/etPassNew"
+-                 android:inputType="textEmailAddress"
+-                 android:layout_width="match_parent"
+-                 android:layout_height="wrap_content"
+--                android:text="dandan"/>
+-+                android:text="Điền mật khẩu mới"/>
+-         </com.google.android.material.textfield.TextInputLayout>
+- 
+--
+-         <com.google.android.material.textfield.TextInputLayout
+-             android:layout_width="match_parent"
+-             android:layout_height="wrap_content"
+--            android:hint="Password new"
+-+            android:hint="Password new again"
+-             android:layout_marginTop="12dp">
+- 
+-             <com.google.android.material.textfield.TextInputEditText
+--                android:id="@+id/etPassNew"
+-+                android:id="@+id/etPassNewAgain"
+-                 android:inputType="textEmailAddress"
+-                 android:layout_width="match_parent"
+-                 android:layout_height="wrap_content"
+--                android:text="dandz123"/>
+-+                android:text="Điền lại mật khẩu mới"/>
+-         </com.google.android.material.textfield.TextInputLayout>
+- 
+-         <Button
+-Index: app/src/main/java/com/example/project_btl/profile/ProfileActivity.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package com.example.project_btl.profile;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.example.project_btl.Login.SignInactivity;\r\nimport com.example.project_btl.R;\r\nimport com.example.project_btl.cart.MainActivity_giohang;\r\nimport com.example.project_btl.home.MainHomeActivity;\r\nimport com.example.project_btl.notification.NotificationsActivity;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\npublic class ProfileActivity extends AppCompatActivity {\r\n\r\n    private View rowEditProfile, rowNotification, rowAddress, rowPassword;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_profile);\r\n        if(getSupportActionBar() != null)\r\n            getSupportActionBar().hide();\r\n\r\n\r\n\r\n        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);\r\n\r\n        // Đặt mặc định chọn profile\r\n        bottomNavigationView.setSelectedItemId(R.id.nav_profile);\r\n\r\n        bottomNavigationView.setOnItemSelectedListener(item -> {\r\n            int id = item.getItemId();\r\n\r\n            if (id == R.id.nav_home) {\r\n                startActivity(new Intent(this, MainHomeActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_cart) {\r\n                startActivity(new Intent(this, MainActivity_giohang.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_notifications) {\r\n                startActivity(new Intent(this, NotificationsActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_profile) {\r\n                Intent intent = new Intent(this, ProfileActivity.class);\r\n                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\r\n                startActivity(intent);\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            }\r\n\r\n            return false;\r\n        });\r\n\r\n        setupRow((View) findViewById(R.id.rowEditProfile),\r\n                R.drawable.ic_bell, \"Edit Profile\");\r\n\r\n        setupRow((View) findViewById(R.id.rowHistory),\r\n                R.drawable.ic_bell, \"Order History\");\r\n\r\n        setupRow((View) findViewById(R.id.rowPassword),\r\n                R.drawable.ic_lock, \"Change Password\");\r\n\r\n        // click Edit Profile -> mở màn 2\r\n        findViewById(R.id.rowEditProfile).setOnClickListener(v ->\r\n                startActivity(new Intent(this, EditProfileActivity.class)));\r\n\r\n        findViewById(R.id.btnSignOut).setOnClickListener(v -> {\r\n            // Xóa session hoặc token ở đây nếu có\r\n\r\n            Intent intent = new Intent(ProfileActivity.this, SignInactivity.class);\r\n            // Xóa tất cả activity cũ để không quay lại bằng nút back\r\n            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);\r\n            startActivity(intent);\r\n            finish();\r\n        });\r\n    }\r\n\r\n    private void setupRow(View row, int iconRes, String title) {\r\n        ImageView iv = row.findViewById(R.id.ivIcon);\r\n        TextView tv = row.findViewById(R.id.tvTitle);\r\n        iv.setImageResource(iconRes);\r\n        tv.setText(title);\r\n    }\r\n\r\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java b/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java
+---- a/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
+-+++ b/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java	(date 1760031000141)
+-@@ -68,6 +68,9 @@
+-         setupRow((View) findViewById(R.id.rowPassword),
+-                 R.drawable.ic_lock, "Change Password");
+- 
+-+        findViewById(R.id.rowPassword).setOnClickListener(v ->
+-+                startActivity(new Intent(this, ChangePasswordActivity.class)));
+-+
+-         // click Edit Profile -> mở màn 2
+-         findViewById(R.id.rowEditProfile).setOnClickListener(v ->
+-                 startActivity(new Intent(this, EditProfileActivity.class)));
+-Index: app/build.gradle.kts
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>plugins {\r\n    alias(libs.plugins.android.application)\r\n    id(\"com.google.gms.google-services\")\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.example.project_btl\"\r\n    compileSdk = 36\r\n\r\n    defaultConfig {\r\n        applicationId = \"com.example.project_btl\"\r\n        minSdk = 28\r\n        targetSdk = 36\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(\r\n                getDefaultProguardFile(\"proguard-android-optimize.txt\"),\r\n                \"proguard-rules.pro\"\r\n            )\r\n        }\r\n    }\r\n\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_11\r\n        targetCompatibility = JavaVersion.VERSION_11\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation(libs.appcompat)\r\n    implementation(libs.material)\r\n    implementation(libs.activity)\r\n    implementation(libs.constraintlayout)\r\n\r\n    // Firebase BoM (Bill of Materials)\r\n    implementation(platform(\"com.google.firebase:firebase-bom:33.2.0\"))\r\n\r\n// Firebase Firestore (Database)\r\n    implementation(\"com.google.firebase:firebase-firestore\")\r\n\r\n// Firebase Authentication (Đăng nhập)\r\n    implementation(\"com.google.firebase:firebase-auth\")\r\n\r\n// Firebase Storage (Lưu ảnh, video, file)\r\n    implementation(\"com.google.firebase:firebase-storage\")\r\n\r\n\r\n    testImplementation(libs.junit)\r\n    androidTestImplementation(libs.ext.junit)\r\n    androidTestImplementation(libs.espresso.core)\r\n}\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+---- a/app/build.gradle.kts	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
+-+++ b/app/build.gradle.kts	(date 1760091912586)
+-@@ -55,4 +55,4 @@
+-     testImplementation(libs.junit)
+-     androidTestImplementation(libs.ext.junit)
+-     androidTestImplementation(libs.espresso.core)
+--}
+-+}
+-\ No newline at end of file
+-Index: app/src/main/AndroidManifest.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Project_btl\">\r\n\r\n\t\t<!-- màn SignIn -->\r\n\t\t<activity android:name=\".Login.SignInactivity\" />\r\n\r\n\t\t<!-- màn Home -->\r\n\t\t<activity android:name=\".home.MainHomeActivity\" />\r\n\r\n<!--\t\t&lt;!&ndash; replaced deprecated SignInactivity with LoginActivity &ndash;&gt;-->\r\n<!--\t\t<activity android:name=\".LoginActivity\" />-->\r\n\r\n\r\n\t\t<!-- ChiTietSP activity (product detail) -->\r\n\t\t<activity android:name=\".ChiTietSPActivity\" />\r\n\r\n\t\t<!-- Gio hang activity (product detail) -->\r\n\t\t<activity android:name=\".cart.MainActivity_giohang\" />\r\n\r\n\r\n\t\t<!-- Form thông báo -->\r\n\t\t<activity android:name=\".notification.NotificationsActivity\" />\r\n\r\n\t\t<!-- Form profile -->\r\n\t\t<activity android:name=\".profile.ProfileActivity\" />\r\n\r\n\t\t<!-- Form profile -->\r\n\t\t<activity android:name=\".profile.EditProfileActivity\" />\r\n\r\n\t\t<!-- màn Splash (màn khởi động app) -->\r\n\t\t<activity\r\n\t\t\tandroid:name=\".Login.SplashActivity\"\r\n\t\t\tandroid:exported=\"true\">\r\n\t\t\t<intent-filter>\r\n\t\t\t\t<action android:name=\"android.intent.action.MAIN\" />\r\n\t\t\t\t<category android:name=\"android.intent.category.LAUNCHER\" />\r\n\t\t\t</intent-filter>\r\n\t\t</activity>\r\n\r\n    </application>\r\n</manifest>\r\n\r\n\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+---- a/app/src/main/AndroidManifest.xml	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
+-+++ b/app/src/main/AndroidManifest.xml	(date 1760030743996)
+-@@ -35,6 +35,9 @@
+- 		<!-- Form profile -->
+- 		<activity android:name=".profile.ProfileActivity" />
+- 
+-+		<!-- Form profile -->
+-+		<activity android:name=".profile.ChangePasswordActivity" />
+-+
+- 		<!-- Form profile -->
+- 		<activity android:name=".profile.EditProfileActivity" />
+- 
+-Index: app/google-services.json
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>{\r\n  \"project_info\": {\r\n    \"project_number\": \"346514177431\",\r\n    \"firebase_url\": \"https://roject-btl-default-rtdb.firebaseio.com\",\r\n    \"project_id\": \"roject-btl\",\r\n    \"storage_bucket\": \"roject-btl.firebasestorage.app\"\r\n  },\r\n  \"client\": [\r\n    {\r\n      \"client_info\": {\r\n        \"mobilesdk_app_id\": \"1:346514177431:android:a15cfc2c801d6df126d8d2\",\r\n        \"android_client_info\": {\r\n          \"package_name\": \"com.example.project_btl\"\r\n        }\r\n      },\r\n      \"oauth_client\": [\r\n        {\r\n          \"client_id\": \"346514177431-js14fr0e24bnegj346vmc4hdabuesf6f.apps.googleusercontent.com\",\r\n          \"client_type\": 1,\r\n          \"android_info\": {\r\n            \"package_name\": \"com.example.project_btl\",\r\n            \"certificate_hash\": \"12b78b120d056446c247f955bb7d3da891f0143d\"\r\n          }\r\n        },\r\n        {\r\n          \"client_id\": \"346514177431-ks4jcvptsr6p9n8sdcs3kjcvo2jtnpam.apps.googleusercontent.com\",\r\n          \"client_type\": 3\r\n        }\r\n      ],\r\n      \"api_key\": [\r\n        {\r\n          \"current_key\": \"AIzaSyA6tZAWS6Xab0FGHFwvSy6aHDsK6CvWTG4\"\r\n        }\r\n      ],\r\n      \"services\": {\r\n        \"appinvite_service\": {\r\n          \"other_platform_oauth_client\": [\r\n            {\r\n              \"client_id\": \"346514177431-ks4jcvptsr6p9n8sdcs3kjcvo2jtnpam.apps.googleusercontent.com\",\r\n              \"client_type\": 3\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \"configuration_version\": \"1\"\r\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/google-services.json b/app/google-services.json
+---- a/app/google-services.json	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
+-+++ b/app/google-services.json	(date 1760092242957)
+-@@ -15,6 +15,14 @@
+-       },
+-       "oauth_client": [
+-         {
+-+          "client_id": "346514177431-i91asls2pq0e1la9m1vfc9qmfo3nco8r.apps.googleusercontent.com",
+-+          "client_type": 1,
+-+          "android_info": {
+-+            "package_name": "com.example.project_btl",
+-+            "certificate_hash": "e23a65705ced13bd1c435ed273a016904454f391"
+-+          }
+-+        },
+-+        {
+-           "client_id": "346514177431-js14fr0e24bnegj346vmc4hdabuesf6f.apps.googleusercontent.com",
+-           "client_type": 1,
+-           "android_info": {
+-@@ -45,4 +53,7 @@
+-     }
+-   ],
+-   "configuration_version": "1"
+--}
+-\ No newline at end of file
+-+}
+-+
+-+
+-+
+-Index: gradle/libs.versions.toml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>[versions]\r\nagp = \"8.12.1\"\r\njunit = \"4.13.2\"\r\njunitVersion = \"1.3.0\"\r\nespressoCore = \"3.7.0\"\r\nappcompat = \"1.7.1\"\r\nmaterial = \"1.13.0\"\r\nactivity = \"1.11.0\"\r\nconstraintlayout = \"2.2.1\"\r\n\r\n[libraries]\r\njunit = { group = \"junit\", name = \"junit\", version.ref = \"junit\" }\r\next-junit = { group = \"androidx.test.ext\", name = \"junit\", version.ref = \"junitVersion\" }\r\nespresso-core = { group = \"androidx.test.espresso\", name = \"espresso-core\", version.ref = \"espressoCore\" }\r\nappcompat = { group = \"androidx.appcompat\", name = \"appcompat\", version.ref = \"appcompat\" }\r\nmaterial = { group = \"com.google.android.material\", name = \"material\", version.ref = \"material\" }\r\nactivity = { group = \"androidx.activity\", name = \"activity\", version.ref = \"activity\" }\r\nconstraintlayout = { group = \"androidx.constraintlayout\", name = \"constraintlayout\", version.ref = \"constraintlayout\" }\r\n\r\n[plugins]\r\nandroid-application = { id = \"com.android.application\", version.ref = \"agp\" }\r\nandroid-library = { id = \"com.android.library\", version.ref = \"agp\" }\r\n\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/gradle/libs.versions.toml b/gradle/libs.versions.toml
+---- a/gradle/libs.versions.toml	(revision 38889621e503b5a0314a681a1e9c0e0910739e6f)
+-+++ b/gradle/libs.versions.toml	(date 1760084781069)
+-@@ -7,6 +7,8 @@
+- material = "1.13.0"
+- activity = "1.11.0"
+- constraintlayout = "2.2.1"
+-+firebaseAppcheckDebug = "19.0.1"
+-+firebaseAppcheckPlayintegrity = "19.0.1"
+- 
+- [libraries]
+- junit = { group = "junit", name = "junit", version.ref = "junit" }
+-@@ -16,6 +18,8 @@
+- material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+- activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+- constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+-+firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug", version.ref = "firebaseAppcheckDebug" }
+-+firebase-appcheck-playintegrity = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity", version.ref = "firebaseAppcheckPlayintegrity" }
+- 
+- [plugins]
+- android-application = { id = "com.android.application", version.ref = "agp" }
+-Index: app/src/main/java/com/example/project_btl/profile/ChangePasswordActivity.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/java/com/example/project_btl/profile/ChangePasswordActivity.java b/app/src/main/java/com/example/project_btl/profile/ChangePasswordActivity.java
+-new file mode 100644
+---- /dev/null	(date 1760030709786)
+-+++ b/app/src/main/java/com/example/project_btl/profile/ChangePasswordActivity.java	(date 1760030709786)
+-@@ -0,0 +1,84 @@
+-+package com.example.project_btl.profile;
+-+
+-+import android.os.Bundle;
+-+import android.text.TextUtils;
+-+import android.widget.Toast;
+-+
+-+import androidx.appcompat.app.AppCompatActivity;
+-+
+-+import com.example.project_btl.R;
+-+import com.google.android.material.textfield.TextInputEditText;
+-+import com.google.firebase.auth.AuthCredential;
+-+import com.google.firebase.auth.EmailAuthProvider;
+-+import com.google.firebase.auth.FirebaseAuth;
+-+import com.google.firebase.auth.FirebaseUser;
+-+
+-+import java.util.Objects;
+-+
+-+public class ChangePasswordActivity extends AppCompatActivity {
+-+
+-+    private TextInputEditText etPassOld, etPassNew, etPassNewAgain;
+-+    private FirebaseAuth auth;
+-+    private FirebaseUser currentUser;
+-+
+-+    @Override
+-+    protected void onCreate(Bundle savedInstanceState) {
+-+        super.onCreate(savedInstanceState);
+-+        setContentView(R.layout.formchangepassword);
+-+
+-+        if (getSupportActionBar() != null)
+-+            getSupportActionBar().hide();
+-+        etPassOld = findViewById(R.id.etPassOld);
+-+        etPassNew = findViewById(R.id.etPassNew);
+-+        etPassNewAgain = findViewById(R.id.etPassNewAgain);
+-+
+-+        auth = FirebaseAuth.getInstance();
+-+        currentUser = auth.getCurrentUser();
+-+
+-+        findViewById(R.id.btnBack).setOnClickListener(v -> onBackPressed());
+-+        findViewById(R.id.btnSave).setOnClickListener(v -> changePassword());
+-+    }
+-+    //Chỗ này là đổi mật khẩu
+-+    private void changePassword() {
+-+        String oldPass = Objects.requireNonNull(etPassOld.getText()).toString().trim();
+-+        String newPass = Objects.requireNonNull(etPassNew.getText()).toString().trim();
+-+        String confirmPass = Objects.requireNonNull(etPassNewAgain.getText()).toString().trim();
+-+
+-+        // Kiểm tra dữ liệu mấy gà nhâpj vào có hợp lệ không
+-+        if (TextUtils.isEmpty(oldPass) || TextUtils.isEmpty(newPass) || TextUtils.isEmpty(confirmPass)) {
+-+            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+-+            return;
+-+        }
+-+
+-+        if (!newPass.equals(confirmPass)) {
+-+            Toast.makeText(this, "Mật khẩu mới không khớp", Toast.LENGTH_SHORT).show();
+-+            return;
+-+        }
+-+
+-+        if (newPass.length() < 6) {
+-+            Toast.makeText(this, "Mật khẩu mới phải ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
+-+            return;
+-+        }
+-+
+-+        if (currentUser == null || currentUser.getEmail() == null) {
+-+            Toast.makeText(this, "Không tìm thấy người dùng đang đăng nhập", Toast.LENGTH_SHORT).show();
+-+            return;
+-+        }
+-+
+-+        AuthCredential credential = EmailAuthProvider.getCredential(currentUser.getEmail(), oldPass);
+-+
+-+        currentUser.reauthenticate(credential)
+-+                .addOnSuccessListener(aVoid -> {
+-+                    //  Đẩy mật khẩu mới lên
+-+                    currentUser.updatePassword(newPass)
+-+                            .addOnSuccessListener(unused -> {
+-+                                Toast.makeText(this, "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+-+                                finish();
+-+                            })
+-+                            .addOnFailureListener(e ->
+-+                                    Toast.makeText(this, "Lỗi khi đổi mật khẩu: " + e.getMessage(), Toast.LENGTH_LONG).show());
+-+                })
+-+                .addOnFailureListener(e ->
+-+                        Toast.makeText(this, "Mật khẩu cũ không chính xác", Toast.LENGTH_SHORT).show());
+-+    }
+-+}
+-\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM__Changes_.xml	(revision 75842e5afd512b57860e843c000a8942bcbfdd08)
++++ /dev/null	(revision 75842e5afd512b57860e843c000a8942bcbfdd08)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM_[Changes]" date="1760092986713" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_10_2025_5_42_PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 10/10/2025 5:42 PM [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: app/src/main/java/com/example/project_btl/ProductAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl;\r\n\r\nimport android.content.Context;\r\nimport android.content.Intent;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport java.util.List;\r\n\r\npublic class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {\r\n\r\n    private Context context;\r\n    private List<ProductModel> productList;\r\n\r\n    public ProductAdapter(Context context, List<ProductModel> productList) {\r\n        this.context = context;\r\n        this.productList = productList;\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        View view = LayoutInflater.from(context).inflate(R.layout.item_product, parent, false);\r\n        return new ProductViewHolder(view);\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {\r\n        ProductModel product = productList.get(position);\r\n        holder.image.setImageResource(product.getImage());\r\n        holder.name.setText(product.getName());\r\n        holder.price.setText(product.getPrice() +\"$\");\r\n        // Click vào item thì mở ChiTietSPActivity\r\n        holder.itemView.setOnClickListener(v -> {\r\n            Intent intent = new Intent(context, DetailSPActivity.class);\r\n            // truyền nguyên object product qua intent\r\n            intent.putExtra(\"product\", product);\r\n            context.startActivity(intent);\r\n        });\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return productList.size();\r\n    }\r\n\r\n\r\n    public void updateProducts(List<ProductModel> newProducts) {\r\n        this.productList.clear();\r\n        this.productList.addAll(newProducts);\r\n        notifyDataSetChanged();\r\n    }\r\n\r\n\r\n    public static class ProductViewHolder extends RecyclerView.ViewHolder {\r\n        ImageView image;\r\n        TextView name, price;\r\n\r\n        public ProductViewHolder(@NonNull View itemView) {\r\n            super(itemView);\r\n            image = itemView.findViewById(R.id.productImage);\r\n            name = itemView.findViewById(R.id.productName);\r\n            price = itemView.findViewById(R.id.productPrice);\r\n        }\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/ProductAdapter.java b/app/src/main/java/com/example/project_btl/ProductAdapter.java
+--- a/app/src/main/java/com/example/project_btl/ProductAdapter.java	(revision 75842e5afd512b57860e843c000a8942bcbfdd08)
++++ b/app/src/main/java/com/example/project_btl/ProductAdapter.java	(date 1760770430050)
+@@ -69,5 +69,6 @@
+             price = itemView.findViewById(R.id.productPrice);
+         }
+     }
++
+ }
+ 
+Index: app/src/main/res/layout/homepage_form.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:orientation=\"vertical\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <LinearLayout\r\n        android:background=\"@drawable/bg_bottom_line\"\r\n        android:orientation=\"horizontal\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"65dp\">\r\n        <LinearLayout\r\n            android:background=\"@drawable/ic_logo\"\r\n            android:layout_width=\"180dp\"\r\n            android:layout_marginLeft=\"8dp\"\r\n            android:layout_height=\"match_parent\">\r\n\r\n        </LinearLayout>\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imageView\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:padding=\"11dp\"\r\n            android:layout_marginLeft=\"70dp\"\r\n            app:srcCompat=\"@drawable/profile\" />\r\n        <TextView\r\n\r\n            android:padding=\"12dp\"\r\n            android:text=\"Xin chào ,\\nHiệp ngu\"\r\n            android:textStyle=\"bold\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\">\r\n\r\n        </TextView>\r\n    </LinearLayout>\r\n\r\n\r\n    <LinearLayout\r\n        android:background=\"@drawable/bg_bottom_line\"\r\n        android:orientation=\"horizontal\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"65dp\">\r\n\r\n        <EditText\r\n            android:id=\"@+id/edtSearch\"\r\n            android:background=\"@drawable/bg_edttext_search\"\r\n            android:layout_marginLeft=\"30dp\"\r\n            android:layout_gravity=\"center\"\r\n            android:layout_width=\"300dp\"\r\n            android:layout_height=\"45dp\"\r\n            android:hint=\"Nhập tìm kiếm\"\r\n            android:drawableLeft=\"@drawable/search_icon\"\r\n            android:drawablePadding=\"10dp\"\r\n            android:paddingLeft=\"10dp\">\r\n\r\n        </EditText>\r\n\r\n        <Button\r\n            android:drawableLeft=\"@drawable/settings_icon\"\r\n            android:background=\"#00000000\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\">\r\n\r\n        </Button>\r\n\r\n\r\n    </LinearLayout>\r\n\r\n    <!-- Banner -->\r\n    <androidx.viewpager2.widget.ViewPager2\r\n        android:id=\"@+id/bannerViewPager\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"200dp\" />\r\n\r\n    <!-- Categories -->\r\n    <LinearLayout\r\n        android:orientation=\"horizontal\"\r\n        android:padding=\"12dp\"\r\n        android:gravity=\"center_vertical\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <TextView\r\n            android:text=\"Các danh mục\"\r\n            android:textSize=\"16sp\"\r\n            android:textStyle=\"bold\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\" />\r\n\r\n        <TextView\r\n            android:text=\"View All\"\r\n            android:textColor=\"@android:color/holo_blue_dark\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:gravity=\"end\" />\r\n    </LinearLayout>\r\n\r\n    <!-- RecyclerView cho categories -->\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/categoryRecyclerView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:scrollbars=\"none\"\r\n        android:padding=\"8dp\"/>\r\n\r\n\r\n    <!-- Grid sản phẩm -->\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/productRecyclerView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"1\"\r\n        android:padding=\"8dp\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.GridLayoutManager\"\r\n        app:spanCount=\"2\"/>\r\n\r\n\r\n\r\n    <!-- Bottom Navigation -->\r\n    <com.google.android.material.bottomnavigation.BottomNavigationView\r\n        android:id=\"@+id/bottomNavigation\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:background=\"@android:color/white\"\r\n        app:itemIconSize=\"26dp\"\r\n        app:itemIconTint=\"@null\"\r\n        app:itemTextColor=\"@null\"\r\n        app:menu=\"@menu/bottom_nav_menu\" />\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/homepage_form.xml b/app/src/main/res/layout/homepage_form.xml
+--- a/app/src/main/res/layout/homepage_form.xml	(revision 75842e5afd512b57860e843c000a8942bcbfdd08)
++++ b/app/src/main/res/layout/homepage_form.xml	(date 1760770430030)
+@@ -45,14 +45,15 @@
+ 
+         <EditText
+             android:id="@+id/edtSearch"
+-            android:background="@drawable/bg_edttext_search"
+-            android:layout_marginLeft="30dp"
+-            android:layout_gravity="center"
+             android:layout_width="300dp"
+             android:layout_height="45dp"
+-            android:hint="Nhập tìm kiếm"
++            android:layout_gravity="center"
++            android:layout_marginLeft="30dp"
++            android:background="@drawable/bg_edttext_search"
+             android:drawableLeft="@drawable/search_icon"
+             android:drawablePadding="10dp"
++            android:hint="Nhập tìm kiếm"
++            android:inputType="textMultiLine"
+             android:paddingLeft="10dp">
+ 
+         </EditText>
+Index: app/src/main/res/layout/item_user.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/item_user.xml b/app/src/main/res/layout/item_user.xml
+new file mode 100644
+--- /dev/null	(date 1760783381961)
++++ b/app/src/main/res/layout/item_user.xml	(date 1760783381961)
+@@ -0,0 +1,32 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++             android:orientation="vertical"
++             android:layout_width="match_parent"
++             android:layout_height="match_parent">
++    <TextView
++        android:id="@+id/tvUsername"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:textStyle="bold"
++        android:text="Username"
++        android:textSize="16dp">
++    </TextView>
++
++    <TextView
++        android:id="@+id/tvEmail"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:textStyle="bold"
++        android:text="email"
++        android:textSize="16dp">
++    </TextView>
++
++    <TextView
++        android:id="@+id/tvRole"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:textStyle="bold"
++        android:text="Role"
++        android:textSize="16dp">
++    </TextView>
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/project_btl/home/MainHomeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl.home;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.GridLayoutManager;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.viewpager2.widget.ViewPager2;\r\nimport android.content.Intent;\r\n\r\nimport com.example.project_btl.CategoryModel;\r\nimport com.example.project_btl.cart.MainActivity_giohang;\r\nimport com.example.project_btl.notification.NotificationsActivity;\r\nimport com.example.project_btl.ProductAdapter;\r\nimport com.example.project_btl.ProductModel;\r\nimport com.example.project_btl.R;\r\nimport com.example.project_btl.profile.ProfileActivity;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\n\r\nimport android.os.Bundle;\r\nimport android.text.Editable;\r\nimport android.text.TextWatcher;\r\nimport android.widget.EditText;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\nimport java.util.Map;\r\n\r\npublic class MainHomeActivity extends AppCompatActivity{\r\n    private ViewPager2 bannerViewPager;\r\n    private androidx.recyclerview.widget.RecyclerView categoryRecyclerView, productRecyclerView;\r\n    //du lieuj cho tung câtgories\r\n    private Map<String, List<ProductModel>> productByCategory = new HashMap<>();\r\n    private ProductAdapter productAdapter;\r\n    private EditText edtSearch;\r\n    private List<ProductModel> currentProductList = new ArrayList<>();\r\n    private CategoryAdapter categoryAdapter;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.homepage_form);\r\n\r\n        //tim kiem\r\n        edtSearch = findViewById(R.id.edtSearch);\r\n\r\n        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);\r\n\r\n        // Mặc định chọn Home\r\n        bottomNavigationView.setSelectedItemId(R.id.nav_home);\r\n\r\n        bottomNavigationView.setOnItemSelectedListener(item -> {\r\n            int id = item.getItemId();\r\n\r\n            if (id == R.id.nav_home) {\r\n                return true;\r\n            } else if (id == R.id.nav_cart) {\r\n                startActivity(new Intent(this, MainActivity_giohang.class));\r\n                overridePendingTransition(0,0);\r\n                return true;\r\n            } else if (id == R.id.nav_notifications) {\r\n                startActivity(new Intent(this, NotificationsActivity.class));\r\n                overridePendingTransition(0,0);\r\n                return true;\r\n            } else if (id == R.id.nav_profile) {\r\n                startActivity(new Intent(this, ProfileActivity.class));\r\n                overridePendingTransition(0,0);\r\n                return true;\r\n            }\r\n            return false;\r\n        });\r\n\r\n\r\n\r\n        if(getSupportActionBar() != null){\r\n            getSupportActionBar().hide();\r\n        }\r\n\r\n\r\n\r\n\r\n        // Banner\r\n        bannerViewPager = findViewById(R.id.bannerViewPager);\r\n        List<Integer> banners = new ArrayList<>();\r\n        banners.add(R.drawable.giay_cau_long_lining_ayzu015);\r\n        banners.add(R.drawable.giay_cau_long_yonex_shb_65z4);\r\n        banners.add(R.drawable.giay_cau_long_victor_a311);\r\n        BannerAdapter bannerAdapter = new BannerAdapter(this, banners);\r\n        bannerViewPager.setAdapter(bannerAdapter);\r\n\r\n        // Category\r\n        categoryRecyclerView = findViewById(R.id.categoryRecyclerView);\r\n        List<CategoryModel> categories = new ArrayList<>();\r\n        categories.add(new CategoryModel(R.drawable.ic_badmin, \"Vợt\"));\r\n        categories.add(new CategoryModel(R.drawable.ic_shoes, \"Giày\"));\r\n        categories.add(new CategoryModel(R.drawable.ic_jeans, \"Quần\"));\r\n        categories.add(new CategoryModel(R.drawable.ic_shirt, \"Áo\"));\r\n        categoryAdapter = new CategoryAdapter(this, categories);\r\n        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));\r\n        categoryRecyclerView.setAdapter(categoryAdapter);\r\n\r\n        // Products\r\n\r\n        // Gọi hàm khởi tạo dữ liệu sản phẩm\r\n        setupProducts();\r\n\r\n        // Hiển thị mặc định danh sách Vợt\r\n        productRecyclerView = findViewById(R.id.productRecyclerView);\r\n        productAdapter = new ProductAdapter(this, new ArrayList<>(productByCategory.get(\"Vợt\")));\r\n        productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));\r\n        productRecyclerView.setAdapter(productAdapter);\r\n\r\n        // Bắt sự kiện click category\r\n        categoryAdapter.setOnCategoryClickListener(categoryName -> {\r\n            List<ProductModel> filteredList = productByCategory.get(categoryName);\r\n            if (filteredList != null) {\r\n                productAdapter.updateProducts(filteredList);\r\n            }\r\n        });\r\n\r\n\r\n        // Xử lý tìm kiếm\r\n        edtSearch.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                String keyword = s.toString().trim().toLowerCase();\r\n                filterProducts(keyword);\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {}\r\n        });\r\n    }\r\n\r\n\r\n    // Hàm lọc sản phẩm theo tên\r\n    private void filterProducts(String keyword) {\r\n        keyword = keyword.toLowerCase().trim();\r\n\r\n        if (keyword.isEmpty()) {\r\n            productAdapter.updateProducts(currentProductList);\r\n            return;\r\n        }\r\n\r\n        // Nếu người dùng gõ từ khóa trùng tên danh mục\r\n        for (String category : productByCategory.keySet()) {\r\n            if (category.toLowerCase().contains(keyword)) {\r\n                currentProductList = new ArrayList<>(productByCategory.get(category));\r\n                productAdapter.updateProducts(currentProductList);\r\n\r\n                // \uD83D\uDFE2 Đánh dấu danh mục đang chọn (đổi màu button)\r\n                categoryAdapter.setSelectedCategory(category);\r\n\r\n                return;\r\n            }\r\n        }\r\n\r\n\r\n        // Nếu không phải danh mục, thì lọc theo tên sản phẩm\r\n        List<ProductModel> filtered = new ArrayList<>();\r\n        String matchedCategory = null;\r\n\r\n        for (Map.Entry<String, List<ProductModel>> entry : productByCategory.entrySet()) {\r\n            for (ProductModel p : entry.getValue()) {\r\n                if (p.getName().toLowerCase().contains(keyword)) {\r\n                    filtered.add(p);\r\n                    matchedCategory = entry.getKey(); // lấy danh mục đầu tiên chứa sp\r\n                }\r\n            }\r\n        }\r\n\r\n        if (matchedCategory != null) {\r\n            categoryAdapter.setSelectedCategory(matchedCategory);\r\n        }\r\n\r\n        productAdapter.updateProducts(filtered);\r\n\r\n        // để đổi danh mục được chọn\r\n        if (keyword.toLowerCase().contains(\"áo\")) {\r\n            categoryAdapter.setSelectedCategory(\"Áo\");\r\n        } else if (keyword.toLowerCase().contains(\"vợt\")) {\r\n            categoryAdapter.setSelectedCategory(\"Vợt\");\r\n        } else if (keyword.toLowerCase().contains(\"giày\")) {\r\n            categoryAdapter.setSelectedCategory(\"Giày\");\r\n        } else {\r\n            // Nếu không khớp danh mục nào, bỏ chọn\r\n            categoryAdapter.setSelectedCategory(\"\");\r\n        }\r\n    }\r\n\r\n    //  setupProducts()\r\n    private void setupProducts() {\r\n        List<ProductModel> vot = new ArrayList<>();\r\n        vot.add(new ProductModel(\"vot1\", \"Victor Ryuga II\", 100L, R.drawable.vot_victor_ryuga_ii, 4f,\r\n                \"Vợt cầu lông chuyên công\", \"Tấn công mạnh mẽ, trọng lượng 85g, cán cầm G5\", 1, \" \", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot2\", \"Victor Ryuga II Pro\", 120L, R.drawable.vot_victor_ryuga_ii_pro, 5f,\r\n                \"Vợt cầu lông cao cấp\", \"Khung carbon siêu nhẹ, cân bằng tốt\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot3\", \"Lining Halbertec 8000\", 79L, R.drawable.vot_lining_halbertec_8000, 3f,\r\n                \"Vợt cầu lông tầm trung\", \"Dành cho người chơi thiên công trình cao\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot4\", \"Lining Halbertec 9000\", 122L, R.drawable.vot_lining_halbertec_9000, 5f,\r\n                \"Vợt cầu lông cao cấp\", \"Khung nhẹ, kiểm soát tốt\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot5\", \"Victor Brave Sword 12 Pro\", 190L, R.drawable.vot_victor_brave_sword_12_pro, 4f,\r\n                \"Vợt chuyên nghiệp\", \"Cân bằng, linh hoạt\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot6\", \"Yonex Astrox 100\", 198L, R.drawable.vot_cau_long_yonex_astrox_100, 4f,\r\n                \"Vợt cao cấp\", \"Công nghệ Aerodynamic\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot7\", \"Yonex Astrox 99 Pro 2025\", 98L, R.drawable.vot_yonex_astrox_99_pro_2025, 4f,\r\n                \"Vợt chuyên nghiệp\", \"Độ bền cao, linh hoạt\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot8\", \"Yonex Astrox 100VA Tour\", 100L, R.drawable.vot_yonex_astrox_100va_tour, 4f,\r\n                \"Vợt cầu lông chuyên nghiệp\", \"Cân bằng tốt, tốc độ cao\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot9\", \"Yonex Nanoflare 700 Pro\", 130L, R.drawable.vot_yonex_nanoflare_700_pro, 5f,\r\n                \"Vợt tốc độ cao\", \"Thiết kế nhẹ, linh hoạt\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot10\", \"Victor ARS 90K Metallic\", 110L, R.drawable.vot_victor_ars_90k_metallic, 3f,\r\n                \"Vợt kiểm soát\", \"khả năng điều cầu tốt\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n        vot.add(new ProductModel(\"vot11\", \"Lining Calibar 600i\", 160L, R.drawable.vot_lining_calibar_600i, 5f,\r\n                \"Vợt cao cấp\", \"Khung carbon, kiểm soát tốt\", 1, \"Chưa Chọn\", \"Vợt\"));\r\n\r\n        List<ProductModel> giay = new ArrayList<>();\r\n        giay.add(new ProductModel(\"giay1\", \"Lining Ayau 005\", 100L, R.drawable.giay_cau_long_lining_ayau005, 3f,\r\n                \"Giày cầu lông nam\", \"Màu xanh dương, size 39-45\", 1, \"Chưa Chọn\", \"Giày\"));\r\n        giay.add(new ProductModel(\"giay2\", \"Lining Ayzu 015\", 120L, R.drawable.giay_cau_long_lining_ayzu015, 4f,\r\n                \"Giày cầu lông unisex\", \"Màu trắng, size 38-44\", 1, \"Chưa Chọn\", \"Giày\"));\r\n        giay.add(new ProductModel(\"giay3\", \"Victor A311\", 99L, R.drawable.giay_cau_long_victor_a311, 5f,\r\n                \"Giày cầu lông nam\", \"Chống trượt, màu trắng\", 1, \"Chưa Chọn\", \"Giày\"));\r\n        giay.add(new ProductModel(\"giay4\", \"Yonex Aerus X Navy Blue\", 198L, R.drawable.giay_cau_long_yonex_aerus_x_navy_blue, 4f,\r\n                \"Giày cầu lông cao cấp\", \"Màu xanh navy, đế cao su\", 1, \"Chưa Chọn\", \"Giày\"));\r\n        giay.add(new ProductModel(\"giay5\", \"Yonex Cascade Accel\", 149L, R.drawable.giay_cau_long_yonex_cascade_accel, 3f,\r\n                \"Giày cầu lông nam\", \"Đệm êm, màu xanh dương\", 1, \"Chưa Chọn\", \"Giày\"));\r\n        giay.add(new ProductModel(\"giay6\", \"Yonex Cascade Blue\", 110L, R.drawable.giay_cau_long_yonex_cascade_blue, 5f,\r\n                \"Giày cầu lông nữ\", \"Màu xanh, size 36-42\", 1, \"Chưa Chọn\", \"Giày\"));\r\n        giay.add(new ProductModel(\"giay7\", \"Yonex Power Z3\", 79L, R.drawable.giay_cau_long_yonex_power_z3, 5f,\r\n                \"Giày cầu lông nam\", \"Màu đỏ, nhẹ, thoáng khí\", 1, \"Chưa Chọn\", \"Giày\"));\r\n        giay.add(new ProductModel(\"giay8\", \"Yonex SHB 65Z3\", 130L, R.drawable.giay_cau_long_yonex_shb_65z3, 4f,\r\n                \"Giày cầu lông nữ\", \"Màu xanh, chống trượt\", 1, \"Chưa Chọn\", \"Giày\"));\r\n        giay.add(new ProductModel(\"giay9\", \"Yonex SHB 65Z4\", 120L, R.drawable.giay_cau_long_yonex_shb_65z4, 4f,\r\n                \"Giày cầu lông unisex\", \"Màu xám, size 37-44\", 1, \"Chưa Chọn\", \"Giày\"));\r\n\r\n        List<ProductModel> quan = new ArrayList<>();\r\n        quan.add(new ProductModel(\"quan1\", \"Felet CM202B Black\", 20L, R.drawable.quan_cau_long_felet_cm202b_black, 4f,\r\n                \"Quần cầu lông nam\", \"Màu đen, size S-XL\", 1, \"Chưa Chọn\", \"Quần\"));\r\n        quan.add(new ProductModel(\"quan2\", \"Felet CM202B White\", 30L, R.drawable.quan_cau_long_felet_cm202b_white, 5f,\r\n                \"Quần cầu lông nữ\", \"Màu trắng, size S-L\", 1, \"Chưa Chọn\", \"Quần\"));\r\n        quan.add(new ProductModel(\"quan3\", \"Kawasaki SP\", 25L, R.drawable.quan_cau_long_kawasaki_sp, 3f,\r\n                \"Quần cầu lông unisex\", \"Màu xanh, chất liệu thoáng\", 1, \"Chưa Chọn\", \"Quần\"));\r\n        quan.add(new ProductModel(\"quan4\", \"Lining 967 Đen\", 30L, R.drawable.quan_cau_long_lining_967_den, 4f,\r\n                \"Quần cầu lông nam\", \"Màu đen, co giãn tốt\", 1, \"Chưa Chọn\", \"Quần\"));\r\n        quan.add(new ProductModel(\"quan5\", \"Lining 967 Trắng\", 30L, R.drawable.quan_cau_long_lining_967_trang, 5f,\r\n                \"Quần cầu lông nữ\", \"Màu trắng, co giãn tốt\", 1, \"Chưa Chọn\", \"Quần\"));\r\n        quan.add(new ProductModel(\"quan6\", \"Victor 225 Hồng\", 60L, R.drawable.quan_cau_long_victor_225_hong, 4f,\r\n                \"Quần cầu lông nữ\", \"Màu hồng, size S-L\", 1, \"Chưa Chọn\", \"Quần\"));\r\n        quan.add(new ProductModel(\"quan7\", \"Victor 901 Trắng Kem\", 25L, R.drawable.quan_cau_long_victor_901_trang_kem, 3f,\r\n                \"Quần cầu lông nam\", \"Màu trắng kem, size M-XL\", 1, \"Chưa Chọn\", \"Quần\"));\r\n        quan.add(new ProductModel(\"quan8\", \"Yonex 7049 Xanh Trắng\", 40L, R.drawable.quan_cau_long_yonex_7049_xanh_trang, 3f,\r\n                \"Quần cầu lông unisex\", \"Màu xanh trắng, co giãn\", 1, \"Chưa Chọn\", \"Quần\"));\r\n        quan.add(new ProductModel(\"quan9\", \"Yonex TSM2844 Hemlock\", 20L, R.drawable.quan_cau_long_yonex_tsm2844_hemlock, 4f,\r\n                \"Quần cầu lông nam\", \"Màu xanh, nhẹ, thoáng khí\", 1, \"Chưa Chọn\", \"Quần\"));\r\n\r\n        List<ProductModel> ao = new ArrayList<>();\r\n        ao.add(new ProductModel(\"ao1\", \"Lining 3136 Nam Đen Xanh\", 35L, R.drawable.ao_cau_long_lining_3136_nam_den_xanh, 4f,\r\n                \"Áo cầu lông nam\", \"Màu đen xanh, size M-XXL\", 1, \"Chưa Chọn\", \"Áo\"));\r\n        ao.add(new ProductModel(\"ao2\", \"Lining 3175 Trắng\", 24L, R.drawable.ao_cau_long_lining_3175_trang, 3f,\r\n                \"Áo cầu lông nữ\", \"Màu trắng, size S-L\", 1, \"Chưa Chọn\", \"Áo\"));\r\n        ao.add(new ProductModel(\"ao3\", \"Lining 6589 Nam Đen Xám\", 50L, R.drawable.ao_cau_long_lining_6589_nam_den_xam, 5f,\r\n                \"Áo cầu lông unisex\", \"Màu đen xám, thoáng khí\", 1, \"Chưa Chọn\", \"Áo\"));\r\n        ao.add(new ProductModel(\"ao4\", \"Lining T41 Nam Đen\", 25L, R.drawable.ao_cau_long_lining_t41_nam_den, 3f,\r\n                \"Áo cầu lông nam\", \"Màu đen, thấm hút tốt\", 1, \"Chưa Chọn\", \"Áo\"));\r\n        ao.add(new ProductModel(\"ao5\", \"Yonex TPM2969 Patriot Blue\", 29L, R.drawable.ao_cau_long_yonex_tpm2969_patrior_blue, 4f,\r\n                \"Áo cầu lông nữ\", \"Màu xanh, thoáng khí\", 1, \"Chưa Chọn\", \"Áo\"));\r\n        ao.add(new ProductModel(\"ao6\", \"Yonex TRM2967 Light Taupe\", 52L, R.drawable.ao_cau_long_yonex_trm2967_light_taupe, 3f,\r\n                \"Áo cầu lông unisex\", \"Màu nâu nhạt, thoáng khí\", 1, \"Chưa Chọn\", \"Áo\"));\r\n        ao.add(new ProductModel(\"ao7\", \"Yonex TJM288 Oatmeal\", 25L, R.drawable.ao_khoac_cau_long_yonex_tjm288_oatmeal, 5f,\r\n                \"Áo khoác cầu lông\", \"Màu kem, chống gió\", 1, \"Chưa Chọn\", \"Áo\"));\r\n        ao.add(new ProductModel(\"ao8\", \"Kamito Galaxy 1\", 29L, R.drawable.ao_kamito_galaxy_1, 5f,\r\n                \"Áo cầu lông nam\", \"Màu xanh dương, thoáng khí\", 1, \"Chưa Chọn\", \"Áo\"));\r\n\r\n        productByCategory.put(\"Vợt\", vot);\r\n        productByCategory.put(\"Giày\", giay);\r\n        productByCategory.put(\"Quần\", quan);\r\n        productByCategory.put(\"Áo\", ao);\r\n    }\r\n\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/home/MainHomeActivity.java b/app/src/main/java/com/example/project_btl/home/MainHomeActivity.java
+--- a/app/src/main/java/com/example/project_btl/home/MainHomeActivity.java	(revision 75842e5afd512b57860e843c000a8942bcbfdd08)
++++ b/app/src/main/java/com/example/project_btl/home/MainHomeActivity.java	(date 1760770430039)
+@@ -29,7 +29,7 @@
+ public class MainHomeActivity extends AppCompatActivity{
+     private ViewPager2 bannerViewPager;
+     private androidx.recyclerview.widget.RecyclerView categoryRecyclerView, productRecyclerView;
+-    //du lieuj cho tung câtgories
++    //du lieu cho tung catagories
+     private Map<String, List<ProductModel>> productByCategory = new HashMap<>();
+     private ProductAdapter productAdapter;
+     private EditText edtSearch;
+Index: app/src/main/java/com/example/project_btl/UserAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/UserAdapter.java b/app/src/main/java/com/example/project_btl/UserAdapter.java
+new file mode 100644
+--- /dev/null	(date 1760784937862)
++++ b/app/src/main/java/com/example/project_btl/UserAdapter.java	(date 1760784937862)
+@@ -0,0 +1,90 @@
++package com.example.project_btl;
++
++
++import android.content.Context;
++import android.graphics.Color;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.TextView;
++import androidx.annotation.NonNull;
++import androidx.recyclerview.widget.RecyclerView;
++import java.util.List;
++public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
++
++    private List<User> users;
++    private int selectedPos = -1;
++    private Context context;
++
++    public UserAdapter(Context context, List<User> users) {
++        this.context = context;
++        this.users = users;
++    }
++
++    @NonNull
++    @Override
++    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++        View v = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
++        return new UserViewHolder(v);
++    }
++
++    @Override
++    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
++        User user = users.get(position);
++        holder.tvUsername.setText(user.getUsername());
++        holder.tvEmail.setText("Email: " + user.getEmail());
++        holder.tvRole.setText("Role: " + user.getRole());
++
++        // tô màu khi chọn
++        holder.itemView.setBackgroundColor(selectedPos == position ? Color.LTGRAY : Color.TRANSPARENT);
++
++        holder.itemView.setOnClickListener(v -> {
++            notifyItemChanged(selectedPos);
++            selectedPos = holder.getAdapterPosition();
++            notifyItemChanged(selectedPos);
++        });
++    }
++
++    @Override
++    public int getItemCount() {
++        return users.size();
++    }
++
++    public User getSelectedUser() {
++        if (selectedPos != -1) return users.get(selectedPos);
++        return null;
++    }
++
++    public void removeSelected() {
++        if (selectedPos != -1) {
++            users.remove(selectedPos);
++            notifyItemRemoved(selectedPos);
++            selectedPos = -1;
++        }
++    }
++
++    public static class UserViewHolder extends RecyclerView.ViewHolder {
++        TextView tvUsername, tvEmail, tvRole;
++        public UserViewHolder(@NonNull View itemView) {
++            super(itemView);
++            tvUsername = itemView.findViewById(R.id.tvUsername);
++            tvEmail = itemView.findViewById(R.id.tvEmail);
++            tvRole = itemView.findViewById(R.id.tvRole);
++        }
++    }
++
++    public void addUser(User user) {
++        users.add(user);
++        notifyItemInserted(users.size() - 1);
++    }
++
++    public int getSelectedPosition() {
++        return selectedPos;
++    }
++    public void updateSelected(User updatedUser) {
++        if (selectedPos != RecyclerView.NO_POSITION) {
++            users.set(selectedPos, updatedUser);
++            notifyItemChanged(selectedPos);
++        }
++    }
++}
+Index: app/src/main/java/com/example/project_btl/home/CategoryAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl.home;\r\n\r\nimport android.annotation.SuppressLint;\r\nimport android.content.Context;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.example.project_btl.CategoryModel;\r\nimport com.example.project_btl.R;\r\n\r\nimport java.util.List;\r\n\r\npublic class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {\r\n\r\n    private Context context;\r\n    private List<CategoryModel> categoryList;\r\n\r\n    // Lưu vị trí đang chọn\r\n    private int selectedPosition = 0;\r\n\r\n    public CategoryAdapter(Context context, List<CategoryModel> categoryList) {\r\n        this.context = context;\r\n        this.categoryList = categoryList;\r\n    }\r\n    @NonNull\r\n    @Override\r\n    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        View view = LayoutInflater.from(context).inflate(R.layout.item_category, parent, false);\r\n        return new CategoryViewHolder(view);\r\n    }\r\n\r\n    public void setSelectedCategory(String matchedCategory) {\r\n    }\r\n\r\n\r\n    public interface OnCategoryClickListener {\r\n        void onCategoryClick(String categoryName);\r\n    }\r\n\r\n    private OnCategoryClickListener listener;\r\n\r\n    public void setOnCategoryClickListener(OnCategoryClickListener listener) {\r\n        this.listener = listener;\r\n    }\r\n\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint(\"RecyclerView\") int position) {\r\n        CategoryModel category = categoryList.get(position);\r\n\r\n        holder.icon.setImageResource(category.getIcon());\r\n        holder.name.setText(category.getName());\r\n\r\n        if (position == selectedPosition) {\r\n            holder.name.setVisibility(View.VISIBLE);\r\n            holder.itemView.setBackgroundResource(R.drawable.bg_category_selected);\r\n        } else {\r\n            holder.name.setVisibility(View.GONE);\r\n            holder.itemView.setBackgroundResource(R.drawable.bg_category_unselected);\r\n        }\r\n\r\n        holder.itemView.setOnClickListener(v -> {\r\n            int prev = selectedPosition;\r\n            selectedPosition = position;\r\n            notifyItemChanged(prev);\r\n            notifyItemChanged(position);\r\n\r\n            if (listener != null) {\r\n                listener.onCategoryClick(category.getName());\r\n            }\r\n        });\r\n    }\r\n\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return categoryList.size();\r\n    }\r\n\r\n    public static class CategoryViewHolder extends RecyclerView.ViewHolder {\r\n        ImageView icon;\r\n        TextView name;\r\n\r\n        public CategoryViewHolder(@NonNull View itemView) {\r\n            super(itemView);\r\n            icon = itemView.findViewById(R.id.categoryIcon);\r\n            name = itemView.findViewById(R.id.categoryName);\r\n        }\r\n    }\r\n\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/home/CategoryAdapter.java b/app/src/main/java/com/example/project_btl/home/CategoryAdapter.java
+--- a/app/src/main/java/com/example/project_btl/home/CategoryAdapter.java	(revision 75842e5afd512b57860e843c000a8942bcbfdd08)
++++ b/app/src/main/java/com/example/project_btl/home/CategoryAdapter.java	(date 1760770430045)
+@@ -94,6 +94,5 @@
+         }
+     }
+ 
+-
+ }
+ 
+Index: app/src/main/java/com/example/project_btl/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/User.java b/app/src/main/java/com/example/project_btl/User.java
+new file mode 100644
+--- /dev/null	(date 1760783329210)
++++ b/app/src/main/java/com/example/project_btl/User.java	(date 1760783329210)
+@@ -0,0 +1,71 @@
++package com.example.project_btl;
++
++public class User {
++    private String username, name, email, phone, address, gender, role;
++
++    public User(String username, String name, String email, String phone, String address, String gender, String role) {
++        this.username = username;
++        this.name = name;
++        this.email = email;
++        this.phone = phone;
++        this.address = address;
++        this.gender = gender;
++        this.role = role;
++    }
++
++    public String getUsername() {
++        return username;
++    }
++
++    public String getName() {
++        return name;
++    }
++
++    public String getEmail() {
++        return email;
++    }
++
++    public String getPhone() {
++        return phone;
++    }
++
++    public String getAddress() {
++        return address;
++    }
++
++    public String getGender() {
++        return gender;
++    }
++
++    public String getRole() {
++        return role;
++    }
++
++    public void setUsername(String username) {
++        this.username = username;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++
++    public void setEmail(String email) {
++        this.email = email;
++    }
++
++    public void setPhone(String phone) {
++        this.phone = phone;
++    }
++
++    public void setAddress(String address) {
++        this.address = address;
++    }
++
++    public void setGender(String gender) {
++        this.gender = gender;
++    }
++
++    public void setRole(String role) {
++        this.role = role;
++    }
++}
+Index: app/src/main/java/com/example/project_btl/home/BannerAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl.home;\r\n\r\nimport android.content.Context;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.ImageView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.example.project_btl.R;\r\n\r\nimport java.util.List;\r\n\r\npublic class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerViewHolder> {\r\n\r\n    private Context context;\r\n    private List<Integer> bannerList;\r\n\r\n    public BannerAdapter(Context context, List<Integer> bannerList) {\r\n        this.context = context;\r\n        this.bannerList = bannerList;\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public BannerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        View view = LayoutInflater.from(context).inflate(R.layout.item_banner, parent, false);\r\n        return new BannerViewHolder(view);\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull BannerViewHolder holder, int position) {\r\n        holder.imageView.setImageResource(bannerList.get(position));\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return bannerList.size();\r\n    }\r\n\r\n    public static class BannerViewHolder extends RecyclerView.ViewHolder {\r\n        ImageView imageView;\r\n\r\n        public BannerViewHolder(@NonNull View itemView) {\r\n            super(itemView);\r\n            imageView = itemView.findViewById(R.id.bannerImage);\r\n        }\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/home/BannerAdapter.java b/app/src/main/java/com/example/project_btl/home/BannerAdapter.java
+--- a/app/src/main/java/com/example/project_btl/home/BannerAdapter.java	(revision 75842e5afd512b57860e843c000a8942bcbfdd08)
++++ b/app/src/main/java/com/example/project_btl/home/BannerAdapter.java	(date 1760770430054)
+@@ -48,5 +48,6 @@
+             imageView = itemView.findViewById(R.id.bannerImage);
+         }
+     }
++
+ }
+ 
+Index: app/src/main/java/com/example/project_btl/MainAccountManagenment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/MainAccountManagenment.java b/app/src/main/java/com/example/project_btl/MainAccountManagenment.java
+new file mode 100644
+--- /dev/null	(date 1760784700856)
++++ b/app/src/main/java/com/example/project_btl/MainAccountManagenment.java	(date 1760784700856)
+@@ -0,0 +1,134 @@
++package com.example.project_btl;
++
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.Toast;
++
++import androidx.appcompat.app.AlertDialog;
++import androidx.appcompat.app.AppCompatActivity;
++import androidx.recyclerview.widget.LinearLayoutManager;
++import androidx.recyclerview.widget.RecyclerView;
++
++
++import java.util.ArrayList;
++import java.util.List;
++
++public class MainAccountManagenment extends AppCompatActivity {
++    private RecyclerView recyclerUsers;
++    private Button btnAdd, btnEdit, btnDelete;
++    private List<User> userList;
++    private UserAdapter adapter;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_account_management);
++
++        recyclerUsers = findViewById(R.id.recyclerUsers);
++        btnAdd = findViewById(R.id.btnAdd);
++        btnEdit = findViewById(R.id.btnEdit);
++        btnDelete = findViewById(R.id.btnDelete);
++
++        userList = new ArrayList<>();
++        // Thêm dữ liệu demo (bỏ hoặc thay thế nếu dùng DB)
++        userList.add(new User("vietanh", "Nguyễn Văn Việt Anh", "vietanh@gmail.com", "0123456789", "Hà Nội", "Nam", "Admin"));
++
++        adapter = new UserAdapter(this, userList);
++        recyclerUsers.setLayoutManager(new LinearLayoutManager(this));
++        recyclerUsers.setAdapter(adapter);
++
++        btnAdd.setOnClickListener(v -> openFormDialog(null));
++
++        btnEdit.setOnClickListener(v -> {
++            User selected = adapter.getSelectedUser();
++            if (selected == null) {
++                Toast.makeText(MainAccountManagenment.this, "Vui lòng chọn 1 người dùng để sửa", Toast.LENGTH_SHORT).show();
++                return;
++            }
++            openFormDialog(selected);
++        });
++
++        btnDelete.setOnClickListener(v -> {
++            User selected = adapter.getSelectedUser();
++            if (selected == null) {
++                Toast.makeText(MainAccountManagenment.this, "Vui lòng chọn 1 người dùng để xóa", Toast.LENGTH_SHORT).show();
++                return;
++            }
++            confirmDelete();
++        });
++    }
++
++    private void openFormDialog(User userToEdit) {
++        AlertDialog.Builder builder = new AlertDialog.Builder(this);
++        View view = getLayoutInflater().inflate(R.layout.dialog_add_user, null);
++        builder.setView(view);
++        AlertDialog dialog = builder.create();
++
++        EditText edtUsername = view.findViewById(R.id.edtUsername);
++        EditText edtName = view.findViewById(R.id.edtName);
++        EditText edtEmail = view.findViewById(R.id.edtEmail);
++        EditText edtPhone = view.findViewById(R.id.edtPhone);
++        EditText edtAddress = view.findViewById(R.id.edtAddress);
++        EditText edtGender = view.findViewById(R.id.edtGender);
++        EditText edtRole = view.findViewById(R.id.edtRole);
++        Button btnSave = view.findViewById(R.id.btnSave);
++
++        if (userToEdit != null) {
++            // Điền sẵn thông tin để sửa
++            edtUsername.setText(userToEdit.getUsername());
++            edtName.setText(userToEdit.getName());
++            edtEmail.setText(userToEdit.getEmail());
++            edtPhone.setText(userToEdit.getPhone());
++            edtAddress.setText(userToEdit.getAddress());
++            edtGender.setText(userToEdit.getGender());
++            edtRole.setText(userToEdit.getRole());
++
++            // Nếu muốn khóa username để không đổi, enable = false
++            // edtUsername.setEnabled(false);
++        }
++
++        btnSave.setOnClickListener(v -> {
++            String username = edtUsername.getText().toString().trim();
++            String name = edtName.getText().toString().trim();
++            String email = edtEmail.getText().toString().trim();
++            String phone = edtPhone.getText().toString().trim();
++            String address = edtAddress.getText().toString().trim();
++            String gender = edtGender.getText().toString().trim();
++            String role = edtRole.getText().toString().trim();
++
++            if (username.isEmpty() || email.isEmpty()) {
++                Toast.makeText(MainAccountManagenment.this, "Nhập ít nhất username và email", Toast.LENGTH_SHORT).show();
++                return;
++            }
++
++            if (userToEdit == null) {
++                // Thêm mới
++                User newUser = new User(username, name, email, phone, address, gender, role);
++                adapter.addUser(newUser);
++            } else {
++                // Cập nhật vị trí đang chọn
++                int pos = adapter.getSelectedPosition();
++                User updated = new User(username, name, email, phone, address, gender, role);
++                if (pos != RecyclerView.NO_POSITION) {
++                    // bạn có thể giữ nguyên object để preserve reference; mình thay thế bằng updateSelected
++                    adapter.updateSelected(updated);
++                }
++            }
++
++            dialog.dismiss();
++        });
++
++        dialog.show();
++    }
++
++    private void confirmDelete() {
++        new AlertDialog.Builder(this)
++                .setTitle("Xác nhận xóa")
++                .setMessage("Bạn có chắc chắn muốn xóa người dùng này không?")
++                .setPositiveButton("Xóa", (d, w) -> adapter.removeSelected())
++                .setNegativeButton("Hủy", null)
++                .show();
++    }
++}
+Index: app/src/main/res/layout/dialog_add_user.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/dialog_add_user.xml b/app/src/main/res/layout/dialog_add_user.xml
+new file mode 100644
+--- /dev/null	(date 1760783204936)
++++ b/app/src/main/res/layout/dialog_add_user.xml	(date 1760783204936)
+@@ -0,0 +1,63 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++    <LinearLayout
++        android:orientation="vertical"
++        android:padding="16dp"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content">
++
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/edtUsername"
++            android:hint="Username">
++        </EditText>
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/edtName"
++            android:hint="Name">
++        </EditText>
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/edtEmail"
++            android:hint="Email">
++        </EditText>
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/edtPhone"
++            android:hint="Phone">
++        </EditText>
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/edtAddress"
++            android:hint="Address">
++        </EditText>
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/edtGender"
++            android:hint="Gender">
++        </EditText>
++
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/edtRole"
++            android:hint="Role">
++        </EditText>
++
++        <Button
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/btnSave"
++            android:text="Lưu"
++            android:layout_marginTop="12dp">
++        </Button>
++    </LinearLayout>
++</ScrollView>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_account_management.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_account_management.xml b/app/src/main/res/layout/activity_account_management.xml
+new file mode 100644
+--- /dev/null	(date 1760782276316)
++++ b/app/src/main/res/layout/activity_account_management.xml	(date 1760782276316)
+@@ -0,0 +1,52 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:orientation="vertical"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="50dp"
++        android:text="Account Management"
++        android:textColor="#000000"
++        android:textSize="25dp"
++        android:gravity="center">
++    </TextView>
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal"
++        android:gravity="center"
++        android:layout_marginBottom="8dp">
++
++        <Button
++            android:id="@+id/btnAdd"
++            android:layout_width="0dp"
++            android:layout_weight="1"
++            android:layout_height="wrap_content"
++            android:text="Thêm" />
++
++        <Button
++            android:id="@+id/btnEdit"
++            android:layout_width="0dp"
++            android:layout_weight="1"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="8dp"
++            android:text="Sửa" />
++
++        <Button
++            android:id="@+id/btnDelete"
++            android:layout_width="0dp"
++            android:layout_weight="1"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="8dp"
++            android:text="Xóa" />
++    </LinearLayout>
++
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/recyclerUsers"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:divider="@android:color/darker_gray"
++        android:dividerHeight="1dp" />
++</LinearLayout>
+\ No newline at end of file
