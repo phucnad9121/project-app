@@ -1,4 +1,4 @@
-package com.example.project_btl;
+package com.example.project_btl.CheckOut;
 
 import android.view.LayoutInflater;
 import android.view.View;

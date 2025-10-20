@@ -1,4 +1,4 @@
-package com.example.project_btl;
+package com.example.project_btl.CheckOut;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -17,10 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project_btl.CartManagerFirebase;
+import com.example.project_btl.OrderManagerFirebase;
+import com.example.project_btl.ProductModel;
+import com.example.project_btl.R;
 import com.example.project_btl.home.MainHomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.NumberFormat;

@@ -29,7 +29,7 @@
 		<activity android:name=".cart.MainActivity_giohang" />
 
 		<!-- Form Thanh toán lý Hóa -->
-		<activity android:name=".CheckOutActivity" />
+		<activity android:name=".CheckOut.CheckOutActivity" />
 
 		<!-- Form thông báo -->
 		<activity android:name=".notification.NotificationsActivity" />
@@ -44,7 +44,7 @@
 		<activity android:name=".profile.EditProfileActivity" />
 
 		<!-- Form orders history -->
-		<activity android:name=".OrderHistoryActivity" />
+		<activity android:name=".profile.OrderHistoryActivity" />
 
 		<!-- Form adminmainhome -->
 		<activity android:name=".AdminMainHomeActivity" />

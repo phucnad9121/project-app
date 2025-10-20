@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.project_btl.CheckOut.CheckOutActivity;
 import com.example.project_btl.cart.MainActivity_giohang;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,20 +23,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 public class DetailSPActivity extends AppCompatActivity {
-
     private ImageView productImage;
     private TextView productName, productPrice, tvQuantity, moTa, ttBoSung;
     private RatingBar ratingBar;
     private RadioGroup rgSizeGiay, rgSizeClothes;
     private ImageButton btnGiam, btnTang, btnGioHang, btnBack;
     private MaterialButton btnBuyNow;
-
     private int quantity = 1; // số lượng mặc định = 1
     private FirebaseFirestore db;
     private String userId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

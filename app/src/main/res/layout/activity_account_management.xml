@@ -2,51 +2,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Account Management"
-        android:textColor="#000000"
-        android:textSize="25dp"
-        android:gravity="center">
-    </TextView>
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="8dp">
+        android:gravity="center_vertical"
+        android:layout_marginBottom="15dp">
 
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Thêm" />
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back"
+            android:background="@drawable/whitebackground"
+            android:padding="8dp" />
 
-        <Button
-            android:id="@+id/btnEdit"
+        <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Sửa" />
-
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Xóa" />
+            android:gravity="center"
+            android:text="Account Management"
+            android:textColor="#333333"
+            android:textSize="25sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:text="Add new user" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerUsers"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 </LinearLayout>

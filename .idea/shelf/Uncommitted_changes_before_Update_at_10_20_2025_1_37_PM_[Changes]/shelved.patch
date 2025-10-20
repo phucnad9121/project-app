@@ -1,0 +1,908 @@
+Index: app/src/main/java/com/example/project_btl/CheckOutActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/CheckOutActivity.java b/app/src/main/java/com/example/project_btl/CheckOut/CheckOutActivity.java
+rename from app/src/main/java/com/example/project_btl/CheckOutActivity.java
+rename to app/src/main/java/com/example/project_btl/CheckOut/CheckOutActivity.java
+--- a/app/src/main/java/com/example/project_btl/CheckOutActivity.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/CheckOut/CheckOutActivity.java	(date 1760860995858)
+@@ -1,4 +1,4 @@
+-package com.example.project_btl;
++package com.example.project_btl.CheckOut;
+ 
+ import android.app.AlertDialog;
+ import android.content.Intent;
+@@ -17,10 +17,13 @@
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
++import com.example.project_btl.CartManagerFirebase;
++import com.example.project_btl.OrderManagerFirebase;
++import com.example.project_btl.ProductModel;
++import com.example.project_btl.R;
+ import com.example.project_btl.home.MainHomeActivity;
+ import com.google.firebase.auth.FirebaseAuth;
+ import com.google.firebase.auth.FirebaseUser;
+-import com.google.firebase.firestore.DocumentReference;
+ import com.google.firebase.firestore.FirebaseFirestore;
+ 
+ import java.text.NumberFormat;
+Index: app/src/main/res/layout/dialog_add_user.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n    <LinearLayout\r\n        android:orientation=\"vertical\"\r\n        android:padding=\"16dp\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <EditText\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:id=\"@+id/edtUsername\"\r\n            android:hint=\"Username\">\r\n        </EditText>\r\n        <EditText\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:id=\"@+id/edtName\"\r\n            android:hint=\"Name\">\r\n        </EditText>\r\n        <EditText\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:id=\"@+id/edtEmail\"\r\n            android:hint=\"Email\">\r\n        </EditText>\r\n        <EditText\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:id=\"@+id/edtPhone\"\r\n            android:hint=\"Phone\">\r\n        </EditText>\r\n        <EditText\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:id=\"@+id/edtAddress\"\r\n            android:hint=\"Address\">\r\n        </EditText>\r\n        <EditText\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:id=\"@+id/edtGender\"\r\n            android:hint=\"Gender\">\r\n        </EditText>\r\n\r\n        <EditText\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:id=\"@+id/edtRole\"\r\n            android:hint=\"Role\">\r\n        </EditText>\r\n\r\n        <Button\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:id=\"@+id/btnSave\"\r\n            android:text=\"Lưu\"\r\n            android:layout_marginTop=\"12dp\">\r\n        </Button>\r\n    </LinearLayout>\r\n</ScrollView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/dialog_add_user.xml b/app/src/main/res/layout/dialog_add_user.xml
+--- a/app/src/main/res/layout/dialog_add_user.xml	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/res/layout/dialog_add_user.xml	(date 1760864583996)
+@@ -7,6 +7,12 @@
+         android:padding="16dp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:id="@+id/edtName"
++            android:hint="Name">
++        </EditText>
+ 
+         <EditText
+             android:layout_width="match_parent"
+@@ -14,18 +20,25 @@
+             android:id="@+id/edtUsername"
+             android:hint="Username">
+         </EditText>
++
+         <EditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:id="@+id/edtName"
+-            android:hint="Name">
++            android:id="@+id/edtPassword"
++            android:hint="Password">
+         </EditText>
++
+         <EditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:id="@+id/edtEmail"
+             android:hint="Email">
+         </EditText>
++        <Spinner
++            android:id="@+id/spGender"
++            android:layout_width="match_parent"
++            android:layout_height="50dp"
++            android:popupTheme="@style/ThemeOverlay.Material3.MaterialAlertDialog"/>
+         <EditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+@@ -38,12 +51,8 @@
+             android:id="@+id/edtAddress"
+             android:hint="Address">
+         </EditText>
+-        <EditText
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:id="@+id/edtGender"
+-            android:hint="Gender">
+-        </EditText>
++
++
+ 
+         <EditText
+             android:layout_width="match_parent"
+Index: app/src/main/java/com/example/project_btl/AdminActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.example.project_btl.Login.SignInactivity;\r\nimport com.example.project_btl.OrderHistoryActivity;\r\nimport com.example.project_btl.R;\r\nimport com.example.project_btl.cart.MainActivity_giohang;\r\nimport com.example.project_btl.home.MainHomeActivity;\r\nimport com.example.project_btl.notification.NotificationsActivity;\r\nimport com.example.project_btl.profile.ChangePasswordActivity;\r\nimport com.example.project_btl.profile.EditProfileActivity;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\npublic class AdminActivity extends AppCompatActivity {\r\n\r\n    private View rowEditProfile, rowNotification, rowAddress, rowPassword;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_admin);\r\n        if(getSupportActionBar() != null)\r\n            getSupportActionBar().hide();\r\n\r\n\r\n\r\n        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);\r\n\r\n        // Đặt mặc định chọn profile\r\n        bottomNavigationView.setSelectedItemId(R.id.nav_profile);\r\n\r\n        bottomNavigationView.setOnItemSelectedListener(item -> {\r\n            int id = item.getItemId();\r\n\r\n            if (id == R.id.nav_home) {\r\n                startActivity(new Intent(this, MainHomeActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_cart) {\r\n                startActivity(new Intent(this, MainActivity_giohang.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_notifications) {\r\n                startActivity(new Intent(this, NotificationsActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_profile) {\r\n                Intent intent = new Intent(this, AdminActivity.class);\r\n                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // <-- Flag này\r\n                startActivity(intent);\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            }\r\n\r\n            return false;\r\n        });\r\n\r\n        setupRow((View) findViewById(R.id.rowManagerAccount),\r\n                R.drawable.ic_bell, \"Manager Account\");\r\n\r\n        setupRow((View) findViewById(R.id.rowManagerProduce),\r\n                R.drawable.ic_orders_history, \"Manager Produce\");\r\n\r\n\r\n        findViewById(R.id.rowManagerAccount).setOnClickListener(v ->\r\n                startActivity(new Intent(this, MainAccountManagenment.class)));\r\n\r\n        // click Edit Profile -> mở màn 2\r\n        findViewById(R.id.rowManagerProduce).setOnClickListener(v ->\r\n                startActivity(new Intent(this, EditProfileActivity.class)));\r\n\r\n\r\n\r\n        findViewById(R.id.btnSignOut).setOnClickListener(v -> {\r\n            // Xóa session hoặc token ở đây nếu có\r\n\r\n            Intent intent = new Intent(AdminActivity.this, SignInactivity.class);\r\n            // Xóa tất cả activity cũ để không quay lại bằng nút back\r\n            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);\r\n            startActivity(intent);\r\n            finish();\r\n        });\r\n    }\r\n\r\n    private void setupRow(View row, int iconRes, String title) {\r\n        ImageView iv = row.findViewById(R.id.ivIcon);\r\n        TextView tv = row.findViewById(R.id.tvTitle);\r\n        iv.setImageResource(iconRes);\r\n        tv.setText(title);\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/AdminActivity.java b/app/src/main/java/com/example/project_btl/AdminActivity.java
+--- a/app/src/main/java/com/example/project_btl/AdminActivity.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/AdminActivity.java	(date 1760861352856)
+@@ -9,7 +9,7 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ 
+ import com.example.project_btl.Login.SignInactivity;
+-import com.example.project_btl.OrderHistoryActivity;
++import com.example.project_btl.profile.OrderHistoryActivity;
+ import com.example.project_btl.R;
+ import com.example.project_btl.cart.MainActivity_giohang;
+ import com.example.project_btl.home.MainHomeActivity;
+Index: app/src/main/res/layout/item_user.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n             android:orientation=\"vertical\"\r\n             android:layout_width=\"match_parent\"\r\n             android:layout_height=\"match_parent\">\r\n    <TextView\r\n        android:id=\"@+id/tvUsername\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:textStyle=\"bold\"\r\n        android:text=\"Username\"\r\n        android:textSize=\"16dp\">\r\n    </TextView>\r\n\r\n    <TextView\r\n        android:id=\"@+id/tvEmail\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:textStyle=\"bold\"\r\n        android:text=\"email\"\r\n        android:textSize=\"16dp\">\r\n    </TextView>\r\n\r\n    <TextView\r\n        android:id=\"@+id/tvRole\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:textStyle=\"bold\"\r\n        android:text=\"Role\"\r\n        android:textSize=\"16dp\">\r\n    </TextView>\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/item_user.xml b/app/src/main/res/layout/item_user.xml
+--- a/app/src/main/res/layout/item_user.xml	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/res/layout/item_user.xml	(date 1760868695737)
+@@ -2,13 +2,15 @@
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+-             android:layout_height="match_parent">
++             android:layout_height="wrap_content"
++             android:padding="10dp"
++             android:background="@drawable/product_item_border">
+     <TextView
+         android:id="@+id/tvUsername"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:textStyle="bold"
+-        android:text="Username"
++        android:text="Username: "
+         android:textSize="16dp">
+     </TextView>
+ 
+@@ -17,7 +19,7 @@
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:textStyle="bold"
+-        android:text="email"
++        android:text="Email: "
+         android:textSize="16dp">
+     </TextView>
+ 
+@@ -26,7 +28,7 @@
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:textStyle="bold"
+-        android:text="Role"
++        android:text="Role: "
+         android:textSize="16dp">
+     </TextView>
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/project_btl/CreateDatabase.java
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/CreateDatabase.java b/app/src/main/java/com/example/project_btl/CreateDatabase.java
+deleted file mode 100644
+--- a/app/src/main/java/com/example/project_btl/CreateDatabase.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ /dev/null	(revision 12e5613e899accb553232a336d35c7559f52da74)
+@@ -1,102 +0,0 @@
+-package com.example.project_btl;
+-
+-import android.content.ContentValues;
+-import android.content.Context;
+-import android.database.Cursor;
+-import android.database.sqlite.SQLiteDatabase;
+-import android.database.sqlite.SQLiteOpenHelper;
+-
+-public class CreateDatabase extends SQLiteOpenHelper {
+-
+-    // Tên CSDL và version
+-    public static final String DATABASE_NAME = "UserDB";
+-    public static final int DATABASE_VERSION = 1;
+-
+-    // Tên bảng và cột
+-    public static final String TB_USER = "User";
+-
+-    public static final String COL_ID = "id";
+-    public static final String COL_USERNAME = "username";
+-    public static final String COL_PASSWORD = "password";
+-    public static final String COL_FULLNAME = "fullname";
+-    public static final String COL_EMAIL = "email";
+-
+-    public CreateDatabase(Context context) {
+-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+-    }
+-
+-    @Override
+-    public void onCreate(SQLiteDatabase db) {
+-        // tạo bảng
+-        String createUserTable = "CREATE TABLE " + TB_USER + " (" +
+-                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+-                COL_USERNAME + " TEXT UNIQUE, " +
+-                COL_PASSWORD + " TEXT, " +
+-                COL_FULLNAME + " TEXT, " +
+-                COL_EMAIL + " TEXT)";
+-        db.execSQL(createUserTable);
+-    }
+-    // Thêm
+-    public boolean insertUser(String username, String password, String fullname, String email) {
+-        SQLiteDatabase db = this.getWritableDatabase();
+-
+-        // Kiểm tra username đã tồn tại chưa
+-        String checkQuery = "SELECT * FROM " + TB_USER + " WHERE " + COL_USERNAME + "=?";
+-        Cursor cursor = db.rawQuery(checkQuery, new String[]{username});
+-        if (cursor.getCount() > 0) {
+-            cursor.close();
+-            return false;
+-        }
+-        cursor.close();
+-
+-        ContentValues values = new ContentValues();
+-        values.put(COL_USERNAME, username);
+-        values.put(COL_PASSWORD, password);
+-        values.put(COL_FULLNAME, fullname);
+-        values.put(COL_EMAIL, email);
+-
+-        long result = db.insert(TB_USER, null, values);
+-        return result != -1;
+-    }
+-    //check
+-    public boolean checkUser(String username, String password) {
+-        SQLiteDatabase db = this.getReadableDatabase();
+-        String query = "SELECT * FROM " + TB_USER +
+-                " WHERE " + COL_USERNAME + "=? AND " + COL_PASSWORD + "=?";
+-        Cursor cursor = db.rawQuery(query, new String[]{username, password});
+-
+-        boolean exists = cursor.getCount() > 0;
+-        cursor.close();
+-        return exists;
+-    }
+-    //up
+-    @Override
+-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+-        db.execSQL("DROP TABLE IF EXISTS " + TB_USER);
+-        onCreate(db);
+-    }
+-
+-    //<Lấy pass user
+-    public String getPassword(String username, String fullname, String email) {
+-        SQLiteDatabase db = this.getReadableDatabase();
+-        String pass = null;
+-        Cursor cursor = null;
+-        try {
+-            cursor = db.rawQuery(
+-                    "SELECT " + COL_PASSWORD + " FROM " + TB_USER +
+-                            " WHERE " + COL_USERNAME + "=? AND " + COL_FULLNAME + "=? AND " + COL_EMAIL + "=?",
+-                    new String[]{username.trim(), fullname.trim(), email.trim()}
+-            );
+-
+-            if (cursor != null && cursor.moveToFirst()) {
+-                pass = cursor.getString(0);
+-            }
+-        } catch (Exception e) {
+-            e.printStackTrace();
+-        } finally {
+-            if (cursor != null) cursor.close();
+-            db.close();
+-        }
+-        return pass;
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/project_btl/DetailSPActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.ImageButton;\r\nimport android.widget.ImageView;\r\nimport android.widget.RadioButton;\r\nimport android.widget.RadioGroup;\r\nimport android.widget.RatingBar;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\n\r\nimport com.example.project_btl.cart.MainActivity_giohang;\r\nimport com.google.android.material.button.MaterialButton;\r\nimport com.google.firebase.auth.FirebaseAuth;\r\nimport com.google.firebase.firestore.FirebaseFirestore;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.HashMap;\r\nimport java.util.Map;\r\n\r\npublic class DetailSPActivity extends AppCompatActivity {\r\n\r\n    private ImageView productImage;\r\n    private TextView productName, productPrice, tvQuantity, moTa, ttBoSung;\r\n    private RatingBar ratingBar;\r\n    private RadioGroup rgSizeGiay, rgSizeClothes;\r\n    private ImageButton btnGiam, btnTang, btnGioHang, btnBack;\r\n    private MaterialButton btnBuyNow;\r\n\r\n    private int quantity = 1; // số lượng mặc định = 1\r\n    private FirebaseFirestore db;\r\n    private String userId;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.detail_sp);\r\n\r\n        if(getSupportActionBar() != null ){\r\n            getSupportActionBar().hide();\r\n        }\r\n\r\n        // Firebase\r\n        db = FirebaseFirestore.getInstance();\r\n        if (FirebaseAuth.getInstance().getCurrentUser() != null) {\r\n            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();\r\n        } else {\r\n            userId = \"guest\"; // xử lý guest nếu chưa đăng nhập\r\n        }\r\n\r\n        // Ánh xạ View\r\n        productImage = findViewById(R.id.ProductImages);\r\n        productName = findViewById(R.id.detailProductName);\r\n        productPrice = findViewById(R.id.detailProductPrice);\r\n        ratingBar = findViewById(R.id.productRating);\r\n        tvQuantity = findViewById(R.id.tvDetailQuantity);\r\n        moTa = findViewById(R.id.MoTa);\r\n        ttBoSung = findViewById(R.id.TTBoSung);\r\n        rgSizeGiay = findViewById(R.id.rgSizeGiay);\r\n        rgSizeClothes = findViewById(R.id.rgSizeClothes);\r\n\r\n        btnGiam = findViewById(R.id.btnGiamSoLuong);\r\n        btnTang = findViewById(R.id.btnTangSoLuong);\r\n        btnGioHang = findViewById(R.id.btnGioHang);\r\n        btnBuyNow = findViewById(R.id.btnBuyNow);\r\n        btnBack = findViewById(R.id.btnBack);\r\n        // Lấy object từ Intent\r\n\r\n        ProductModel product = (ProductModel) getIntent().getSerializableExtra(\"product\");\r\n\r\n        if (product != null) {\r\n            productImage.setImageResource(product.getImage());\r\n            productName.setText(product.getName());\r\n            productPrice.setText(product.getPrice() + \"$\");\r\n            ratingBar.setRating(product.getRating());\r\n            moTa.setText(product.getDescription());\r\n            ttBoSung.setText(product.getMoreInfor());\r\n\r\n            quantity = product.getQuantity();\r\n            if (quantity <= 0) quantity = 1;\r\n            tvQuantity.setText(String.valueOf(quantity));\r\n\r\n            // Hiển thị RadioGroup phù hợp loại sản phẩm\r\n            showSizeOptions(product.getType());\r\n        }\r\n\r\n        btnBack.setOnClickListener(v -> finish());\r\n\r\n        btnTang.setOnClickListener(v -> {\r\n            quantity++;\r\n            if (product != null) product.setQuantity(quantity);\r\n            tvQuantity.setText(String.valueOf(quantity));\r\n        });\r\n\r\n        btnGiam.setOnClickListener(v -> {\r\n            if (quantity > 1) {\r\n                quantity--;\r\n                if (product != null) product.setQuantity(quantity);\r\n                tvQuantity.setText(String.valueOf(quantity));\r\n            }\r\n        });\r\n\r\n        // Nút thêm giỏ hàng lên Firebase\r\n        btnGioHang.setOnClickListener(v -> {\r\n            if (product == null) return;\r\n\r\n            String size = getSelectedSize();\r\n            product.setSelectedSize(size);\r\n            product.setQuantity(quantity);\r\n\r\n            // Tạo map để lưu Firestore\r\n            Map<String, Object> cartItem = new HashMap<>();\r\n            cartItem.put(\"name\", product.getName());\r\n            cartItem.put(\"price\", product.getPrice());\r\n            cartItem.put(\"quantity\", product.getQuantity());\r\n            cartItem.put(\"selectedSize\", product.getSelectedSize());\r\n            cartItem.put(\"image\", product.getImage());\r\n            cartItem.put(\"type\", product.getType());\r\n\r\n            // Lưu vào Firestore: collection users -> document userId -> collection cartItems -> document productId\r\n            db.collection(\"users\")\r\n                    .document(userId)\r\n                    .collection(\"cartItems\")\r\n                    .document(product.getId())\r\n                    .set(cartItem)\r\n                    .addOnSuccessListener(aVoid -> {\r\n                        Toast.makeText(this, \"Đã thêm vào giỏ hàng\", Toast.LENGTH_SHORT).show();\r\n                        // Mở giỏ hàng\r\n                        Intent intent = new Intent(DetailSPActivity.this, MainActivity_giohang.class);\r\n                        startActivity(intent);\r\n                    })\r\n                    .addOnFailureListener(e -> {\r\n                        Toast.makeText(this, \"Lỗi khi thêm giỏ hàng\", Toast.LENGTH_SHORT).show();\r\n                        e.printStackTrace();\r\n                    });\r\n        });\r\n\r\n        //Bấm buy now sẽ hiển thị luôn form thanh toán\r\n        btnBuyNow.setOnClickListener(v -> {\r\n            if (product == null) return;\r\n\r\n            String size = getSelectedSize();\r\n            product.setSelectedSize(size);\r\n            product.setQuantity(quantity);\r\n\r\n            // Gửi sản phẩm hiện tại sang CheckOutActivity\r\n            ArrayList<ProductModel> selectedItems = new ArrayList<>();\r\n            selectedItems.add(product);\r\n\r\n            Intent intent = new Intent(DetailSPActivity.this, CheckOutActivity.class);\r\n            intent.putExtra(\"selectedItems\", selectedItems); // Truyền danh sách có 1 sản phẩm\r\n            startActivity(intent);\r\n\r\n            // Hiệu ứng chuyển trang\r\n            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);\r\n        });\r\n    }\r\n\r\n    private void showSizeOptions(String type) {\r\n        if (type.equals(\"Giày\")) {\r\n            rgSizeGiay.setVisibility(View.VISIBLE);\r\n            rgSizeClothes.setVisibility(View.GONE);\r\n        } else if (type.equals(\"Quần\") || type.equals(\"Áo\")) {\r\n            rgSizeGiay.setVisibility(View.GONE);\r\n            rgSizeClothes.setVisibility(View.VISIBLE);\r\n        } else {\r\n            rgSizeGiay.setVisibility(View.GONE);\r\n            rgSizeClothes.setVisibility(View.GONE);\r\n        }\r\n    }\r\n\r\n    private String getSelectedSize() {\r\n        if (rgSizeGiay.getVisibility() == View.VISIBLE) {\r\n            int selectedId = rgSizeGiay.getCheckedRadioButtonId();\r\n            if (selectedId == -1) return \"Chưa chọn size\";\r\n            RadioButton selectedRadio = findViewById(selectedId);\r\n            return selectedRadio.getText().toString();\r\n        } else if (rgSizeClothes.getVisibility() == View.VISIBLE) {\r\n            int selectedId = rgSizeClothes.getCheckedRadioButtonId();\r\n            if (selectedId == -1) return \"Chưa chọn size\";\r\n            RadioButton selectedRadio = findViewById(selectedId);\r\n            return selectedRadio.getText().toString();\r\n        }\r\n        return \"Chưa chọn size\";\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/DetailSPActivity.java b/app/src/main/java/com/example/project_btl/DetailSPActivity.java
+--- a/app/src/main/java/com/example/project_btl/DetailSPActivity.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/DetailSPActivity.java	(date 1760860995670)
+@@ -14,6 +14,7 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ 
+ 
++import com.example.project_btl.CheckOut.CheckOutActivity;
+ import com.example.project_btl.cart.MainActivity_giohang;
+ import com.google.android.material.button.MaterialButton;
+ import com.google.firebase.auth.FirebaseAuth;
+@@ -22,20 +23,16 @@
+ import java.util.ArrayList;
+ import java.util.HashMap;
+ import java.util.Map;
+-
+ public class DetailSPActivity extends AppCompatActivity {
+-
+     private ImageView productImage;
+     private TextView productName, productPrice, tvQuantity, moTa, ttBoSung;
+     private RatingBar ratingBar;
+     private RadioGroup rgSizeGiay, rgSizeClothes;
+     private ImageButton btnGiam, btnTang, btnGioHang, btnBack;
+     private MaterialButton btnBuyNow;
+-
+     private int quantity = 1; // số lượng mặc định = 1
+     private FirebaseFirestore db;
+     private String userId;
+-
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+Index: app/src/main/java/com/example/project_btl/cart/MainActivity_giohang.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl.cart;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.text.TextUtils;\r\nimport android.widget.Button;\r\nimport android.widget.CheckBox;\r\nimport android.widget.EditText;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.example.project_btl.ProductModel;\r\nimport com.example.project_btl.R;\r\nimport com.example.project_btl.Login.SignInactivity;\r\nimport com.example.project_btl.home.MainHomeActivity;\r\nimport com.example.project_btl.notification.NotificationsActivity;\r\nimport com.example.project_btl.CheckOutActivity;\r\nimport com.example.project_btl.profile.ProfileActivity;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\nimport com.google.firebase.auth.FirebaseAuth;\r\nimport com.google.firebase.firestore.DocumentSnapshot;\r\nimport com.google.firebase.firestore.EventListener;\r\nimport com.google.firebase.firestore.FirebaseFirestore;\r\nimport com.google.firebase.firestore.FirebaseFirestoreException;\r\nimport com.google.firebase.firestore.QuerySnapshot;\r\n\r\nimport java.text.NumberFormat;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Locale;\r\n\r\npublic class MainActivity_giohang extends AppCompatActivity {\r\n\r\n    private RecyclerView recyclerView;\r\n    private CheckBox checkboxSelectAll;\r\n    private Button btnDeleteSelected, btnBuySelected, btnApplyCoupon;\r\n    private EditText edtCoupon;\r\n    private TextView tvSubtotal, tvDiscount, tvTotal;\r\n\r\n    private List<ProductModel> items = new ArrayList<>();\r\n    private Giohang_Adapter adapter;\r\n\r\n    private FirebaseFirestore db;\r\n    private String userId;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_giohang);\r\n        if (getSupportActionBar() != null) getSupportActionBar().hide();\r\n\r\n        // Ánh xạ view\r\n        recyclerView = findViewById(R.id.recyclerViewProducts);\r\n        checkboxSelectAll = findViewById(R.id.checkboxSelectAll);\r\n        btnDeleteSelected = findViewById(R.id.btnDeleteSelected);\r\n        btnBuySelected = findViewById(R.id.btnBuySelected);\r\n        btnApplyCoupon = findViewById(R.id.btnApplyCoupon);\r\n        edtCoupon = findViewById(R.id.edtCoupon);\r\n        tvSubtotal = findViewById(R.id.tvSubtotal);\r\n        tvDiscount = findViewById(R.id.tvDiscount);\r\n        tvTotal = findViewById(R.id.tvTotal);\r\n\r\n        recyclerView.setLayoutManager(new LinearLayoutManager(this));\r\n\r\n        // Firebase\r\n        db = FirebaseFirestore.getInstance();\r\n        if (FirebaseAuth.getInstance().getCurrentUser() != null)\r\n            userId = FirebaseAuth.getInstance().getCurrentUser().getUid();\r\n        else userId = \"guest\";\r\n\r\n        // Adapter\r\n        adapter = new Giohang_Adapter(items, new Giohang_Adapter.Listener() {\r\n            @Override\r\n            public void onItemsChanged() {\r\n                recalcTotal();\r\n            }\r\n\r\n            @Override\r\n            public void onItemRemoved(int position) {\r\n                ProductModel removed = items.get(position);\r\n                db.collection(\"users\").document(userId)\r\n                        .collection(\"cartItems\")\r\n                        .document(removed.getId())\r\n                        .delete();\r\n            }\r\n        });\r\n        recyclerView.setAdapter(adapter);\r\n\r\n        // Load giỏ hàng realtime\r\n        loadCartFromFirebase();\r\n\r\n        // Chọn tất cả\r\n        checkboxSelectAll.setOnCheckedChangeListener((buttonView, isChecked) -> {\r\n            for (ProductModel it : items) it.setChecked(isChecked);\r\n            adapter.notifyDataSetChanged();\r\n            recalcTotal();\r\n        });\r\n\r\n        // Xóa sản phẩm được chọn\r\n        btnDeleteSelected.setOnClickListener(v -> {\r\n            for (ProductModel p : new ArrayList<>(items)) {\r\n                if (p.isChecked()) {\r\n                    db.collection(\"users\").document(userId)\r\n                            .collection(\"cartItems\")\r\n                            .document(p.getId())\r\n                            .delete();\r\n                }\r\n            }\r\n            adapter.notifyDataSetChanged();\r\n            recalcTotal();\r\n        });\r\n\r\n        // Mua hàng → sang form Thanh Toán\r\n        btnBuySelected.setOnClickListener(v -> proceedToCheckout());\r\n\r\n        // Áp dụng voucher\r\n        btnApplyCoupon.setOnClickListener(v -> recalcTotal());\r\n\r\n        // Bottom Navigation\r\n        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);\r\n        bottomNavigationView.setSelectedItemId(R.id.nav_cart);\r\n        bottomNavigationView.setOnItemSelectedListener(item -> {\r\n            int id = item.getItemId();\r\n            if (id == R.id.nav_home) startActivity(new Intent(this, MainHomeActivity.class));\r\n            else if (id == R.id.nav_notifications)\r\n                startActivity(new Intent(this, NotificationsActivity.class));\r\n            else if (id == R.id.nav_profile)\r\n                startActivity(new Intent(this, ProfileActivity.class));\r\n            overridePendingTransition(0, 0);\r\n            return true;\r\n        });\r\n    }\r\n\r\n    // Hàm tải giỏ hàng từ Firebase\r\n    private void loadCartFromFirebase() {\r\n        db.collection(\"users\").document(userId)\r\n                .collection(\"cartItems\")\r\n                .addSnapshotListener(new EventListener<QuerySnapshot>() {\r\n                    @Override\r\n                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {\r\n                        if (error != null) return;\r\n                        items.clear();\r\n                        if (value != null) {\r\n                            for (DocumentSnapshot doc : value.getDocuments()) {\r\n                                ProductModel p = new ProductModel(\r\n                                        doc.getId(),\r\n                                        doc.getString(\"name\"),\r\n                                        doc.getLong(\"price\"),\r\n                                        doc.getLong(\"image\").intValue(),\r\n                                        0f,\r\n                                        \"\", \"\",\r\n                                        doc.getLong(\"quantity\").intValue(),\r\n                                        doc.getString(\"selectedSize\"),\r\n                                        doc.getString(\"type\")\r\n                                );\r\n                                items.add(p);\r\n                            }\r\n                        }\r\n                        adapter.notifyDataSetChanged();\r\n                        recalcTotal();\r\n                    }\r\n                });\r\n    }\r\n\r\n    // Hàm tính tổng tiền\r\n    private void recalcTotal() {\r\n        long subtotal = 0;\r\n        for (ProductModel it : items)\r\n            if (it.isChecked()) subtotal += it.getPrice() * it.getQuantity();\r\n\r\n        long discount = 0;\r\n        String code = edtCoupon.getText() == null ? \"\" : edtCoupon.getText().toString().trim();\r\n        if (!TextUtils.isEmpty(code)) {\r\n            if (\"GIAM10%\".equalsIgnoreCase(code)) discount = Math.round(subtotal * 0.10);\r\n            else if (\"GIAM50$\".equalsIgnoreCase(code)) discount = Math.min(50, subtotal);\r\n        }\r\n        long total = Math.max(0, subtotal - discount);\r\n        tvSubtotal.setText(\"Tổng tiền hàng: \" + formatVnd(subtotal));\r\n        tvDiscount.setText(\"Áp dụng Voucher: \" + formatVnd(discount));\r\n        tvTotal.setText(\"Tổng Thanh Toán: \" + formatVnd(total));\r\n    }\r\n\r\n    private String formatVnd(long v) {\r\n        return NumberFormat.getInstance(new Locale(\"vi\", \"VN\")).format(v) + \"₫\";\r\n    }\r\n\r\n    // Chuyển sang form Thanh Toán\r\n    private void proceedToCheckout() {\r\n        List<ProductModel> selectedItems = new ArrayList<>();\r\n        for (ProductModel p : items) {\r\n            if (p.isChecked()) {\r\n                selectedItems.add(p);\r\n            }\r\n        }\r\n\r\n        if (selectedItems.isEmpty()) {\r\n            Toast.makeText(this, \"Vui lòng chọn sản phẩm để thanh toán\", Toast.LENGTH_SHORT).show();\r\n            return;\r\n        }\r\n\r\n        Intent intent = new Intent(this, CheckOutActivity.class);\r\n        intent.putExtra(\"selectedItems\", (ArrayList<ProductModel>) selectedItems);\r\n        startActivity(intent);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/cart/MainActivity_giohang.java b/app/src/main/java/com/example/project_btl/cart/MainActivity_giohang.java
+--- a/app/src/main/java/com/example/project_btl/cart/MainActivity_giohang.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/cart/MainActivity_giohang.java	(date 1760860995829)
+@@ -19,7 +19,7 @@
+ import com.example.project_btl.Login.SignInactivity;
+ import com.example.project_btl.home.MainHomeActivity;
+ import com.example.project_btl.notification.NotificationsActivity;
+-import com.example.project_btl.CheckOutActivity;
++import com.example.project_btl.CheckOut.CheckOutActivity;
+ import com.example.project_btl.profile.ProfileActivity;
+ import com.google.android.material.bottomnavigation.BottomNavigationView;
+ import com.google.firebase.auth.FirebaseAuth;
+Index: app/src/main/java/com/example/project_btl/OrderHistoryAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/OrderHistoryAdapter.java b/app/src/main/java/com/example/project_btl/profile/OrderHistoryAdapter.java
+rename from app/src/main/java/com/example/project_btl/OrderHistoryAdapter.java
+rename to app/src/main/java/com/example/project_btl/profile/OrderHistoryAdapter.java
+--- a/app/src/main/java/com/example/project_btl/OrderHistoryAdapter.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/profile/OrderHistoryAdapter.java	(date 1760860995745)
+@@ -1,4 +1,4 @@
+-package com.example.project_btl;
++package com.example.project_btl.profile;
+ 
+ import android.view.LayoutInflater;
+ import android.view.View;
+@@ -7,6 +7,11 @@
+ import androidx.annotation.NonNull;
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
++
++import com.example.project_btl.OrderItemAdapter;
++import com.example.project_btl.OrderManagerFirebase;
++import com.example.project_btl.R;
++
+ import java.util.List;
+ import java.util.Locale;
+ import java.text.NumberFormat;
+Index: app/src/main/java/com/example/project_btl/OrderHistoryActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/OrderHistoryActivity.java b/app/src/main/java/com/example/project_btl/profile/OrderHistoryActivity.java
+rename from app/src/main/java/com/example/project_btl/OrderHistoryActivity.java
+rename to app/src/main/java/com/example/project_btl/profile/OrderHistoryActivity.java
+--- a/app/src/main/java/com/example/project_btl/OrderHistoryActivity.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/profile/OrderHistoryActivity.java	(date 1760860995803)
+@@ -1,4 +1,4 @@
+-package com.example.project_btl;
++package com.example.project_btl.profile;
+ 
+ import android.os.Bundle;
+ import android.view.View;
+@@ -7,6 +7,10 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
++
++import com.example.project_btl.OrderManagerFirebase;
++import com.example.project_btl.R;
++
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+Index: app/src/main/res/layout/homepage_form.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:orientation=\"vertical\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <LinearLayout\r\n        android:background=\"@drawable/bg_bottom_line\"\r\n        android:orientation=\"horizontal\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"65dp\">\r\n        <LinearLayout\r\n            android:background=\"@drawable/ic_logo\"\r\n            android:layout_width=\"180dp\"\r\n            android:layout_marginLeft=\"8dp\"\r\n            android:layout_height=\"match_parent\">\r\n\r\n        </LinearLayout>\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imageView\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:padding=\"11dp\"\r\n            android:layout_marginLeft=\"70dp\"\r\n            app:srcCompat=\"@drawable/profile\" />\r\n        <TextView\r\n\r\n            android:padding=\"12dp\"\r\n            android:text=\"Xin chào ,\\nHiệp ngu\"\r\n            android:textStyle=\"bold\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\">\r\n\r\n        </TextView>\r\n    </LinearLayout>\r\n\r\n\r\n    <LinearLayout\r\n        android:background=\"@drawable/bg_bottom_line\"\r\n        android:orientation=\"horizontal\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"65dp\">\r\n\r\n        <EditText\r\n            android:id=\"@+id/edtSearch\"\r\n            android:layout_width=\"300dp\"\r\n            android:layout_height=\"45dp\"\r\n            android:layout_gravity=\"center\"\r\n            android:layout_marginLeft=\"30dp\"\r\n            android:background=\"@drawable/bg_edttext_search\"\r\n            android:drawableLeft=\"@drawable/search_icon\"\r\n            android:drawablePadding=\"10dp\"\r\n            android:hint=\"Nhập tìm kiếm\"\r\n            android:inputType=\"textMultiLine\"\r\n            android:paddingLeft=\"10dp\">\r\n\r\n        </EditText>\r\n\r\n        <Button\r\n            android:drawableLeft=\"@drawable/settings_icon\"\r\n            android:background=\"#00000000\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\">\r\n\r\n        </Button>\r\n\r\n\r\n    </LinearLayout>\r\n\r\n    <!-- Banner -->\r\n    <androidx.viewpager2.widget.ViewPager2\r\n        android:id=\"@+id/bannerViewPager\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"200dp\" />\r\n\r\n    <!-- Categories -->\r\n    <LinearLayout\r\n        android:orientation=\"horizontal\"\r\n        android:padding=\"12dp\"\r\n        android:gravity=\"center_vertical\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <TextView\r\n            android:text=\"Các danh mục\"\r\n            android:textSize=\"16sp\"\r\n            android:textStyle=\"bold\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\" />\r\n\r\n        <TextView\r\n            android:text=\"View All\"\r\n            android:textColor=\"@android:color/holo_blue_dark\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:gravity=\"end\" />\r\n    </LinearLayout>\r\n\r\n    <!-- RecyclerView cho categories -->\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/categoryRecyclerView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:scrollbars=\"none\"\r\n        android:padding=\"8dp\"/>\r\n\r\n\r\n    <!-- Grid sản phẩm -->\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/productRecyclerView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"1\"\r\n        android:padding=\"8dp\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.GridLayoutManager\"\r\n        app:spanCount=\"2\"/>\r\n\r\n\r\n\r\n    <!-- Bottom Navigation -->\r\n    <com.google.android.material.bottomnavigation.BottomNavigationView\r\n        android:id=\"@+id/bottomNavigation\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:background=\"@android:color/white\"\r\n        app:itemIconSize=\"26dp\"\r\n        app:itemIconTint=\"@null\"\r\n        app:itemTextColor=\"@null\"\r\n        app:menu=\"@menu/bottom_nav_menu\" />\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/homepage_form.xml b/app/src/main/res/layout/homepage_form.xml
+--- a/app/src/main/res/layout/homepage_form.xml	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/res/layout/homepage_form.xml	(date 1760860995705)
+@@ -10,12 +10,12 @@
+         android:orientation="horizontal"
+         android:layout_width="match_parent"
+         android:layout_height="65dp">
++
+         <LinearLayout
+             android:background="@drawable/ic_logo"
+             android:layout_width="180dp"
+             android:layout_marginLeft="8dp"
+             android:layout_height="match_parent">
+-
+         </LinearLayout>
+ 
+         <ImageView
+Index: app/src/main/java/com/example/project_btl/CheckoutAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/CheckoutAdapter.java b/app/src/main/java/com/example/project_btl/CheckOut/CheckoutAdapter.java
+rename from app/src/main/java/com/example/project_btl/CheckoutAdapter.java
+rename to app/src/main/java/com/example/project_btl/CheckOut/CheckoutAdapter.java
+--- a/app/src/main/java/com/example/project_btl/CheckoutAdapter.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/CheckOut/CheckoutAdapter.java	(date 1760860995899)
+@@ -1,4 +1,4 @@
+-package com.example.project_btl;
++package com.example.project_btl.CheckOut;
+ 
+ import android.view.LayoutInflater;
+ import android.view.View;
+Index: app/src/main/java/com/example/project_btl/UserAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl;\r\n\r\n\r\nimport android.content.Context;\r\nimport android.graphics.Color;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.TextView;\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\nimport java.util.List;\r\npublic class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {\r\n\r\n    private List<User> users;\r\n    private int selectedPos = -1;\r\n    private Context context;\r\n\r\n    public UserAdapter(Context context, List<User> users) {\r\n        this.context = context;\r\n        this.users = users;\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        View v = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);\r\n        return new UserViewHolder(v);\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {\r\n        User user = users.get(position);\r\n        holder.tvUsername.setText(user.getUsername());\r\n        holder.tvEmail.setText(\"Email: \" + user.getEmail());\r\n        holder.tvRole.setText(\"Role: \" + user.getRole());\r\n\r\n        // tô màu khi chọn\r\n        holder.itemView.setBackgroundColor(selectedPos == position ? Color.LTGRAY : Color.TRANSPARENT);\r\n\r\n        holder.itemView.setOnClickListener(v -> {\r\n            notifyItemChanged(selectedPos);\r\n            selectedPos = holder.getAdapterPosition();\r\n            notifyItemChanged(selectedPos);\r\n        });\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return users.size();\r\n    }\r\n\r\n    public User getSelectedUser() {\r\n        if (selectedPos != -1) return users.get(selectedPos);\r\n        return null;\r\n    }\r\n\r\n    public void removeSelected() {\r\n        if (selectedPos != -1) {\r\n            users.remove(selectedPos);\r\n            notifyItemRemoved(selectedPos);\r\n            selectedPos = -1;\r\n        }\r\n    }\r\n\r\n    public static class UserViewHolder extends RecyclerView.ViewHolder {\r\n        TextView tvUsername, tvEmail, tvRole;\r\n        public UserViewHolder(@NonNull View itemView) {\r\n            super(itemView);\r\n            tvUsername = itemView.findViewById(R.id.tvUsername);\r\n            tvEmail = itemView.findViewById(R.id.tvEmail);\r\n            tvRole = itemView.findViewById(R.id.tvRole);\r\n        }\r\n    }\r\n\r\n    public void addUser(User user) {\r\n        users.add(user);\r\n        notifyItemInserted(users.size() - 1);\r\n    }\r\n\r\n    public int getSelectedPosition() {\r\n        return selectedPos;\r\n    }\r\n    public void updateSelected(User updatedUser) {\r\n        if (selectedPos != RecyclerView.NO_POSITION) {\r\n            users.set(selectedPos, updatedUser);\r\n            notifyItemChanged(selectedPos);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/UserAdapter.java b/app/src/main/java/com/example/project_btl/UserAdapter.java
+--- a/app/src/main/java/com/example/project_btl/UserAdapter.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/UserAdapter.java	(date 1760867113645)
+@@ -1,6 +1,5 @@
+ package com.example.project_btl;
+ 
+-
+ import android.content.Context;
+ import android.graphics.Color;
+ import android.view.LayoutInflater;
+@@ -10,16 +9,28 @@
+ import androidx.annotation.NonNull;
+ import androidx.recyclerview.widget.RecyclerView;
+ import java.util.List;
++
+ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
+ 
+     private List<User> users;
+-    private int selectedPos = -1;
++    private int selectedPos = RecyclerView.NO_POSITION;
+     private Context context;
++    private OnItemInteractionListener listener; // Biến listener để giao tiếp
+ 
+-    public UserAdapter(Context context, List<User> users) {
++    // --- BẮT ĐẦU SỬA ĐỔI 1: Tạo Interface ---
++    public interface OnItemInteractionListener {
++        void onItemClick(User user);
++        void onItemLongClick(User user);
++    }
++    // --- KẾT THÚC SỬA ĐỔI 1 ---
++
++    // --- BẮT ĐẦU SỬA ĐỔI 2: Cập nhật Constructor ---
++    public UserAdapter(Context context, List<User> users, OnItemInteractionListener listener) {
+         this.context = context;
+         this.users = users;
++        this.listener = listener;
+     }
++    // --- KẾT THÚC SỬA ĐỔI 2 ---
+ 
+     @NonNull
+     @Override
+@@ -31,18 +42,35 @@
+     @Override
+     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+         User user = users.get(position);
+-        holder.tvUsername.setText(user.getUsername());
++        holder.tvUsername.setText(user.getName()); // Hiển thị tên đầy đủ sẽ đẹp hơn
+         holder.tvEmail.setText("Email: " + user.getEmail());
+         holder.tvRole.setText("Role: " + user.getRole());
+ 
+-        // tô màu khi chọn
++        // Giữ lại logic tô màu khi chọn
+         holder.itemView.setBackgroundColor(selectedPos == position ? Color.LTGRAY : Color.TRANSPARENT);
+ 
++        // --- BẮT ĐẦU SỬA ĐỔI 3: Gán sự kiện ---
+         holder.itemView.setOnClickListener(v -> {
+-            notifyItemChanged(selectedPos);
+-            selectedPos = holder.getAdapterPosition();
+-            notifyItemChanged(selectedPos);
++            if (listener != null) {
++                // Cập nhật vị trí được chọn và tô màu
++                notifyItemChanged(selectedPos);
++                selectedPos = holder.getAdapterPosition();
++                notifyItemChanged(selectedPos);
++
++                // Gọi đến Activity để xử lý việc sửa
++                listener.onItemClick(user);
++            }
+         });
++
++        holder.itemView.setOnLongClickListener(v -> {
++            if (listener != null) {
++                // Gọi đến Activity để xử lý việc xóa
++                listener.onItemLongClick(user);
++                return true; // Đánh dấu sự kiện đã được xử lý
++            }
++            return false;
++        });
++        // --- KẾT THÚC SỬA ĐỔI 3 ---
+     }
+ 
+     @Override
+@@ -50,41 +78,41 @@
+         return users.size();
+     }
+ 
+-    public User getSelectedUser() {
+-        if (selectedPos != -1) return users.get(selectedPos);
+-        return null;
+-    }
+-
+-    public void removeSelected() {
+-        if (selectedPos != -1) {
+-            users.remove(selectedPos);
+-            notifyItemRemoved(selectedPos);
+-            selectedPos = -1;
+-        }
+-    }
+-
++    // ViewHolder giữ nguyên
+     public static class UserViewHolder extends RecyclerView.ViewHolder {
+         TextView tvUsername, tvEmail, tvRole;
+         public UserViewHolder(@NonNull View itemView) {
+             super(itemView);
++            // Giả định id trong item_user.xml là tvUsername, tvEmail, tvRole
+             tvUsername = itemView.findViewById(R.id.tvUsername);
+             tvEmail = itemView.findViewById(R.id.tvEmail);
+             tvRole = itemView.findViewById(R.id.tvRole);
+         }
+     }
+ 
++    // --- BẮT ĐẦU SỬA ĐỔI 4: Thêm các phương thức quản lý dữ liệu ---
+     public void addUser(User user) {
+         users.add(user);
+         notifyItemInserted(users.size() - 1);
+     }
+ 
+-    public int getSelectedPosition() {
+-        return selectedPos;
+-    }
+-    public void updateSelected(User updatedUser) {
+-        if (selectedPos != RecyclerView.NO_POSITION) {
+-            users.set(selectedPos, updatedUser);
+-            notifyItemChanged(selectedPos);
++    public void updateUser(User updatedUser) {
++        for (int i = 0; i < users.size(); i++) {
++            // Dùng một thuộc tính không đổi như username để tìm và cập nhật
++            if (users.get(i).getUsername().equals(updatedUser.getUsername())) {
++                users.set(i, updatedUser);
++                notifyItemChanged(i);
++                break;
++            }
+         }
+     }
+-}
++
++    public void removeUser(User userToRemove) {
++        int position = users.indexOf(userToRemove);
++        if (position > -1) {
++            users.remove(position);
++            notifyItemRemoved(position);
++        }
++    }
++    // --- KẾT THÚC SỬA ĐỔI 4 ---
++}
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Project_btl\">\r\n\r\n\t\t<!-- màn SignIn -->\r\n\t\t<activity android:name=\".Login.SignInactivity\" />\r\n\r\n\t\t<!-- màn Home -->\r\n\t\t<activity android:name=\".home.MainHomeActivity\" />\r\n\r\n<!--\t\t&lt;!&ndash; replaced deprecated SignInactivity with LoginActivity &ndash;&gt;-->\r\n<!--\t\t<activity android:name=\".LoginActivity\" />-->\r\n\r\n\r\n\t\t<!-- ChiTietSP activity (product detail) -->\r\n\t\t<activity android:name=\".DetailSPActivity\" />\r\n\r\n\t\t<!-- Gio hang activity (product detail) -->\r\n\t\t<activity android:name=\".cart.MainActivity_giohang\" />\r\n\r\n\t\t<!-- Form Thanh toán lý Hóa -->\r\n\t\t<activity android:name=\".CheckOutActivity\" />\r\n\r\n\t\t<!-- Form thông báo -->\r\n\t\t<activity android:name=\".notification.NotificationsActivity\" />\r\n\r\n\t\t<!-- Form profile -->\r\n\t\t<activity android:name=\".profile.ProfileActivity\" />\r\n\r\n\t\t<!-- Form profile -->\r\n\t\t<activity android:name=\".profile.ChangePasswordActivity\" />\r\n\r\n\t\t<!-- Form profile -->\r\n\t\t<activity android:name=\".profile.EditProfileActivity\" />\r\n\r\n\t\t<!-- Form orders history -->\r\n\t\t<activity android:name=\".OrderHistoryActivity\" />\r\n\r\n\t\t<!-- Form adminmainhome -->\r\n\t\t<activity android:name=\".AdminMainHomeActivity\" />\r\n\r\n\t\t<!-- Form adminactivity -->\r\n\t\t<activity android:name=\".AdminActivity\" />\r\n\r\n\t\t<!-- Form accountmanagenment -->\r\n\t\t<activity android:name=\".MainAccountManagenment\" />\r\n\r\n\t\t<!-- màn Splash (màn khởi động app) -->\r\n\t\t<activity\r\n\t\t\tandroid:name=\".Login.SplashActivity\"\r\n\t\t\tandroid:exported=\"true\">\r\n\t\t\t<intent-filter>\r\n\t\t\t\t<action android:name=\"android.intent.action.MAIN\" />\r\n\t\t\t\t<category android:name=\"android.intent.category.LAUNCHER\" />\r\n\t\t\t</intent-filter>\r\n\t\t</activity>\r\n\r\n    </application>\r\n</manifest>\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/AndroidManifest.xml	(date 1760860995685)
+@@ -29,7 +29,7 @@
+ 		<activity android:name=".cart.MainActivity_giohang" />
+ 
+ 		<!-- Form Thanh toán lý Hóa -->
+-		<activity android:name=".CheckOutActivity" />
++		<activity android:name=".CheckOut.CheckOutActivity" />
+ 
+ 		<!-- Form thông báo -->
+ 		<activity android:name=".notification.NotificationsActivity" />
+@@ -44,7 +44,7 @@
+ 		<activity android:name=".profile.EditProfileActivity" />
+ 
+ 		<!-- Form orders history -->
+-		<activity android:name=".OrderHistoryActivity" />
++		<activity android:name=".profile.OrderHistoryActivity" />
+ 
+ 		<!-- Form adminmainhome -->
+ 		<activity android:name=".AdminMainHomeActivity" />
+Index: app/src/main/java/com/example/project_btl/profile/ProfileActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl.profile;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.example.project_btl.Login.SignInactivity;\r\nimport com.example.project_btl.OrderHistoryActivity;\r\nimport com.example.project_btl.R;\r\nimport com.example.project_btl.cart.MainActivity_giohang;\r\nimport com.example.project_btl.home.MainHomeActivity;\r\nimport com.example.project_btl.notification.NotificationsActivity;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\n\r\npublic class ProfileActivity extends AppCompatActivity {\r\n\r\n    private View rowEditProfile, rowNotification, rowAddress, rowPassword;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_profile);\r\n        if(getSupportActionBar() != null)\r\n            getSupportActionBar().hide();\r\n\r\n\r\n\r\n        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);\r\n\r\n        // Đặt mặc định chọn profile\r\n        bottomNavigationView.setSelectedItemId(R.id.nav_profile);\r\n\r\n        bottomNavigationView.setOnItemSelectedListener(item -> {\r\n            int id = item.getItemId();\r\n\r\n            if (id == R.id.nav_home) {\r\n                startActivity(new Intent(this, MainHomeActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_cart) {\r\n                startActivity(new Intent(this, MainActivity_giohang.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_notifications) {\r\n                startActivity(new Intent(this, NotificationsActivity.class));\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            } else if (id == R.id.nav_profile) {\r\n                Intent intent = new Intent(this, ProfileActivity.class);\r\n                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);\r\n                startActivity(intent);\r\n                overridePendingTransition(0, 0);\r\n                return true;\r\n            }\r\n\r\n            return false;\r\n        });\r\n\r\n        setupRow((View) findViewById(R.id.rowEditProfile),\r\n                R.drawable.ic_bell, \"Edit Profile\");\r\n\r\n        setupRow((View) findViewById(R.id.rowHistory),\r\n                R.drawable.ic_orders_history, \"Order History\");\r\n\r\n        setupRow((View) findViewById(R.id.rowPassword),\r\n                R.drawable.ic_lock, \"Change Password\");\r\n\r\n        findViewById(R.id.rowPassword).setOnClickListener(v ->\r\n                startActivity(new Intent(this, ChangePasswordActivity.class)));\r\n\r\n        // click Edit Profile -> mở màn 2\r\n        findViewById(R.id.rowEditProfile).setOnClickListener(v ->\r\n                startActivity(new Intent(this, EditProfileActivity.class)));\r\n\r\n        // click Order History -> navigate to order history screen\r\n        findViewById(R.id.rowHistory).setOnClickListener(v ->\r\n                startActivity(new Intent(this, OrderHistoryActivity.class)));\r\n\r\n\r\n        findViewById(R.id.btnSignOut).setOnClickListener(v -> {\r\n            // Xóa session hoặc token ở đây nếu có\r\n\r\n            Intent intent = new Intent(ProfileActivity.this, SignInactivity.class);\r\n            // Xóa tất cả activity cũ để không quay lại bằng nút back\r\n            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);\r\n            startActivity(intent);\r\n            finish();\r\n        });\r\n    }\r\n\r\n    private void setupRow(View row, int iconRes, String title) {\r\n        ImageView iv = row.findViewById(R.id.ivIcon);\r\n        TextView tv = row.findViewById(R.id.tvTitle);\r\n        iv.setImageResource(iconRes);\r\n        tv.setText(title);\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java b/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java
+--- a/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/profile/ProfileActivity.java	(date 1760860995693)
+@@ -9,7 +9,6 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ 
+ import com.example.project_btl.Login.SignInactivity;
+-import com.example.project_btl.OrderHistoryActivity;
+ import com.example.project_btl.R;
+ import com.example.project_btl.cart.MainActivity_giohang;
+ import com.example.project_btl.home.MainHomeActivity;
+Index: app/src/main/java/com/example/project_btl/MainAccountManagenment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl;\r\n\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class MainAccountManagenment extends AppCompatActivity {\r\n    private RecyclerView recyclerUsers;\r\n    private Button btnAdd, btnEdit, btnDelete;\r\n    private List<User> userList;\r\n    private UserAdapter adapter;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        if(getSupportActionBar() != null)\r\n            getSupportActionBar().hide();\r\n\r\n        setContentView(R.layout.activity_account_management);\r\n\r\n        recyclerUsers = findViewById(R.id.recyclerUsers);\r\n        btnAdd = findViewById(R.id.btnAdd);\r\n        btnEdit = findViewById(R.id.btnEdit);\r\n        btnDelete = findViewById(R.id.btnDelete);\r\n\r\n        userList = new ArrayList<>();\r\n        // Thêm dữ liệu demo (bỏ hoặc thay thế nếu dùng DB)\r\n        userList.add(new User(\"vietanh\", \"Nguyễn Văn Việt Anh\", \"vietanh@gmail.com\", \"0123456789\", \"Hà Nội\", \"Nam\", \"Admin\"));\r\n\r\n        adapter = new UserAdapter(this, userList);\r\n        recyclerUsers.setLayoutManager(new LinearLayoutManager(this));\r\n        recyclerUsers.setAdapter(adapter);\r\n\r\n        btnAdd.setOnClickListener(v -> openFormDialog(null));\r\n\r\n        btnEdit.setOnClickListener(v -> {\r\n            User selected = adapter.getSelectedUser();\r\n            if (selected == null) {\r\n                Toast.makeText(MainAccountManagenment.this, \"Vui lòng chọn 1 người dùng để sửa\", Toast.LENGTH_SHORT).show();\r\n                return;\r\n            }\r\n            openFormDialog(selected);\r\n        });\r\n\r\n        btnDelete.setOnClickListener(v -> {\r\n            User selected = adapter.getSelectedUser();\r\n            if (selected == null) {\r\n                Toast.makeText(MainAccountManagenment.this, \"Vui lòng chọn 1 người dùng để xóa\", Toast.LENGTH_SHORT).show();\r\n                return;\r\n            }\r\n            confirmDelete();\r\n        });\r\n    }\r\n\r\n    private void openFormDialog(User userToEdit) {\r\n        AlertDialog.Builder builder = new AlertDialog.Builder(this);\r\n        View view = getLayoutInflater().inflate(R.layout.dialog_add_user, null);\r\n        builder.setView(view);\r\n        AlertDialog dialog = builder.create();\r\n\r\n        EditText edtUsername = view.findViewById(R.id.edtUsername);\r\n        EditText edtName = view.findViewById(R.id.edtName);\r\n        EditText edtEmail = view.findViewById(R.id.edtEmail);\r\n        EditText edtPhone = view.findViewById(R.id.edtPhone);\r\n        EditText edtAddress = view.findViewById(R.id.edtAddress);\r\n        EditText edtGender = view.findViewById(R.id.edtGender);\r\n        EditText edtRole = view.findViewById(R.id.edtRole);\r\n        Button btnSave = view.findViewById(R.id.btnSave);\r\n\r\n        if (userToEdit != null) {\r\n            // Điền sẵn thông tin để sửa\r\n            edtUsername.setText(userToEdit.getUsername());\r\n            edtName.setText(userToEdit.getName());\r\n            edtEmail.setText(userToEdit.getEmail());\r\n            edtPhone.setText(userToEdit.getPhone());\r\n            edtAddress.setText(userToEdit.getAddress());\r\n            edtGender.setText(userToEdit.getGender());\r\n            edtRole.setText(userToEdit.getRole());\r\n\r\n            // Nếu muốn khóa username để không đổi, enable = false\r\n            // edtUsername.setEnabled(false);\r\n        }\r\n\r\n        btnSave.setOnClickListener(v -> {\r\n            String username = edtUsername.getText().toString().trim();\r\n            String name = edtName.getText().toString().trim();\r\n            String email = edtEmail.getText().toString().trim();\r\n            String phone = edtPhone.getText().toString().trim();\r\n            String address = edtAddress.getText().toString().trim();\r\n            String gender = edtGender.getText().toString().trim();\r\n            String role = edtRole.getText().toString().trim();\r\n\r\n            if (username.isEmpty() || email.isEmpty()) {\r\n                Toast.makeText(MainAccountManagenment.this, \"Nhập ít nhất username và email\", Toast.LENGTH_SHORT).show();\r\n                return;\r\n            }\r\n\r\n            if (userToEdit == null) {\r\n                // Thêm mới\r\n                User newUser = new User(username, name, email, phone, address, gender, role);\r\n                adapter.addUser(newUser);\r\n            } else {\r\n                // Cập nhật vị trí đang chọn\r\n                int pos = adapter.getSelectedPosition();\r\n                User updated = new User(username, name, email, phone, address, gender, role);\r\n                if (pos != RecyclerView.NO_POSITION) {\r\n                    // bạn có thể giữ nguyên object để preserve reference; mình thay thế bằng updateSelected\r\n                    adapter.updateSelected(updated);\r\n                }\r\n            }\r\n\r\n            dialog.dismiss();\r\n        });\r\n\r\n        dialog.show();\r\n    }\r\n\r\n    private void confirmDelete() {\r\n        new AlertDialog.Builder(this)\r\n                .setTitle(\"Xác nhận xóa\")\r\n                .setMessage(\"Bạn có chắc chắn muốn xóa người dùng này không?\")\r\n                .setPositiveButton(\"Xóa\", (d, w) -> adapter.removeSelected())\r\n                .setNegativeButton(\"Hủy\", null)\r\n                .show();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/MainAccountManagenment.java b/app/src/main/java/com/example/project_btl/MainAccountManagenment.java
+--- a/app/src/main/java/com/example/project_btl/MainAccountManagenment.java	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/java/com/example/project_btl/MainAccountManagenment.java	(date 1760868274729)
+@@ -2,22 +2,24 @@
+ 
+ import android.os.Bundle;
+ import android.view.View;
++import android.widget.ArrayAdapter;
+ import android.widget.Button;
+ import android.widget.EditText;
++import android.widget.ImageButton;
++import android.widget.Spinner;
+ import android.widget.Toast;
+-
+ import androidx.appcompat.app.AlertDialog;
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
+-
+-
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+-public class MainAccountManagenment extends AppCompatActivity {
++// --- SỬA ĐỔI 1: Implement interface từ UserAdapter ---
++public class MainAccountManagenment extends AppCompatActivity implements UserAdapter.OnItemInteractionListener {
+     private RecyclerView recyclerUsers;
+-    private Button btnAdd, btnEdit, btnDelete;
++    private Button btnAdd ;
++    private ImageButton btnBack;
+     private List<User> userList;
+     private UserAdapter adapter;
+ 
+@@ -31,39 +33,40 @@
+ 
+         recyclerUsers = findViewById(R.id.recyclerUsers);
+         btnAdd = findViewById(R.id.btnAdd);
+-        btnEdit = findViewById(R.id.btnEdit);
+-        btnDelete = findViewById(R.id.btnDelete);
++        btnBack = findViewById(R.id.btnBack);
++
+ 
+         userList = new ArrayList<>();
+-        // Thêm dữ liệu demo (bỏ hoặc thay thế nếu dùng DB)
++        // Thêm dữ liệu demo
+         userList.add(new User("vietanh", "Nguyễn Văn Việt Anh", "vietanh@gmail.com", "0123456789", "Hà Nội", "Nam", "Admin"));
+ 
+-        adapter = new UserAdapter(this, userList);
++        // --- SỬA ĐỔI 2: Khởi tạo adapter với listener là `this` ---
++        adapter = new UserAdapter(this, userList, this);
+         recyclerUsers.setLayoutManager(new LinearLayoutManager(this));
+         recyclerUsers.setAdapter(adapter);
+ 
+         btnAdd.setOnClickListener(v -> openFormDialog(null));
++        btnBack.setOnClickListener(v -> finish());
+ 
+-        btnEdit.setOnClickListener(v -> {
+-            User selected = adapter.getSelectedUser();
+-            if (selected == null) {
+-                Toast.makeText(MainAccountManagenment.this, "Vui lòng chọn 1 người dùng để sửa", Toast.LENGTH_SHORT).show();
+-                return;
+-            }
+-            openFormDialog(selected);
+-        });
++        // Xóa các OnClickListener của btnEdit, btnDelete
++    }
+ 
+-        btnDelete.setOnClickListener(v -> {
+-            User selected = adapter.getSelectedUser();
+-            if (selected == null) {
+-                Toast.makeText(MainAccountManagenment.this, "Vui lòng chọn 1 người dùng để xóa", Toast.LENGTH_SHORT).show();
+-                return;
+-            }
+-            confirmDelete();
+-        });
++    // --- SỬA ĐỔI 3: Xử lý sự kiện từ Adapter ---
++    @Override
++    public void onItemClick(User user) {
++        // Khi nhấn vào item -> mở form sửa
++        openFormDialog(user);
++    }
++
++    @Override
++    public void onItemLongClick(User user) {
++        // Khi nhấn giữ item -> hiện dialog xác nhận xóa
++        confirmDelete(user);
+     }
++
+ 
+     private void openFormDialog(User userToEdit) {
++        // Phương thức này giữ nguyên như phiên bản đúng bạn đã có
+         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+         View view = getLayoutInflater().inflate(R.layout.dialog_add_user, null);
+         builder.setView(view);
+@@ -74,23 +77,34 @@
+         EditText edtEmail = view.findViewById(R.id.edtEmail);
+         EditText edtPhone = view.findViewById(R.id.edtPhone);
+         EditText edtAddress = view.findViewById(R.id.edtAddress);
+-        EditText edtGender = view.findViewById(R.id.edtGender);
+         EditText edtRole = view.findViewById(R.id.edtRole);
+         Button btnSave = view.findViewById(R.id.btnSave);
++        Spinner spGender = view.findViewById(R.id.spGender);
++
++        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
++                this, android.R.layout.simple_spinner_dropdown_item,
++                new String[]{"Nam", "Nữ", "Khác"});
++        spGender.setAdapter(genderAdapter);
+ 
+         if (userToEdit != null) {
+-            // Điền sẵn thông tin để sửa
+             edtUsername.setText(userToEdit.getUsername());
+             edtName.setText(userToEdit.getName());
+             edtEmail.setText(userToEdit.getEmail());
+             edtPhone.setText(userToEdit.getPhone());
+             edtAddress.setText(userToEdit.getAddress());
+-            edtGender.setText(userToEdit.getGender());
+             edtRole.setText(userToEdit.getRole());
+ 
+-            // Nếu muốn khóa username để không đổi, enable = false
+-            // edtUsername.setEnabled(false);
++            String gender = userToEdit.getGender();
++            if (gender != null) {
++                int spinnerPosition = genderAdapter.getPosition(gender);
++                spGender.setSelection(spinnerPosition);
++            }
++            // Khóa việc sửa username để đảm bảo logic update hoạt động đúng
++            edtUsername.setEnabled(false);
++        } else {
++            edtUsername.setEnabled(true);
+         }
++
+ 
+         btnSave.setOnClickListener(v -> {
+             String username = edtUsername.getText().toString().trim();
+@@ -98,26 +112,19 @@
+             String email = edtEmail.getText().toString().trim();
+             String phone = edtPhone.getText().toString().trim();
+             String address = edtAddress.getText().toString().trim();
+-            String gender = edtGender.getText().toString().trim();
+             String role = edtRole.getText().toString().trim();
++            String gender = spGender.getSelectedItem().toString();
+ 
+             if (username.isEmpty() || email.isEmpty()) {
+                 Toast.makeText(MainAccountManagenment.this, "Nhập ít nhất username và email", Toast.LENGTH_SHORT).show();
+                 return;
+             }
+ 
++            User user = new User(username, name, email, phone, address, gender, role);
+             if (userToEdit == null) {
+-                // Thêm mới
+-                User newUser = new User(username, name, email, phone, address, gender, role);
+-                adapter.addUser(newUser);
++                adapter.addUser(user); // Thêm mới
+             } else {
+-                // Cập nhật vị trí đang chọn
+-                int pos = adapter.getSelectedPosition();
+-                User updated = new User(username, name, email, phone, address, gender, role);
+-                if (pos != RecyclerView.NO_POSITION) {
+-                    // bạn có thể giữ nguyên object để preserve reference; mình thay thế bằng updateSelected
+-                    adapter.updateSelected(updated);
+-                }
++                adapter.updateUser(user); // Cập nhật
+             }
+ 
+             dialog.dismiss();
+@@ -126,12 +133,13 @@
+         dialog.show();
+     }
+ 
+-    private void confirmDelete() {
++    // --- SỬA ĐỔI 4: Cập nhật phương thức để nhận User cần xóa ---
++    private void confirmDelete(User userToDelete) {
+         new AlertDialog.Builder(this)
+                 .setTitle("Xác nhận xóa")
+-                .setMessage("Bạn có chắc chắn muốn xóa người dùng này không?")
+-                .setPositiveButton("Xóa", (d, w) -> adapter.removeSelected())
++                .setMessage("Bạn có chắc muốn xóa người dùng '" + userToDelete.getName() + "' không?")
++                .setPositiveButton("Xóa", (d, w) -> adapter.removeUser(userToDelete))
+                 .setNegativeButton("Hủy", null)
+                 .show();
+     }
+-}
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_account_management.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:orientation=\"vertical\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"50dp\"\r\n        android:text=\"Account Management\"\r\n        android:textColor=\"#000000\"\r\n        android:textSize=\"25dp\"\r\n        android:gravity=\"center\">\r\n    </TextView>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"horizontal\"\r\n        android:gravity=\"center\"\r\n        android:layout_marginBottom=\"8dp\">\r\n\r\n        <Button\r\n            android:id=\"@+id/btnAdd\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Thêm\" />\r\n\r\n        <Button\r\n            android:id=\"@+id/btnEdit\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"8dp\"\r\n            android:text=\"Sửa\" />\r\n\r\n        <Button\r\n            android:id=\"@+id/btnDelete\"\r\n            android:layout_width=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"8dp\"\r\n            android:text=\"Xóa\" />\r\n    </LinearLayout>\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/recyclerUsers\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:divider=\"@android:color/darker_gray\"\r\n        android:dividerHeight=\"1dp\" />\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_account_management.xml b/app/src/main/res/layout/activity_account_management.xml
+--- a/app/src/main/res/layout/activity_account_management.xml	(revision 12e5613e899accb553232a336d35c7559f52da74)
++++ b/app/src/main/res/layout/activity_account_management.xml	(date 1760866738505)
+@@ -2,51 +2,46 @@
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:orientation="vertical"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent">
+-    <TextView
+-        android:layout_width="match_parent"
+-        android:layout_height="50dp"
+-        android:text="Account Management"
+-        android:textColor="#000000"
+-        android:textSize="25dp"
+-        android:gravity="center">
+-    </TextView>
++    android:layout_height="match_parent"
++    android:padding="16dp">
+ 
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+-        android:gravity="center"
+-        android:layout_marginBottom="8dp">
++        android:gravity="center_vertical"
++        android:layout_marginBottom="15dp">
+ 
+-        <Button
+-            android:id="@+id/btnAdd"
++        <ImageButton
++            android:id="@+id/btnBack"
++            android:layout_width="30dp"
++            android:layout_height="30dp"
++            android:src="@drawable/back"
++            android:background="@drawable/whitebackground"
++            android:padding="8dp" />
++
++        <TextView
+             android:layout_width="0dp"
+-            android:layout_weight="1"
+             android:layout_height="wrap_content"
+-            android:text="Thêm" />
+-
+-        <Button
+-            android:id="@+id/btnEdit"
+-            android:layout_width="0dp"
+             android:layout_weight="1"
+-            android:layout_height="wrap_content"
+-            android:layout_marginStart="8dp"
+-            android:text="Sửa" />
++            android:gravity="center"
++            android:text="Account Management"
++            android:textColor="#333333"
++            android:textSize="25sp"
++            android:textStyle="bold" />
++    </LinearLayout>
+ 
+-        <Button
+-            android:id="@+id/btnDelete"
+-            android:layout_width="0dp"
+-            android:layout_weight="1"
+-            android:layout_height="wrap_content"
+-            android:layout_marginStart="8dp"
+-            android:text="Xóa" />
+-    </LinearLayout>
+-
++    <Button
++        android:id="@+id/btnAdd"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center"
++        android:layout_marginBottom="8dp"
++        android:text="Add new user" />
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/recyclerUsers"
+         android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:divider="@android:color/darker_gray"
+-        android:dividerHeight="1dp" />
++        android:layout_height="0dp"
++        android:layout_weight="1" />
++
+ </LinearLayout>
+\ No newline at end of file

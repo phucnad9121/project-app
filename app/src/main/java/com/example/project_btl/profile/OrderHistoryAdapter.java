@@ -1,4 +1,4 @@
-package com.example.project_btl;
+package com.example.project_btl.profile;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.project_btl.OrderItemAdapter;
+import com.example.project_btl.OrderManagerFirebase;
+import com.example.project_btl.R;
+
 import java.util.List;
 import java.util.Locale;
 import java.text.NumberFormat;

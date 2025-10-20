@@ -19,7 +19,7 @@ import com.example.project_btl.R;
 import com.example.project_btl.Login.SignInactivity;
 import com.example.project_btl.home.MainHomeActivity;
 import com.example.project_btl.notification.NotificationsActivity;
-import com.example.project_btl.CheckOutActivity;
+import com.example.project_btl.CheckOut.CheckOutActivity;
 import com.example.project_btl.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;

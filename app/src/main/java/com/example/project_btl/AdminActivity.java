@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_btl.Login.SignInactivity;
-import com.example.project_btl.OrderHistoryActivity;
+import com.example.project_btl.profile.OrderHistoryActivity;
 import com.example.project_btl.R;
 import com.example.project_btl.cart.MainActivity_giohang;
 import com.example.project_btl.home.MainHomeActivity;

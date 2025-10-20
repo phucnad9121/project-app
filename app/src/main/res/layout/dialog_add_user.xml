@@ -7,6 +7,12 @@
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtName"
+            android:hint="Name">
+        </EditText>
 
         <EditText
             android:layout_width="match_parent"
@@ -14,29 +20,30 @@
             android:id="@+id/edtUsername"
             android:hint="Username">
         </EditText>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edtName"
-            android:hint="Name">
-        </EditText>
+
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edtEmail"
             android:hint="Email">
         </EditText>
+        <Spinner
+            android:id="@+id/spGender"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:popupTheme="@style/ThemeOverlay.Material3.MaterialAlertDialog"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edtPass"
-            android:hint="PassWord">
+            android:hint="Password">
         </EditText>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edtPhone"
-            android:hint="Phone">
+            android:hint="Phone Number">
         </EditText>
         <EditText
             android:layout_width="match_parent"
@@ -44,12 +51,8 @@
             android:id="@+id/edtAddress"
             android:hint="Address">
         </EditText>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edtGender"
-            android:hint="Gender">
-        </EditText>
+
+
 
         <EditText
             android:layout_width="match_parent"

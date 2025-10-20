@@ -1,4 +1,4 @@
-package com.example.project_btl;
+package com.example.project_btl.profile;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.project_btl.OrderManagerFirebase;
+import com.example.project_btl.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
