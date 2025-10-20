@@ -55,6 +55,12 @@
 		<!-- Form accountmanagenment -->
 		<activity android:name=".MainAccountManagenment" />
 
+		<!-- Form productmanagenment -->
+		<activity android:name=".admin.ProductManagementActivity" />
+
+		<!-- Form accountmanagenment -->
+		<activity android:name=".admin.AddProductActivity" />
+
 		<!-- màn Splash (màn khởi động app) -->
 		<activity
 			android:name=".Login.SplashActivity"

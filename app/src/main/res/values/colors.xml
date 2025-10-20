@@ -15,7 +15,8 @@
     <color name="red">#ff0000</color>
     <color name="darkBlue">#3C8CE7</color>
     <color name="GreyLight">#A7A7B1</color>
-    <color name="primary">#6200EE</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="primary">#6400EE</color>
 
     <color name="teal">#2F8F83</color>
     <color name="teal_dark">#24766B</color>

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_btl.Login.SignInactivity;
+import com.example.project_btl.admin.AddProductActivity;
+import com.example.project_btl.admin.ProductManagementActivity;
 import com.example.project_btl.profile.OrderHistoryActivity;
 import com.example.project_btl.R;
 import com.example.project_btl.cart.MainActivity_giohang;
@@ -74,7 +76,7 @@ public class AdminActivity extends AppCompatActivity {
 
         // click Edit Profile -> mở màn 2
         findViewById(R.id.rowManagerProduce).setOnClickListener(v ->
-                startActivity(new Intent(this, EditProfileActivity.class)));
+                startActivity(new Intent(this, ProductManagementActivity.class)));
 
 
 

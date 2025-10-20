@@ -13,6 +13,7 @@ public class ProductModel implements Serializable {
     private String moreInfor;
     private float rating;
     private int quantity;
+    private int reservedQuantity; // Số lượng đã được giữ chỗ/chưa thanh toán
     private boolean checked;    // để dùng trong giỏ hàng
     private String type;
 
@@ -30,6 +31,25 @@ public class ProductModel implements Serializable {
         this.description = description;
         this.moreInfor = moreInfor;
         this.quantity = Math.max(1, quantity);
+        this.reservedQuantity = 0; // Mặc định không có đơn giữ nào
+        this.selectedSize = selectedSize;
+        this.checked = false;
+        this.type = type;
+    }
+    
+    // constructor với thêm reservedQuantity
+    public ProductModel(String id, String name, Long price, int image, float rating,
+                        String description, String moreInfor, int quantity, int reservedQuantity,
+                        String selectedSize, String type) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.rating = rating;
+        this.description = description;
+        this.moreInfor = moreInfor;
+        this.quantity = Math.max(1, quantity);
+        this.reservedQuantity = reservedQuantity;
         this.selectedSize = selectedSize;
         this.checked = false;
         this.type = type;
@@ -70,4 +90,7 @@ public class ProductModel implements Serializable {
 
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    
+    public int getReservedQuantity() { return reservedQuantity; }
+    public void setReservedQuantity(int reservedQuantity) { this.reservedQuantity = reservedQuantity; }
 }
