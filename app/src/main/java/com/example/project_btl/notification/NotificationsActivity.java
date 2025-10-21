@@ -2,6 +2,9 @@ package com.example.project_btl.notification;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +42,11 @@ public class NotificationsActivity extends AppCompatActivity {
         adapter = new NotificationAdapter(notificationList);
         rvNotifications.setAdapter(adapter);
 
+        // Set delete listener for all users (both admin and regular users)
+        adapter.setOnDeleteListener((notification, position) -> {
+            showDeleteConfirmationDialog(notification, position);
+        });
+
         // 🔹 Load thông báo thật từ Firestore (theo user đang đăng nhập)
         NotificationManagerFirebase.getInstance().loadNotifications(list -> {
             notificationList.clear();
@@ -75,5 +83,31 @@ public class NotificationsActivity extends AppCompatActivity {
 
             return false;
         });
+    }
+
+    private void showDeleteConfirmationDialog(NotificationModel notification, int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Xóa thông báo")
+                .setMessage("Bạn có chắc muốn xóa thông báo này?")
+                .setPositiveButton("Xóa", (dialog, which) -> {
+                    deleteNotification(notification, position);
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
+    }
+
+    private void deleteNotification(NotificationModel notification, int position) {
+        if (notification.getDocumentId() != null) {
+            NotificationManagerFirebase.getInstance().deleteNotification(notification.getDocumentId(), (success, message) -> {
+                if (success) {
+                    // Remove from local list and update UI
+                    notificationList.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    Toast.makeText(this, "Thông báo đã được xóa", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Lỗi khi xóa thông báo: " + message, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }

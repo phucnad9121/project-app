@@ -66,13 +66,41 @@ public class NotificationManagerFirebase {
                         NotificationModel model = new NotificationModel(
                                 doc.getString("message"),
                                 doc.getString("time"),
-                                doc.contains("icon") ? Math.toIntExact(doc.getLong("icon")) : 0
+                                doc.contains("icon") ? Math.toIntExact(doc.getLong("icon")) : 0,
+                                doc.getId() // Include document ID
                         );
                         list.add(model);
                     }
                     listener.onLoaded(list);
                 })
                 .addOnFailureListener(e -> listener.onLoaded(new ArrayList<>()));
+    }
+
+    // 🟡 Delete notification by document ID
+    public void deleteNotification(String documentId, OnNotificationDeletedListener listener) {
+        CollectionReference notiRef = getNotificationRef();
+        if (notiRef == null) {
+            if (listener != null) {
+                listener.onDeleted(false, "Người dùng chưa được xác thực");
+            }
+            return;
+        }
+
+        notiRef.document(documentId).delete()
+                .addOnSuccessListener(aVoid -> {
+                    if (listener != null) {
+                        listener.onDeleted(true, "Thông báo đã được xóa thành công");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    if (listener != null) {
+                        listener.onDeleted(false, "Thông báo xoá thất bại: " + e.getMessage());
+                    }
+                });
+    }
+
+    public interface OnNotificationDeletedListener {
+        void onDeleted(boolean success, String message);
     }
 
     public interface OnNotificationsLoadedListener {

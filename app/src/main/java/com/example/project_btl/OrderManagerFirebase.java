@@ -83,7 +83,7 @@ public class OrderManagerFirebase {
                     );
                     // 🟢 Gửi thông báo đặt hàng
                     NotificationManagerFirebase.getInstance()
-                            .addNotification("Đơn hàng #" + id + " đã được đặt thành công!", "order", R.drawable.cart_icon);
+                            .addNotification("Đơn hàng #" + id + " đã được đặt thành công!", "order", R.drawable.ic_shopping_cart);
 
                     if (listener != null) listener.onSuccess(orderData); // ✅ Trả về dữ liệu đơn hàng
                 })
