@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar; // ✅ THÊM MỚI
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,6 +52,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.name.setText(product.getName());
         holder.price.setText(String.format("%,d đ", product.getPrice())); // (Fix) - Định dạng tiền
 
+        holder.productRating.setRating(product.getRating()); // ✅ THÊM MỚI
+
         // Click vào item thì mở ChiTietSPActivity
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetailSPActivity.class);
@@ -76,12 +79,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name, price;
+        RatingBar productRating; // ✅ THÊM MỚI
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.productImage);
             name = itemView.findViewById(R.id.productName);
             price = itemView.findViewById(R.id.productPrice);
+            productRating = itemView.findViewById(R.id.productRating); // ✅ THÊM MỚI (Giả định ID là 'productRating' trong item_product.xml)
         }
     }
 
