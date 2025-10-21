@@ -89,8 +89,8 @@ public class MainHomeActivity extends AppCompatActivity{
         bannerViewPager = findViewById(R.id.bannerViewPager);
         List<Integer> banners = new ArrayList<>();
         banners.add(R.drawable.giay_cau_long_lining_ayzu015);
-        banners.add(R.drawable.giay_cau_long_yonex_shb_65z4);
-        banners.add(R.drawable.giay_cau_long_victor_a311);
+        banners.add(R.drawable.giay_cau_long_lining_ayzu015);
+        banners.add(R.drawable.giay_cau_long_lining_ayzu015);
         BannerAdapter bannerAdapter = new BannerAdapter(this, banners);
         bannerViewPager.setAdapter(bannerAdapter);
 

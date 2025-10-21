@@ -85,13 +85,15 @@ public class CheckOutActivity extends AppCompatActivity {
     }
 
     private void updateTotalAmount() {
-        double subtotal = 0;
+        // ✅ THAY ĐỔI: Chuyển sang kiểu 'long'
+        long subtotal = 0;
         for (ProductModel item : checkoutList) {
             if (item != null) subtotal += item.getPrice() * item.getQuantity();
         }
 
-        double discount = 0; // nếu có giảm giá, cập nhật ở đây
-        double totalAmount = subtotal - discount;
+        // ✅ THAY ĐỔI: Chuyển sang kiểu 'long'
+        long discount = 0; // nếu có giảm giá, cập nhật ở đây
+        long totalAmount = subtotal - discount;
 
         tvTongTienHang.setText(formatVnd(subtotal));
         tvGiamGia.setText("- " + formatVnd(discount));
@@ -196,7 +198,8 @@ public class CheckOutActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private String formatVnd(double amount) {
-        return NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(amount);
+    // ✅ THAY ĐỔI: Sửa hàm theo yêu cầu của bạn
+    private String formatVnd(long v) {
+        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "$";
     }
 }

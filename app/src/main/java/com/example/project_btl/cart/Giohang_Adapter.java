@@ -157,6 +157,6 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
 
     private String formatVnd(long v) {
         // Cập nhật lại định dạng tiền cho đúng (bỏ $ đi)
-        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "₫";
+        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "$";
     }
 }

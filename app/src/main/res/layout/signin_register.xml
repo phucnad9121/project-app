@@ -372,6 +372,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="58dp"
                     android:layout_marginBottom="12dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/background_edittext"
                     android:hint="Tên tài khoản"
                     android:padding="10dp"

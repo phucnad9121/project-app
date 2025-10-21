@@ -14,7 +14,7 @@
         android:id="@+id/categoryIcon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/giay_cau_long_lining_ayau005" />
+        android:src="@drawable/giay_cau_long_lining_ayzu015" />
 
     <!-- Text (ẩn khi chưa chọn) -->
     <TextView

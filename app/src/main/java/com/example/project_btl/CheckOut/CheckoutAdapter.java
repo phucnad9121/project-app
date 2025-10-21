@@ -75,6 +75,6 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.VH> {
     }
 
     private String formatVnd(long v) {
-        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "₫";
+        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "$";
     }
 }

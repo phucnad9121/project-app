@@ -213,7 +213,7 @@ public class MainActivity_giohang extends AppCompatActivity {
     }
 
     private String formatVnd(long v) {
-        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "₫";
+        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "$";
     }
 
     // (Req 3) - Chuyển sang thanh toán (Đã đúng, không check kho)

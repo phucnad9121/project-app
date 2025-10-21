@@ -70,7 +70,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="240dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/giaycaulongliningayzu015"/>
+                        android:src="@drawable/giay_cau_long_lining_ayzu015"/>
 
 
                     <LinearLayout
