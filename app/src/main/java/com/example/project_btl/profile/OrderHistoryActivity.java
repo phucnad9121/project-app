@@ -35,6 +35,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
         rvOrderHistory.setLayoutManager(new LinearLayoutManager(this));
         rvOrderHistory.setAdapter(adapter);
 
+        findViewById(R.id.btnBack).setOnClickListener(v -> onBackPressed());
+
         loadOrderHistory();
     }
 

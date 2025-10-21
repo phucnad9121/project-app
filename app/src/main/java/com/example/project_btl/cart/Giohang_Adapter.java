@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide; // ✅ THÊM IMPORT NÀY
 import com.example.project_btl.DetailSPActivity;
 import com.example.project_btl.ProductModel;
 import com.example.project_btl.R;
@@ -57,13 +58,24 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
         });
 
         // Thông tin sản phẩm
-        h.image.setImageResource(it.getImage());
+        // ✅ THAY ĐỔI TẠI ĐÂY: DÙNG GLIDE ĐỂ TẢI URL
+        if (it.getImageUrl() != null && !it.getImageUrl().isEmpty()) {
+            Glide.with(h.itemView.getContext())
+                    .load(it.getImageUrl())
+                    .placeholder(R.drawable.meme)
+                    .error(R.drawable.meme)
+                    .into(h.image);
+        } else {
+            h.image.setImageResource(R.drawable.meme); // Ảnh mặc định
+        }
+        // h.image.setImageResource(it.getImage()); // ❌ BỎ DÒNG NÀY
+
         h.name.setText(it.getName());
         h.size.setText("Size: " + it.getSelectedSize());
         h.quantity.setText("SL: " + it.getQuantity());
         h.price.setText("Giá: " + formatVnd(it.getPrice()));
 
-        // Tăng/giảm số lượng
+        // Tăng/giảm số lượng (Req 3: Đã bỏ check số lượng)
         h.btnPlus.setOnClickListener(v -> {
             it.setQuantity(it.getQuantity() + 1);
             notifyItemChanged(h.getAdapterPosition());
@@ -130,6 +142,7 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
 
         public VH(@NonNull View v) {
             super(v);
+            // Các ID này đã khớp với list_item_gh.xml
             checkbox = v.findViewById(R.id.checkboxProduct);
             image = v.findViewById(R.id.productImage);
             name = v.findViewById(R.id.productName);
@@ -143,6 +156,7 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
     }
 
     private String formatVnd(long v) {
-        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "$";
+        // Cập nhật lại định dạng tiền cho đúng (bỏ $ đi)
+        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "₫";
     }
 }

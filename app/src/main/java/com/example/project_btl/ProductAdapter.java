@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide; // (Req 1) - Import Glide
+
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -33,9 +35,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         ProductModel product = productList.get(position);
-        holder.image.setImageResource(product.getImage());
+
+        // (Req 1) - Dùng Glide để load ảnh từ URL
+        if (product.getImageUrl() != null && !product.getImageUrl().isEmpty()) {
+            Glide.with(context)
+                    .load(product.getImageUrl())
+                    .placeholder(R.drawable.meme) // Ảnh chờ
+                    .error(R.drawable.meme) // Ảnh lỗi
+                    .into(holder.image);
+        } else {
+            holder.image.setImageResource(R.drawable.meme); // Ảnh mặc định
+        }
+        // holder.image.setImageResource(product.getImage()); // (Req 1) - Bỏ dòng này
+
         holder.name.setText(product.getName());
-        holder.price.setText(product.getPrice() +"$");
+        holder.price.setText(String.format("%,d đ", product.getPrice())); // (Fix) - Định dạng tiền
+
         // Click vào item thì mở ChiTietSPActivity
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetailSPActivity.class);
@@ -71,4 +86,3 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
 }
-

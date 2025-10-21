@@ -82,11 +82,12 @@ public class MainActivity_giohang extends AppCompatActivity {
 
             @Override
             public void onItemRemoved(int position) {
-                ProductModel removed = items.get(position);
-                db.collection("users").document(userId)
-                        .collection("cartItems")
-                        .document(removed.getId())
-                        .delete();
+                // (Logic này có thể không cần nếu listener của Firebase đã xử lý)
+                // ProductModel removed = items.get(position);
+                // db.collection("users").document(userId)
+                //         .collection("cartItems")
+                //         .document(removed.getId())
+                //         .delete();
             }
         });
         recyclerView.setAdapter(adapter);
@@ -103,16 +104,23 @@ public class MainActivity_giohang extends AppCompatActivity {
 
         // Xóa sản phẩm được chọn
         btnDeleteSelected.setOnClickListener(v -> {
-            for (ProductModel p : new ArrayList<>(items)) {
+            List<ProductModel> toDelete = new ArrayList<>();
+            for (ProductModel p : items) {
                 if (p.isChecked()) {
+                    toDelete.add(p);
+                }
+            }
+
+            // Xóa trên Firebase
+            for (ProductModel p : toDelete) {
+                if (p.getId() != null && !p.getId().isEmpty()) {
                     db.collection("users").document(userId)
                             .collection("cartItems")
-                            .document(p.getId())
+                            .document(p.getId()) // Dùng ID sản phẩm
                             .delete();
                 }
             }
-            adapter.notifyDataSetChanged();
-            recalcTotal();
+            // Không cần cập nhật adapter, listener sẽ tự động làm
         });
 
         // Mua hàng → sang form Thanh Toán
@@ -126,17 +134,26 @@ public class MainActivity_giohang extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.nav_cart);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.nav_home) startActivity(new Intent(this, MainHomeActivity.class));
-            else if (id == R.id.nav_notifications)
+            if (id == R.id.nav_home) {
+                startActivity(new Intent(this, MainHomeActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            else if (id == R.id.nav_notifications) {
                 startActivity(new Intent(this, NotificationsActivity.class));
-            else if (id == R.id.nav_profile)
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            else if (id == R.id.nav_profile) {
                 startActivity(new Intent(this, ProfileActivity.class));
-            overridePendingTransition(0, 0);
+                overridePendingTransition(0, 0);
+                return true;
+            }
             return true;
         });
     }
 
-    // Hàm tải giỏ hàng từ Firebase
+    // (Req 1) - Hàm tải giỏ hàng từ Firebase
     private void loadCartFromFirebase() {
         db.collection("users").document(userId)
                 .collection("cartItems")
@@ -147,17 +164,27 @@ public class MainActivity_giohang extends AppCompatActivity {
                         items.clear();
                         if (value != null) {
                             for (DocumentSnapshot doc : value.getDocuments()) {
-                                ProductModel p = new ProductModel(
-                                        doc.getId(),
-                                        doc.getString("name"),
-                                        doc.getLong("price"),
-                                        doc.getLong("image").intValue(),
-                                        0f,
-                                        "", "",
-                                        doc.getLong("quantity").intValue(),
-                                        doc.getString("selectedSize"),
-                                        doc.getString("type")
-                                );
+                                // (Req 1) - Dùng constructor rỗng và setters
+                                ProductModel p = new ProductModel();
+
+                                // (Req 2) - ID document chính là ID sản phẩm
+                                p.setId(doc.getId());
+
+                                p.setName(doc.getString("name"));
+                                p.setPrice(doc.getLong("price"));
+                                p.setImageUrl(doc.getString("imageUrl")); // (Req 1) - Lấy URL
+                                p.setRating(0f);
+                                p.setDescription("");
+                                p.setMoreInfor("");
+
+                                // (Req 3) - Lấy số lượng MUA
+                                Long qty = doc.getLong("quantity");
+                                p.setQuantity(qty != null ? qty.intValue() : 1);
+
+                                p.setSelectedSize(doc.getString("selectedSize"));
+                                p.setType(doc.getString("type"));
+                                p.setChecked(false); // Mặc định không chọn
+
                                 items.add(p);
                             }
                         }
@@ -167,7 +194,7 @@ public class MainActivity_giohang extends AppCompatActivity {
                 });
     }
 
-    // Hàm tính tổng tiền
+    // (Req 3) - Hàm tính tổng (Đã đúng, không check kho)
     private void recalcTotal() {
         long subtotal = 0;
         for (ProductModel it : items)
@@ -189,9 +216,9 @@ public class MainActivity_giohang extends AppCompatActivity {
         return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "₫";
     }
 
-    // Chuyển sang form Thanh Toán
+    // (Req 3) - Chuyển sang thanh toán (Đã đúng, không check kho)
     private void proceedToCheckout() {
-        List<ProductModel> selectedItems = new ArrayList<>();
+        ArrayList<ProductModel> selectedItems = new ArrayList<>();
         for (ProductModel p : items) {
             if (p.isChecked()) {
                 selectedItems.add(p);
@@ -204,7 +231,7 @@ public class MainActivity_giohang extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, CheckOutActivity.class);
-        intent.putExtra("selectedItems", (ArrayList<ProductModel>) selectedItems);
+        intent.putExtra("selectedItems", selectedItems);
         startActivity(intent);
     }
 }

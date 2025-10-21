@@ -6,21 +6,35 @@
     android:background="@color/bg"
     android:paddingTop="20dp">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lịch sử đơn hàng"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        android:textColor="@color/text_primary"
-        android:gravity="center"
-        android:paddingBottom="20dp"/>
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/darkBlue"
+            android:text="Quay lại"
+            android:layout_marginLeft="17dp"
+            android:textColor="@color/white" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Orders History"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:layout_marginLeft="25dp"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOrderHistory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginTop="10dp"
         android:paddingHorizontal="16dp"/>
 
     <TextView

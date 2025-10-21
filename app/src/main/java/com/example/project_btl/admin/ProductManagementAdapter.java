@@ -22,7 +22,7 @@ import java.util.List;
 public class ProductManagementAdapter extends RecyclerView.Adapter<ProductManagementAdapter.ProductViewHolder> {
     private Context context;
     private List<ProductModel> productList;
-    
+
     private OnEditClickListener editClickListener;
     private OnDeleteClickListener deleteClickListener;
 
@@ -75,7 +75,8 @@ public class ProductManagementAdapter extends RecyclerView.Adapter<ProductManage
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivProductImage;
-        private TextView tvProductName, tvProductPrice, tvProductQuantity, tvProductType, tvProductStatus;
+        // (Req 3) - Bỏ tvProductQuantity
+        private TextView tvProductName, tvProductPrice, tvProductType, tvProductStatus;
         private Button btnEdit, btnDelete;
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -83,7 +84,7 @@ public class ProductManagementAdapter extends RecyclerView.Adapter<ProductManage
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
             tvProductName = itemView.findViewById(R.id.tvProductName);
             tvProductPrice = itemView.findViewById(R.id.tvProductPrice);
-            tvProductQuantity = itemView.findViewById(R.id.tvProductQuantity);
+            // (Req 3) - Đã xóa ánh xạ tvProductQuantity
             tvProductType = itemView.findViewById(R.id.tvProductType);
             tvProductStatus = itemView.findViewById(R.id.tvProductStatus);
             btnEdit = itemView.findViewById(R.id.btnEdit);
@@ -107,19 +108,16 @@ public class ProductManagementAdapter extends RecyclerView.Adapter<ProductManage
         public void bind(ProductModel product) {
             tvProductName.setText(product.getName());
             tvProductPrice.setText(String.format("%,d đ", product.getPrice()));
-            tvProductQuantity.setText("Số lượng: " + product.getQuantity());
+            // (Req 3) - Bỏ logic gán tvProductQuantity
             tvProductType.setText("Loại: " + product.getType());
-            
-            // Hiển thị trạng thái sản phẩm
-            if (product.isChecked()) {
-                tvProductStatus.setText("Còn hàng");
-                tvProductStatus.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
-            } else {
-                tvProductStatus.setText("Hết hàng");
-                tvProductStatus.setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
-            }
 
-            // Load ảnh sản phẩm nếu có
+            // (Req 3) - Hiển thị trạng thái (Luôn còn hàng)
+            tvProductStatus.setText("Còn hàng");
+            tvProductStatus.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
+            // if (product.isChecked()) { ... } // (Req 3) Bỏ logic check
+
+
+            // (Req 1) - Load ảnh sản phẩm bằng Glide
             if (product.getImageUrl() != null && !product.getImageUrl().isEmpty()) {
                 Glide.with(context)
                         .load(product.getImageUrl())
@@ -127,7 +125,7 @@ public class ProductManagementAdapter extends RecyclerView.Adapter<ProductManage
                         .error(R.drawable.meme)
                         .into(ivProductImage);
             } else {
-                ivProductImage.setImageResource(product.getImage()); // Sử dụng ảnh mặc định từ resource
+                ivProductImage.setImageResource(R.drawable.meme); // Ảnh mặc định
             }
         }
     }

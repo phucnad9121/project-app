@@ -3,13 +3,16 @@ package com.example.project_btl.admin;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar; // ✅ (Req 3) Thêm import
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -17,27 +20,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_btl.ProductModel;
 import com.example.project_btl.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+// (Req 1) - Đã xóa import của FirebaseStorage
 
 import java.util.Arrays;
 import java.util.List;
 
 public class AddProductActivity extends AppCompatActivity {
-    private EditText edtProductName, edtProductPrice, edtProductDescription, 
-            edtProductMoreInfor, edtProductQuantity;
+
+    private TextInputEditText edtProductName, edtProductPrice, edtProductDescription,
+            edtProductMoreInfor, edtImageUrl;
     private Spinner spProductType;
-    private ImageView ivProductImage;
-    private Button btnChooseImage, btnSave, btnCancel;
+    private Button btnSave, btnCancel;
     private ImageButton btnBack;
-    
-    private Uri imageUri;
+    private RatingBar rbProductRating; // ✅ (Req 3) Thêm biến RatingBar
+
     private ProductModel productToEdit;
-    
     private FirebaseFirestore db;
-    private FirebaseStorage storage;
-    private StorageReference storageRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +46,16 @@ public class AddProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_product);
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-        // Khởi tạo Firebase
         db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReference();
 
         initViews();
         setupSpinner();
         setupClickListeners();
-        
-        // Kiểm tra xem có sản phẩm để sửa không
+
         productToEdit = (ProductModel) getIntent().getSerializableExtra("EDIT_PRODUCT");
         if (productToEdit != null) {
+            TextView tvTitle = findViewById(R.id.textViewTitle);
+            tvTitle.setText("Sửa sản phẩm");
             loadProductData();
         }
     }
@@ -66,11 +65,10 @@ public class AddProductActivity extends AppCompatActivity {
         edtProductPrice = findViewById(R.id.edtProductPrice);
         edtProductDescription = findViewById(R.id.edtProductDescription);
         edtProductMoreInfor = findViewById(R.id.edtProductMoreInfor);
-        edtProductQuantity = findViewById(R.id.edtProductQuantity);
+        edtImageUrl = findViewById(R.id.edtImageUrl);
         spProductType = findViewById(R.id.spProductType);
-        
-        ivProductImage = findViewById(R.id.ivProductImage);
-        btnChooseImage = findViewById(R.id.btnChooseImage);
+        rbProductRating = findViewById(R.id.rbProductRating); // ✅ (Req 3) Ánh xạ RatingBar
+
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
         btnBack = findViewById(R.id.btnBack);
@@ -78,33 +76,16 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void setupSpinner() {
         List<String> categories = Arrays.asList("Vợt", "Giày", "Quần", "Áo");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spProductType.setAdapter(adapter);
     }
 
     private void setupClickListeners() {
-        btnChooseImage.setOnClickListener(v -> openImageChooser());
         btnSave.setOnClickListener(v -> saveProduct());
         btnCancel.setOnClickListener(v -> finish());
         btnBack.setOnClickListener(v -> finish());
-    }
-
-    private void openImageChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 100);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-            ivProductImage.setImageURI(imageUri);
-        }
     }
 
     private void loadProductData() {
@@ -113,9 +94,9 @@ public class AddProductActivity extends AppCompatActivity {
             edtProductPrice.setText(String.valueOf(productToEdit.getPrice()));
             edtProductDescription.setText(productToEdit.getDescription());
             edtProductMoreInfor.setText(productToEdit.getMoreInfor());
-            edtProductQuantity.setText(String.valueOf(productToEdit.getQuantity()));
-            
-            // Thiết lập loại sản phẩm trong spinner
+            edtImageUrl.setText(productToEdit.getImageUrl());
+            rbProductRating.setRating(productToEdit.getRating()); // ✅ (Req 3) Load Rating
+
             ArrayAdapter<String> adapter = (ArrayAdapter<String>) spProductType.getAdapter();
             int spinnerPosition = adapter.getPosition(productToEdit.getType());
             spProductType.setSelection(spinnerPosition);
@@ -127,121 +108,99 @@ public class AddProductActivity extends AppCompatActivity {
         String priceStr = edtProductPrice.getText().toString().trim();
         String description = edtProductDescription.getText().toString().trim();
         String moreInfor = edtProductMoreInfor.getText().toString().trim();
-        String quantityStr = edtProductQuantity.getText().toString().trim();
+        String imageUrl = edtImageUrl.getText().toString().trim();
         String type = spProductType.getSelectedItem().toString();
+        float rating = rbProductRating.getRating(); // ✅ (Req 3) Lấy giá trị Rating
 
-        if (name.isEmpty() || priceStr.isEmpty() || quantityStr.isEmpty()) {
-            Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+        if (name.isEmpty() || priceStr.isEmpty() || type.isEmpty()) {
+            Toast.makeText(this, "Vui lòng điền tên, giá và loại sản phẩm", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(imageUrl)) {
+            Toast.makeText(this, "Vui lòng nhập URL hình ảnh", Toast.LENGTH_SHORT).show();
             return;
         }
 
         long price = Long.parseLong(priceStr);
-        int quantity = Integer.parseInt(quantityStr);
 
         if (productToEdit != null) {
             // Cập nhật sản phẩm
-            updateProduct(name, price, description, moreInfor, quantity, type);
+            updateProduct(name, price, description, moreInfor, imageUrl, type, rating);
         } else {
             // Thêm sản phẩm mới
-            addNewProduct(name, price, description, moreInfor, quantity, type);
+            addNewProduct(name, price, description, moreInfor, imageUrl, type, rating);
         }
     }
 
-    private void addNewProduct(String name, long price, String description, 
-                              String moreInfor, int quantity, String type) {
+    private void addNewProduct(String name, long price, String description,
+                               String moreInfor, String imageUrl, String type, float rating) { // ✅ (Req 3) Thêm rating
         ProductModel product = new ProductModel();
         product.setName(name);
         product.setPrice(price);
         product.setDescription(description);
         product.setMoreInfor(moreInfor);
-        product.setQuantity(quantity);
+        product.setImageUrl(imageUrl);
         product.setType(type);
-        product.setChecked(true); // Mặc định còn hàng
-        product.setReservedQuantity(0); // Mặc định không có đơn đặt giữ
+        product.setRating(rating); // ✅ (Req 3) Set Rating
+        product.setQuantity(9999);
+        product.setChecked(true);
+        product.setReservedQuantity(0);
 
-        // Upload image to Firebase Storage nếu có
-        if (imageUri != null) {
-            StorageReference imageRef = storageRef.child("product_images/" + System.currentTimeMillis() + ".jpg");
-            imageRef.putFile(imageUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        imageRef.getDownloadUrl()
-                                .addOnSuccessListener(uri -> {
-                                    runOnUiThread(() -> {
-                                        product.setImageUrl(uri.toString());
-                                        saveProductToFirestore(product);
-                                    });
-                                });
-                    })
-                    .addOnFailureListener(e -> {
-                        // Nếu upload thất bại, vẫn lưu sản phẩm mà không có ảnh
-                        runOnUiThread(() -> {
-                            saveProductToFirestore(product);
-                        });
-                    });
-        } else {
-            // Không có ảnh mới, lưu sản phẩm với ảnh mặc định
-            runOnUiThread(() -> {
-                saveProductToFirestore(product);
-            });
-        }
+        saveProductToFirestore(product);
     }
 
-    private void updateProduct(String name, long price, String description, 
-                              String moreInfor, int quantity, String type) {
-        // Cập nhật sản phẩm trong Firestore
+    private void updateProduct(String name, long price, String description,
+                               String moreInfor, String imageUrl, String type, float rating) { // ✅ (Req 3) Thêm rating
+
         ProductModel product = productToEdit;
         product.setName(name);
         product.setPrice(price);
         product.setDescription(description);
         product.setMoreInfor(moreInfor);
-        product.setQuantity(quantity);
+        product.setImageUrl(imageUrl);
         product.setType(type);
+        product.setRating(rating); // ✅ (Req 3) Set Rating
+        // Không set số lượng
 
-        if (imageUri != null) {
-            // Upload ảnh mới nếu có
-            StorageReference imageRef = storageRef.child("product_images/" + System.currentTimeMillis() + ".jpg");
-            imageRef.putFile(imageUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        imageRef.getDownloadUrl()
-                                .addOnSuccessListener(uri -> {
-                                    runOnUiThread(() -> {
-                                        product.setImageUrl(uri.toString());
-                                        updateProductInFirestore(product);
-                                    });
-                                });
-                    })
-                    .addOnFailureListener(e -> {
-                        // Nếu upload ảnh mới thất bại, giữ nguyên ảnh cũ
-                        runOnUiThread(() -> {
-                            updateProductInFirestore(product);
-                        });
-                    });
-        } else {
-            // Không có ảnh mới, cập nhật sản phẩm mà không thay đổi ảnh
-            runOnUiThread(() -> {
-                updateProductInFirestore(product);
-            });
-        }
+        updateProductInFirestore(product);
     }
 
     private void saveProductToFirestore(ProductModel product) {
         db.collection("products")
                 .add(product)
                 .addOnSuccessListener(documentReference -> {
-                    runOnUiThread(() -> {
-                        Toast.makeText(this, "Thêm sản phẩm thành công!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    });
+                    String docId = documentReference.getId();
+                    product.setId(docId);
+                    db.collection("products").document(docId)
+                            .set(product)
+                            .addOnSuccessListener(aVoid -> {
+                                runOnUiThread(() -> {
+                                    Toast.makeText(this, "Thêm sản phẩm thành công!", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                });
+                            })
+                            .addOnFailureListener(e -> {
+                                runOnUiThread(() -> {
+                                    Toast.makeText(this, "Lỗi khi cập nhật ID: " + e.getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                });
+                            });
                 })
                 .addOnFailureListener(e -> {
                     runOnUiThread(() -> {
-                        Toast.makeText(this, "Lỗi khi thêm sản phẩm: " + e.getMessage(), 
+                        Toast.makeText(this, "Lỗi khi thêm sản phẩm: " + e.getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     });
                 });
     }
 
     private void updateProductInFirestore(ProductModel product) {
+        if (product.getId() == null || product.getId().isEmpty()) {
+            Toast.makeText(this, "Lỗi: Không tìm thấy ID sản phẩm", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         db.collection("products").document(product.getId())
                 .set(product)
                 .addOnSuccessListener(aVoid -> {
@@ -252,7 +211,7 @@ public class AddProductActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     runOnUiThread(() -> {
-                        Toast.makeText(this, "Lỗi khi cập nhật sản phẩm: " + e.getMessage(), 
+                        Toast.makeText(this, "Lỗi khi cập nhật sản phẩm: " + e.getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     });
                 });

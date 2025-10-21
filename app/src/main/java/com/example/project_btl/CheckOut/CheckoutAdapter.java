@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide; // ✅ THÊM IMPORT NÀY
 import com.example.project_btl.ProductModel;
 import com.example.project_btl.R;
 
@@ -38,8 +39,19 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.VH> {
         h.name.setText(p.getName());
         h.size.setText("Phân loại: " + p.getSelectedSize());
         h.quantity.setText("Số lượng: " + p.getQuantity());
-        h.price.setText(formatVnd(p.getPrice()));
-        h.image.setImageResource(p.getImage());
+        h.price.setText(formatVnd(p.getPrice() * p.getQuantity())); // ✅ Tính tổng giá theo số lượng
+
+        // ✅ THAY ĐỔI TẠI ĐÂY: DÙNG GLIDE ĐỂ TẢI URL
+        if (p.getImageUrl() != null && !p.getImageUrl().isEmpty()) {
+            Glide.with(h.itemView.getContext())
+                    .load(p.getImageUrl())
+                    .placeholder(R.drawable.meme)
+                    .error(R.drawable.meme)
+                    .into(h.image);
+        } else {
+            h.image.setImageResource(R.drawable.meme); // Ảnh mặc định
+        }
+        // h.image.setImageResource(p.getImage()); // ❌ BỎ DÒNG NÀY
     }
 
     @Override
@@ -53,6 +65,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.VH> {
 
         public VH(@NonNull View v) {
             super(v);
+            // Các ID này đã khớp với list_checkout_item.xml
             image = v.findViewById(R.id.imgProduct);
             name = v.findViewById(R.id.tvProductName);
             size = v.findViewById(R.id.tvProductSize);

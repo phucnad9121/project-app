@@ -1,0 +1,105 @@
+Index: app/src/main/res/layout/activity_order_history.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    android:background=\"@color/bg\"\r\n    android:paddingTop=\"20dp\">\r\n\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Lịch sử đơn hàng\"\r\n        android:textStyle=\"bold\"\r\n        android:textSize=\"22sp\"\r\n        android:textColor=\"@color/text_primary\"\r\n        android:gravity=\"center\"\r\n        android:paddingBottom=\"20dp\"/>\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rvOrderHistory\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"1\"\r\n        android:paddingHorizontal=\"16dp\"/>\r\n\r\n    <TextView\r\n        android:id=\"@+id/tvNoOrders\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_gravity=\"center\"\r\n        android:gravity=\"center\"\r\n        android:text=\"Không có đơn hàng nào\"\r\n        android:textSize=\"16sp\"\r\n        android:textColor=\"@color/text_secondary\"\r\n        android:visibility=\"gone\"\r\n        android:padding=\"20dp\"/>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_order_history.xml b/app/src/main/res/layout/activity_order_history.xml
+--- a/app/src/main/res/layout/activity_order_history.xml	(revision 85a4fbb2c4a733adb1f841f0f8965a6f57c3bba5)
++++ b/app/src/main/res/layout/activity_order_history.xml	(date 1760948447656)
+@@ -6,21 +6,35 @@
+     android:background="@color/bg"
+     android:paddingTop="20dp">
+ 
+-    <TextView
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:text="Lịch sử đơn hàng"
+-        android:textStyle="bold"
+-        android:textSize="22sp"
+-        android:textColor="@color/text_primary"
+-        android:gravity="center"
+-        android:paddingBottom="20dp"/>
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:gravity="center_vertical">
++
++        <Button
++            android:id="@+id/btnBack"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:backgroundTint="@color/darkBlue"
++            android:text="Quay lại"
++            android:layout_marginLeft="17dp"
++            android:textColor="@color/white" />
++        <TextView
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:text="Orders History"
++            android:textStyle="bold"
++            android:textSize="20sp"
++            android:layout_weight="1"
++            android:layout_marginLeft="25dp"/>
++    </LinearLayout>
+ 
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/rvOrderHistory"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="1"
++        android:layout_marginTop="10dp"
+         android:paddingHorizontal="16dp"/>
+ 
+     <TextView
+Index: app/src/main/java/com/example/project_btl/profile/OrderHistoryActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.project_btl.profile;\r\n\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.example.project_btl.OrderManagerFirebase;\r\nimport com.example.project_btl.R;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class OrderHistoryActivity extends AppCompatActivity {\r\n\r\n    private RecyclerView rvOrderHistory;\r\n    private TextView tvNoOrders;\r\n    private OrderHistoryAdapter adapter;\r\n    private List<OrderManagerFirebase.OrderData> orderList;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_order_history);\r\n        if (getSupportActionBar() != null) getSupportActionBar().hide();\r\n\r\n        rvOrderHistory = findViewById(R.id.rvOrderHistory);\r\n        tvNoOrders = findViewById(R.id.tvNoOrders);\r\n\r\n        orderList = new ArrayList<>();\r\n        adapter = new OrderHistoryAdapter(orderList);\r\n        rvOrderHistory.setLayoutManager(new LinearLayoutManager(this));\r\n        rvOrderHistory.setAdapter(adapter);\r\n\r\n        loadOrderHistory();\r\n    }\r\n\r\n    private void loadOrderHistory() {\r\n        tvNoOrders.setText(\"Đang tải...\");\r\n        tvNoOrders.setVisibility(View.VISIBLE);\r\n        rvOrderHistory.setVisibility(View.GONE);\r\n\r\n        OrderManagerFirebase.getInstance().loadOrders(new OrderManagerFirebase.OnOrdersLoadedListener() {\r\n            @Override\r\n            public void onSuccess(List<OrderManagerFirebase.OrderData> orders) {\r\n                runOnUiThread(() -> {\r\n                    orderList.clear();\r\n                    if (orders != null && !orders.isEmpty()) {\r\n                        orderList.addAll(orders);\r\n                        rvOrderHistory.setVisibility(View.VISIBLE);\r\n                        tvNoOrders.setVisibility(View.GONE);\r\n                    } else {\r\n                        rvOrderHistory.setVisibility(View.GONE);\r\n                        tvNoOrders.setVisibility(View.VISIBLE);\r\n                        tvNoOrders.setText(\"Không có đơn hàng nào\");\r\n                    }\r\n                    adapter.notifyDataSetChanged();\r\n                });\r\n            }\r\n\r\n            @Override\r\n            public void onFailed(Exception e) {\r\n                runOnUiThread(() -> {\r\n                    Toast.makeText(OrderHistoryActivity.this, \"Lỗi: \" + e.getMessage(), Toast.LENGTH_LONG).show();\r\n                    rvOrderHistory.setVisibility(View.GONE);\r\n                    tvNoOrders.setVisibility(View.VISIBLE);\r\n                    tvNoOrders.setText(\"Lỗi khi tải dữ liệu\");\r\n                });\r\n            }\r\n        });\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/project_btl/profile/OrderHistoryActivity.java b/app/src/main/java/com/example/project_btl/profile/OrderHistoryActivity.java
+--- a/app/src/main/java/com/example/project_btl/profile/OrderHistoryActivity.java	(revision 85a4fbb2c4a733adb1f841f0f8965a6f57c3bba5)
++++ b/app/src/main/java/com/example/project_btl/profile/OrderHistoryActivity.java	(date 1760948333087)
+@@ -35,6 +35,8 @@
+         rvOrderHistory.setLayoutManager(new LinearLayoutManager(this));
+         rvOrderHistory.setAdapter(adapter);
+ 
++        findViewById(R.id.btnBack).setOnClickListener(v -> onBackPressed());
++
+         loadOrderHistory();
+     }
+ 
+Index: app/src/main/res/menu/bottom_nav_menu_admin.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/menu/bottom_nav_menu_admin.xml b/app/src/main/res/menu/bottom_nav_menu_admin.xml
+new file mode 100644
+--- /dev/null	(date 1760943911955)
++++ b/app/src/main/res/menu/bottom_nav_menu_admin.xml	(date 1760943911955)
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<menu xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++    <item
++        android:id="@+id/nav_home"
++        android:icon="@drawable/ic_home_"
++        android:title="Trang chủ"/>
++    <item
++        android:id="@+id/nav_cart"
++        android:icon="@drawable/ic_shopping_cart"
++        android:title="Giỏ hàng"/>
++    <item
++        android:id="@+id/nav_notifications"
++        android:icon="@drawable/ic_bell"
++        android:title="Thông báo"/>
++    <item
++        android:id="@+id/nav_manager"
++        android:icon="@drawable/ic_user"
++        android:title="Quản lý"/>
++</menu>
+\ No newline at end of file

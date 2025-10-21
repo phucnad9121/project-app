@@ -21,10 +21,11 @@
                 android:id="@+id/btnBack"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_exit"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+                android:background="@drawable/back"
+                android:src="@drawable/back" />
 
             <TextView
+                android:id="@+id/textViewTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -35,23 +36,20 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/ivProductImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@drawable/meme"
-            android:layout_marginBottom="16dp" />
-
-        <Button
-            android:id="@+id/btnChooseImage"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Chọn ảnh"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@android:color/holo_blue_dark" />
+            android:layout_marginBottom="12dp"
+            android:hint="URL Hình ảnh">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtImageUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textUri" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -70,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:hint="Giá (VNĐ)">
+            android:hint="Giá ($)">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtProductPrice"
@@ -80,19 +78,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:hint="Số lượng">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtProductQuantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -136,6 +121,23 @@
                 android:lines="3" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đánh giá (sao):"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <RatingBar
+            android:id="@+id/rbProductRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="0"
+            android:layout_marginBottom="24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
