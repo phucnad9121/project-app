@@ -45,7 +45,7 @@
                 android:id="@+id/ivAvatar"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:src="@drawable/meme"
+                android:src="@drawable/logotft"
                 android:scaleType="centerCrop"
                 android:background="@drawable/bg_circle_teal"
                 android:clipToOutline="true" />
