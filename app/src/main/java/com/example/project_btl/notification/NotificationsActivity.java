@@ -2,13 +2,13 @@ package com.example.project_btl.notification;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project_btl.AdminActivity;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import com.example.project_btl.profile.ProfileActivity;
 import com.example.project_btl.R;
 import com.example.project_btl.cart.MainActivity_giohang;
@@ -28,16 +28,11 @@ public class NotificationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        // Ẩn ActionBar cho gọn
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-        // Khởi tạo RecyclerView
         rvNotifications = findViewById(R.id.rvNotifications);
         rvNotifications.setLayoutManager(new LinearLayoutManager(this));
 
-        // Danh sách chứa thông báo
         notificationList = new ArrayList<>();
         adapter = new NotificationAdapter(notificationList);
         rvNotifications.setAdapter(adapter);
@@ -54,34 +49,37 @@ public class NotificationsActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         });
 
-        // 🔹 Thanh điều hướng dưới cùng
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_notifications);
 
+
+
+        final String role = getIntent().getStringExtra("USER_ROLE") != null
+                ? getIntent().getStringExtra("USER_ROLE")
+                : "user";
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+            Intent intent = null;
 
             if (id == R.id.nav_home) {
-                startActivity(new Intent(this, MainHomeActivity.class));
-                overridePendingTransition(0, 0);
-                return true;
-
+                intent = new Intent(this, MainHomeActivity.class);
             } else if (id == R.id.nav_cart) {
-                startActivity(new Intent(this, MainActivity_giohang.class));
-                overridePendingTransition(0, 0);
-                return true;
-
-            } else if (id == R.id.nav_notifications) {
-                // Nếu đang ở trang này thì không cần reload
-                return true;
-
+                intent = new Intent(this, MainActivity_giohang.class);
             } else if (id == R.id.nav_profile) {
-                startActivity(new Intent(this, ProfileActivity.class));
-                overridePendingTransition(0, 0);
-                return true;
+                if ("admin".equals(role)) {
+                    intent = new Intent(this, AdminActivity.class);
+                } else {
+                    intent = new Intent(this, ProfileActivity.class);
+                }
             }
 
-            return false;
+            if (intent != null) {
+                intent.putExtra("USER_ROLE", role);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+            return true;
         });
     }
 

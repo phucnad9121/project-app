@@ -38,22 +38,22 @@ public class ProductModel implements Serializable {
     }
     
     // constructor với thêm reservedQuantity
-    public ProductModel(String id, String name, Long price, int image, float rating,
-                        String description, String moreInfor, int quantity, int reservedQuantity,
-                        String selectedSize, String type) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.image = image;
-        this.rating = rating;
-        this.description = description;
-        this.moreInfor = moreInfor;
-        this.quantity = Math.max(1, quantity);
-        this.reservedQuantity = reservedQuantity;
-        this.selectedSize = selectedSize;
-        this.checked = false;
-        this.type = type;
-    }
+//    public ProductModel(String id, String name, Long price, int image, float rating,
+//                        String description, String moreInfor, int quantity, int reservedQuantity,
+//                        String selectedSize, String type) {
+//        this.id = id;
+//        this.name = name;
+//        this.price = price;
+//        this.image = image;
+//        this.rating = rating;
+//        this.description = description;
+//        this.moreInfor = moreInfor;
+//        this.quantity = Math.max(1, quantity);
+//        this.reservedQuantity = reservedQuantity;
+//        this.selectedSize = selectedSize;
+//        this.checked = false;
+//        this.type = type;
+//    }
 
     // getter & setter
     public String getId() { return id; }

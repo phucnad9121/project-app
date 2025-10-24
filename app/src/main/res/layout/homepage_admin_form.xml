@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@drawable/bg_bottom_line"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
+
+        <LinearLayout
+            android:background="@drawable/ic_logo"
+            android:layout_width="180dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="match_parent">
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="11dp"
+            android:layout_marginLeft="70dp"
+            app:srcCompat="@drawable/profile" />
+        <TextView
+
+            android:padding="12dp"
+            android:text="Xin chào ,\nHiệp ngu"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TextView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:background="@drawable/bg_bottom_line"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
+
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bg_edttext_search"
+            android:drawableLeft="@drawable/search_icon"
+            android:drawablePadding="10dp"
+            android:hint="Nhập tìm kiếm"
+            android:inputType="textMultiLine"
+            android:paddingLeft="10dp">
+
+        </EditText>
+
+        <Button
+            android:drawableLeft="@drawable/settings_icon"
+            android:background="#00000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </Button>
+
+
+    </LinearLayout>
+
+    <!-- Banner -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/bannerViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <!-- Categories -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Các danh mục"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="View All"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end" />
+    </LinearLayout>
+
+    <!-- RecyclerView cho categories -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:padding="8dp"/>
+
+
+    <!-- Grid sản phẩm -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"/>
+
+
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationAD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:itemIconSize="26dp"
+        app:itemIconTint="@null"
+        app:itemTextColor="@null"
+        app:menu="@menu/bottom_nav_menu_admin" />
+
+
+</LinearLayout>
