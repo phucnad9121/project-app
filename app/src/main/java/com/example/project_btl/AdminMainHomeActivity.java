@@ -40,7 +40,7 @@ public class AdminMainHomeActivity extends AppCompatActivity {
     private CategoryAdapter categoryAdapter;
     private FirebaseFirestore db;
 
-    private String role; // 🟢 lưu role toàn cục để dùng lại
+    private String role;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -50,15 +50,16 @@ public class AdminMainHomeActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        // 🟢 Lấy role từ Intent
+
         role = getIntent().getStringExtra("USER_ROLE");
+        if (role == null) role = "user";
+
 
         // Ẩn ActionBar
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
-        // 🟢 Ánh xạ view
         edtSearch = findViewById(R.id.edtSearch);
 
         // Banner
@@ -179,5 +180,19 @@ public class AdminMainHomeActivity extends AppCompatActivity {
             }
         }
         productAdapter.updateProducts(filtered);
+    }
+
+// Thêm 2 cái hàm của nợ này nữa, để bảo vệ cái giá trị role nó không bị hủy mỗi lần activity bị hủy và tạo lại, tránh bị nhầm với giá trị user được đặt mặc địch ---> tài khoản admin vào đc trang cá nhân của user !!!!!!!
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("USER_ROLE", role);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        role = savedInstanceState.getString("USER_ROLE", "user");
     }
 }

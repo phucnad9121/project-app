@@ -37,12 +37,10 @@ public class NotificationsActivity extends AppCompatActivity {
         adapter = new NotificationAdapter(notificationList);
         rvNotifications.setAdapter(adapter);
 
-        // Set delete listener for all users (both admin and regular users)
         adapter.setOnDeleteListener((notification, position) -> {
             showDeleteConfirmationDialog(notification, position);
         });
 
-        // 🔹 Load thông báo thật từ Firestore (theo user đang đăng nhập)
         NotificationManagerFirebase.getInstance().loadNotifications(list -> {
             notificationList.clear();
             notificationList.addAll(list);
@@ -78,8 +76,9 @@ public class NotificationsActivity extends AppCompatActivity {
                 intent.putExtra("USER_ROLE", role);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
+                return true;
             }
-            return true;
+            return false;
         });
     }
 

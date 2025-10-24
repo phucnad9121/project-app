@@ -35,34 +35,33 @@ public class AdminActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
-        // Đặt mặc định chọn profile
+
         bottomNavigationView.setSelectedItemId(R.id.nav_profile);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+            Intent intent = null;
 
             if (id == R.id.nav_home) {
-                startActivity(new Intent(this, MainHomeActivity.class));
-                overridePendingTransition(0, 0);
-                return true;
+                intent = new Intent(this, MainHomeActivity.class);
             } else if (id == R.id.nav_cart) {
-                startActivity(new Intent(this, MainActivity_giohang.class));
-                overridePendingTransition(0, 0);
-                return true;
+                intent = new Intent(this, MainActivity_giohang.class);
             } else if (id == R.id.nav_notifications) {
-                startActivity(new Intent(this, NotificationsActivity.class));
-                overridePendingTransition(0, 0);
-                return true;
+                intent = new Intent(this, NotificationsActivity.class);
             } else if (id == R.id.nav_profile) {
-                Intent intent = new Intent(this, AdminActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // <-- Flag này
+                intent = new Intent(this, AdminActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            }
+
+            if (intent != null) {
+                intent.putExtra("USER_ROLE", "admin");
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 return true;
             }
-
             return false;
         });
+
 
         setupRow((View) findViewById(R.id.rowManagerAccount),
                 R.drawable.ic_bell, "Manager Account");

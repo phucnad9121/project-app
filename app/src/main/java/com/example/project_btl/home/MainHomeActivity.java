@@ -41,6 +41,8 @@ public class MainHomeActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
+    private String role = "user";// mới sửa thêm cái này
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +54,9 @@ public class MainHomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
-        final String role = getIntent().getStringExtra("USER_ROLE") != null
-                ? getIntent().getStringExtra("USER_ROLE")
-                : "user";
+        role = getIntent().getStringExtra("USER_ROLE");// mới sửa thêm cái này
+        if (role == null) role = "user";//cả cái này nữa
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();

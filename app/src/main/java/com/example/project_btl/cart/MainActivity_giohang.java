@@ -24,7 +24,6 @@ import com.example.project_btl.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -47,6 +46,7 @@ public class MainActivity_giohang extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private String userId;
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,10 @@ public class MainActivity_giohang extends AppCompatActivity {
         if (FirebaseAuth.getInstance().getCurrentUser() != null)
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         else userId = "guest";
+
+
+        role = getIntent().getStringExtra("USER_ROLE");
+        if (role == null) role = "user";
 
         adapter = new Giohang_Adapter(items, new Giohang_Adapter.Listener() {
             @Override
@@ -114,10 +118,6 @@ public class MainActivity_giohang extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_cart);
 
-        final String role = getIntent().getStringExtra("USER_ROLE") != null
-                ? getIntent().getStringExtra("USER_ROLE")
-                : "user";
-
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             Intent intent = null;
@@ -132,12 +132,15 @@ public class MainActivity_giohang extends AppCompatActivity {
                 } else {
                     intent = new Intent(this, ProfileActivity.class);
                 }
+            } else if (id == R.id.nav_cart) {
+                return true;
             }
 
             if (intent != null) {
                 intent.putExtra("USER_ROLE", role);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
+                finish();
             }
             return true;
         });
@@ -208,6 +211,7 @@ public class MainActivity_giohang extends AppCompatActivity {
 
         Intent intent = new Intent(this, CheckOutActivity.class);
         intent.putExtra("selectedItems", selectedItems);
+        intent.putExtra("USER_ROLE", role);
         startActivity(intent);
     }
 }
