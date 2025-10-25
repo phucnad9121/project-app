@@ -90,13 +90,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:text="View All"
-            android:textColor="@android:color/holo_blue_dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end" />
     </LinearLayout>
 
     <!-- RecyclerView cho categories -->
@@ -106,6 +99,11 @@
         android:layout_height="wrap_content"
         android:scrollbars="none"
         android:padding="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_bottom_line"
+        android:layout_height="2dp"></LinearLayout>
 
 
     <!-- Grid sản phẩm -->
