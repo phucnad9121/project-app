@@ -184,7 +184,7 @@ public class MainActivity_giohang extends AppCompatActivity {
         String code = edtCoupon.getText() == null ? "" : edtCoupon.getText().toString().trim();
         if (!TextUtils.isEmpty(code)) {
             if ("GIAM10%".equalsIgnoreCase(code)) discount = Math.round(subtotal * 0.10);
-            else if ("GIAM50$".equalsIgnoreCase(code)) discount = Math.min(50, subtotal);
+            else if ("GIAM50000".equalsIgnoreCase(code)) discount = Math.min(50000, subtotal);
         }
         long total = Math.max(0, subtotal - discount);
         tvSubtotal.setText("Tổng tiền hàng: " + formatVnd(subtotal));

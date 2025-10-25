@@ -82,7 +82,7 @@ public class DetailSPActivity extends AppCompatActivity {
             }
 
             productName.setText(product.getName());
-            productPrice.setText(String.format("%,d $", product.getPrice()));
+            productPrice.setText(String.format("%,d đ", product.getPrice()));
             ratingBar.setRating(product.getRating());
             moTa.setText(product.getDescription());
             ttBoSung.setText(product.getMoreInfor());

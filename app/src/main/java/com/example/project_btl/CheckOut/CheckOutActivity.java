@@ -200,6 +200,6 @@ public class CheckOutActivity extends AppCompatActivity {
 
     // ✅ THAY ĐỔI: Sửa hàm theo yêu cầu của bạn
     private String formatVnd(long v) {
-        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "$";
+        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "đ";
     }
 }

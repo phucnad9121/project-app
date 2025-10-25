@@ -50,7 +50,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         // holder.image.setImageResource(product.getImage()); // (Req 1) - Bỏ dòng này
 
         holder.name.setText(product.getName());
-        holder.price.setText(String.format("%,d $", product.getPrice())); // (Fix) - Định dạng tiền
+        holder.price.setText(String.format("%,d đ", product.getPrice())); // (Fix) - Định dạng tiền
 
         holder.productRating.setRating(product.getRating()); // ✅ THÊM MỚI
 

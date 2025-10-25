@@ -130,7 +130,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
-                <Space android:layout_width="250dp" android:layout_height="wrap_content"/>
+                <Space android:layout_width="220dp" android:layout_height="wrap_content"/>
 
 <!--                <ImageView-->
 <!--                    android:layout_width="18dp"-->

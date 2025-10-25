@@ -84,6 +84,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     }
 
     private String formatVnd(long v) {
-        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "$";
+        return NumberFormat.getInstance(new Locale("vi", "VN")).format(v) + "đ";
     }
 }
