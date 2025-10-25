@@ -107,7 +107,7 @@ public class AdminMainHomeActivity extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationAD);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_admin_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();

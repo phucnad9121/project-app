@@ -19,7 +19,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageViewAvt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="11dp"
@@ -90,6 +90,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:text="View All"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end" />
     </LinearLayout>
 
     <!-- RecyclerView cho categories -->
@@ -120,14 +127,14 @@
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationAD"
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         app:itemIconSize="26dp"
         app:itemIconTint="@null"
         app:itemTextColor="@null"
-        app:menu="@menu/bottom_nav_menu_admin" />
+        app:menu="@menu/bottom_nav_menu" />
 
 
 </LinearLayout>
