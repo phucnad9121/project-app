@@ -1,19 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:fillViewport="true">
+    android:background="@color/bg"> <!-- Đặt màu nền lên root layout -->
+
+    <!-- ScrollView chứa toàn bộ nội dung trang cá nhân -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="20dp"
-        android:paddingBottom="20dp">
+        android:paddingBottom="20dp"> <!-- Giữ padding bottom để nội dung không bị BottomNav che mất -->
 
-        <!-- Tiêu đề -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +37,7 @@
             android:background="@color/GreyLight">
         </LinearLayout>
 
-        <!-- Ảnh + Tên người dùng -->
+        <!-- AVATAR và nút EDIT -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,28 +55,27 @@
                 android:background="@drawable/bg_circle_teal"
                 android:clipToOutline="true" />
 
-            <!-- Icon chỉnh sửa ảnh -->
+            <!-- Nút chỉnh sửa ảnh (Layout linh hoạt hơn) -->
             <ImageView
                 android:id="@+id/ivEditPhoto"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginTop="-28dp"
-                android:layout_marginStart="45dp"
+                android:layout_marginStart="40dp"
                 android:src="@drawable/ic_edit"
                 android:background="@drawable/bg_category_selected"
-                android:padding="6dp" />
+                 android:padding="6dp" />
         </LinearLayout>
 
-        <!-- Thông tin người dùng -->
         <TextView
             android:id="@+id/tvFullName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đào Phúc Dân"
-            android:textStyle="bold"
+            android:gravity="center"
             android:textSize="18sp"
-            android:layout_gravity="center"/>
-
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="16dp" />
         <TextView
             android:id="@+id/tvRole"
             android:layout_width="wrap_content"
@@ -81,64 +85,69 @@
             android:layout_gravity="center"
             android:paddingBottom="10dp"/>
 
-        <!-- Danh sách tùy chọn -->
+        <!-- CÁC DÒNG THÔNG TIN (Edit Profile, History, Password) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_card"
-            android:layout_marginHorizontal="0dp"
-            android:paddingHorizontal="0dp">
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp" >
 
-            <include
-                android:id="@+id/rowEditProfile"
-                layout="@layout/item_profile_row" />
+        <include
+            android:id="@+id/rowEditProfile"
+            layout="@layout/item_profile_row" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider" />
-
-            <include
-                android:id="@+id/rowHistory"
-                layout="@layout/item_profile_row" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider" />
-
-            <include
-                android:id="@+id/rowPassword"
-                layout="@layout/item_profile_row" />
-        </LinearLayout>
-
-        <!-- Nút Sign Out -->
-        <Button
-            android:id="@+id/btnSignOut"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginStart="50dp"
-            android:text="Sign Out"
-            android:textAllCaps="false"
-            android:drawableStart="@drawable/ic_exit"
-            android:drawablePadding="8dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/bg_primary_btn"
-            android:textColor="@android:color/white" />
+            android:layout_height="1dp"
+            android:background="@color/divider" />
 
-        <!-- Bottom Navigation -->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigation"
-            android:layout_marginTop="170dp"
+        <include
+            android:id="@+id/rowHistory"
+            layout="@layout/item_profile_row" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            app:itemIconSize="26dp"
-            app:itemIconTint="@null"
-            app:itemTextColor="@null"
-            app:menu="@menu/bottom_nav_menu" />
+            android:layout_height="1dp"
+            android:background="@color/divider" />
+
+        <include
+            android:id="@+id/rowPassword"
+            layout="@layout/item_profile_row" />
     </LinearLayout>
 
-</ScrollView>
+    <!-- Nút Sign Out -->
+    <Button
+        android:id="@+id/btnSignOut"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="50dp"
+        android:text="Sign Out"
+        android:textAllCaps="false"
+        android:drawableStart="@drawable/ic_exit"
+        android:drawablePadding="8dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_primary_btn"
+        android:textColor="@android:color/white" />
+
+    <!-- Khoảng trống đệm cuối cùng, đảm bảo nội dung không bị BottomNav che -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+</LinearLayout>
+    </ScrollView>
+
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/bottomNavigation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    app:itemIconSize="26dp"
+    app:itemIconTint="@null"
+    app:itemTextColor="@null"
+    app:menu="@menu/bottom_nav_menu" />
+
+    </LinearLayout>

@@ -5,91 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- KHU VỰC CỐ ĐỊNH PHÍA TRÊN (Header, Search, Categories) -->
+
+    <!-- Header 1 (Logo + Profile) -->
     <LinearLayout
         android:background="@drawable/bg_bottom_line"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="65dp">
-
         <LinearLayout
             android:background="@drawable/ic_logo"
             android:layout_width="180dp"
-            android:layout_marginLeft="8dp"
-            android:layout_height="match_parent">
-        </LinearLayout>
-
+            android:layout_marginStart="8dp"
+            android:layout_height="match_parent"/>
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="11dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
             app:srcCompat="@drawable/profile" />
         <TextView
-
             android:padding="12dp"
             android:text="Xin chào ,\nHiệp ngu"
             android:textStyle="bold"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TextView>
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
-
+    <!-- Header 2 (Search Bar + Settings) -->
     <LinearLayout
         android:background="@drawable/bg_bottom_line"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="65dp">
-
         <EditText
             android:id="@+id/edtSearch"
             android:layout_width="300dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:background="@drawable/bg_edttext_search"
-            android:drawableLeft="@drawable/search_icon"
+            android:drawableStart="@drawable/search_icon"
             android:drawablePadding="10dp"
             android:hint="Nhập tìm kiếm"
             android:inputType="textMultiLine"
-            android:paddingLeft="10dp">
-
-        </EditText>
-
+            android:paddingStart="10dp"/>
         <Button
-            android:drawableLeft="@drawable/settings_icon"
+            android:drawableStart="@drawable/settings_icon"
             android:background="#00000000"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </Button>
-
-
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
-    <!-- Banner -->
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/bannerViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
-
-    <!-- Categories -->
+    <!-- Danh Mục Title (CỐ ĐỊNH) -->
     <LinearLayout
         android:orientation="horizontal"
         android:padding="12dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
             android:text="Các danh mục"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
         <TextView
             android:text="View All"
             android:textColor="@android:color/holo_blue_dark"
@@ -99,7 +80,8 @@
             android:gravity="end" />
     </LinearLayout>
 
-    <!-- RecyclerView cho categories -->
+    <!-- Categories RecyclerView (CỐ ĐỊNH) -->
+    <!-- Không cần nestedScrollingEnabled="false" vì nó không còn nằm trong ScrollView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryRecyclerView"
         android:layout_width="match_parent"
@@ -107,20 +89,39 @@
         android:scrollbars="none"
         android:padding="8dp"/>
 
+    <!-- KHU VỰC CÓ THỂ CUỘN (Banner & Products) -->
 
-    <!-- Grid sản phẩm -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/productRecyclerView"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"/>
+        android:fillViewport="true">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
 
+            <!-- Banner (Bây giờ là thành phần CUỘN đầu tiên) -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/bannerViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
 
-    <!-- Bottom Navigation -->
+            <!-- Grid sản phẩm (CUỘN) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:padding="8dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Navigation (CỐ ĐỊNH ở dưới cùng màn hình) -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
@@ -130,6 +131,5 @@
         app:itemIconTint="@null"
         app:itemTextColor="@null"
         app:menu="@menu/bottom_nav_menu" />
-
 
 </LinearLayout>

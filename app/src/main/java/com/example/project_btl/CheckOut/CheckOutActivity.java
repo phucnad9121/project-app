@@ -50,6 +50,11 @@ public class CheckOutActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkout_activity);
+
+
+        String role = getIntent().getStringExtra("USER_ROLE");
+        if (role == null) role = "user";
+
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
         // Ánh xạ các view
@@ -189,14 +194,22 @@ public class CheckOutActivity extends AppCompatActivity {
 
         view.findViewById(R.id.btnCloseSuccess).setOnClickListener(v -> {
             dialog.dismiss();
+
+            // ✅ Lấy lại role từ intent hiện tại
+            String role = getIntent().getStringExtra("USER_ROLE");
+            if (role == null) role = "user";
+
+            // ✅ Chuyển sang MainHomeActivity và giữ nguyên vai trò
             Intent intent = new Intent(this, MainHomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("USER_ROLE", role);  // ✅ Giữ vai trò admin/user
             startActivity(intent);
             finish();
         });
 
         dialog.show();
     }
+
 
     // ✅ THAY ĐỔI: Sửa hàm theo yêu cầu của bạn
     private String formatVnd(long v) {

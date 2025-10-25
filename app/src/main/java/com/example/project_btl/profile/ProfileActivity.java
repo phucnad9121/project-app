@@ -1,7 +1,9 @@
 package com.example.project_btl.profile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +32,18 @@ public class ProfileActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
+
+
+        TextView tvFullName = findViewById(R.id.tvFullName); // khởi tạo trước
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String username = prefs.getString("username", "Khách"); // lấy username đã lưu
+        Log.d("DEBUG_USERNAME", "Username đọc được: " + username);
+        // Gán tên vào TextView
+        tvFullName.setText(username); // setText sau khi đã init TextView
+
+
+        Log.d("DEBUG_USERNAME", "Username đọc được: " + username);
+        // Gán tên vào TextView
         // Đặt mặc định chọn profile
         bottomNavigationView.setSelectedItemId(R.id.nav_profile);
 

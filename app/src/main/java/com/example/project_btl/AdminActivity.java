@@ -1,7 +1,9 @@
 package com.example.project_btl;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,33 +37,44 @@ public class AdminActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
+        TextView tvFullName = findViewById(R.id.tvFullName); // khởi tạo trước
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String username = prefs.getString("username", "Admin"); // lấy username đã lưu
+        Log.d("DEBUG_USERNAME", "Username đọc được: " + username);
+        // Gán tên vào TextView
+        tvFullName.setText(username); // setText sau khi đã init TextView
 
+
+        Log.d("DEBUG_USERNAME", "Username đọc được: " + username);
+
+        // Đặt mặc định chọn profile
         bottomNavigationView.setSelectedItemId(R.id.nav_profile);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            Intent intent = null;
 
             if (id == R.id.nav_home) {
-                intent = new Intent(this, MainHomeActivity.class);
+                startActivity(new Intent(this, MainHomeActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
             } else if (id == R.id.nav_cart) {
-                intent = new Intent(this, MainActivity_giohang.class);
+                startActivity(new Intent(this, MainActivity_giohang.class));
+                overridePendingTransition(0, 0);
+                return true;
             } else if (id == R.id.nav_notifications) {
-                intent = new Intent(this, NotificationsActivity.class);
+                startActivity(new Intent(this, NotificationsActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
             } else if (id == R.id.nav_profile) {
-                intent = new Intent(this, AdminActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            }
-
-            if (intent != null) {
-                intent.putExtra("USER_ROLE", "admin");
+                Intent intent = new Intent(this, AdminActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // <-- Flag này
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 return true;
             }
+
             return false;
         });
-
 
         setupRow((View) findViewById(R.id.rowManagerAccount),
                 R.drawable.ic_bell, "Manager Account");

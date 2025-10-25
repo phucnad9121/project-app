@@ -3,6 +3,7 @@ package com.example.project_btl.Login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -148,6 +149,19 @@ public class SignInactivity extends AppCompatActivity {
                                     .addOnSuccessListener(documentSnapshot -> {
                                         if (documentSnapshot.exists()) {
                                             String userRole = documentSnapshot.getString("role");
+                            //------------------------------------------------------------------------------------------------------------
+                                            String userName = documentSnapshot.getString("username"); // ✅ Lấy tên người dùng
+
+                                            // ✅ SỬA Ở ĐÂY — Lưu username vào SharedPreferences
+                                            SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = prefs.edit();
+                                            editor.putString("username", userName);
+                                            Log.d("DEBUG_USERNAME", "Đã lưu username: " + userName);
+
+                                            editor.apply();
+
+                            //-----------------------------------------------------------------------------------------------------------------
+
                                             if ("admin".equals(userRole)) {
                                                 // Nếu là admin, chuyển sang màn hình Admin (bạn cần tạo Activity này)
                                                 Toast.makeText(this, "Đăng nhập với quyền Admin thành công", Toast.LENGTH_SHORT).show();
@@ -177,11 +191,6 @@ public class SignInactivity extends AppCompatActivity {
                             // Lỗi không lấy được user sau khi đăng nhập (hiếm khi xảy ra)
                             Toast.makeText(this, "Lỗi xác thực người dùng.", Toast.LENGTH_SHORT).show();
                         }
-
-//                        Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-//                        startActivity(new Intent(SignInactivity.this, MainHomeActivity.class));
-//                        finish();
-
                     } else {
                         Toast.makeText(this, "Đăng nhập thất bại: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -205,7 +214,7 @@ public class SignInactivity extends AppCompatActivity {
                         if(user != null) {
                             String uid = user.getUid();
                             Map<String,Object> data = new HashMap<>();
-                            data.put("name", name);
+                            data.put("username", name);
                             data.put("email", email);
                             data.put("role", "user"); // Mặc định là user
 

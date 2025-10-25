@@ -65,18 +65,18 @@
         <!-- Thông tin người dùng -->
         <TextView
             android:id="@+id/tvFullName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đào Phúc Dân"
-            android:textStyle="bold"
+            android:gravity="center"
             android:textSize="18sp"
-            android:layout_gravity="center"/>
-
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="16dp" />
         <TextView
             android:id="@+id/tvRole"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Admin"
+            android:text="Quản trị viên "
             android:textColor="@color/text_secondary"
             android:layout_gravity="center"
             android:paddingBottom="10dp"/>
