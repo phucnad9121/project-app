@@ -107,6 +107,11 @@
         android:scrollbars="none"
         android:padding="8dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_bottom_line"
+        android:layout_height="2dp"></LinearLayout>
+
 
     <!-- Grid sản phẩm -->
     <androidx.recyclerview.widget.RecyclerView
