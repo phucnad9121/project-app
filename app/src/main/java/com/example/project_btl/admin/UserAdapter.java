@@ -15,77 +15,72 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
-    private List<User> users;
-    private int selectedPos = RecyclerView.NO_POSITION;
-    private Context context;
-    private OnItemInteractionListener listener; // Biến listener để giao tiếp
+    private List<User> users; // DSTKHT
+    private int selectedPos = RecyclerView.NO_POSITION; // VTitem
+    private Context context; // inflate
+    private OnItemInteractionListener listener;
 
-    // --- BẮT ĐẦU SỬA ĐỔI 1: Tạo Interface ---
     public interface OnItemInteractionListener {
         void onItemClick(User user);
         void onItemLongClick(User user);
     }
-    // --- KẾT THÚC SỬA ĐỔI 1 ---
 
-    // --- BẮT ĐẦU SỬA ĐỔI 2: Cập nhật Constructor ---
+    // TR.DLieu
     public UserAdapter(Context context, List<User> users, OnItemInteractionListener listener) {
-        this.context = context;
+        this.context = context; // bên trái là biến private, bên phải là biến truyền vào constructor
         this.users = users;
         this.listener = listener;
     }
-    // --- KẾT THÚC SỬA ĐỔI 2 ---
 
+    // Tạo layout cho từng item trong rv
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
-        return new UserViewHolder(v);
+        return new UserViewHolder(v); // tạo ViewHolder để giữ tham chiếu đến các View trong item
     }
 
+    // Đổ dữ liệu
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        User user = users.get(position);
-        holder.tvUsername.setText(user.getName()); // Hiển thị tên đầy đủ sẽ đẹp hơn
+        User user = users.get(position); // lấy ra user tương đương
+        holder.tvUsername.setText(user.getName()); // gán
         holder.tvEmail.setText("Email: " + user.getEmail());
         holder.tvRole.setText("Role: " + user.getRole());
 
-        // Giữ lại logic tô màu khi chọn
-        holder.itemView.setBackgroundColor(selectedPos == position ? Color.LTGRAY : Color.TRANSPARENT);
-
-        // --- BẮT ĐẦU SỬA ĐỔI 3: Gán sự kiện ---
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                // Cập nhật vị trí được chọn và tô màu
-                notifyItemChanged(selectedPos);
-                selectedPos = holder.getAdapterPosition();
-                notifyItemChanged(selectedPos);
+                notifyItemChanged(selectedPos); // reset lại màu của item
+                selectedPos = holder.getBindingAdapterPosition(); // lưu vị trí item đang được click vào selectedPos để đánh dấu là đang được chọn
+                notifyItemChanged(selectedPos); // cập nhật lại giao diện item
 
                 // Gọi đến Activity để xử lý việc sửa
                 listener.onItemClick(user);
             }
         });
 
+
         holder.itemView.setOnLongClickListener(v -> {
             if (listener != null) {
                 // Gọi đến Activity để xử lý việc xóa
                 listener.onItemLongClick(user);
-                return true; // Đánh dấu sự kiện đã được xử lý
+                return true;
             }
             return false;
         });
-        // --- KẾT THÚC SỬA ĐỔI 3 ---
     }
 
+    // Trả về số item hiển thị trong recyclerview
     @Override
     public int getItemCount() {
         return users.size();
     }
 
-    // ViewHolder giữ nguyên
+    // Giữ và ánh xạ các view trong từng item của recyclerview
     public static class UserViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUsername, tvEmail, tvRole;
+        TextView tvUsername, tvEmail, tvRole; // Khai báo các biến để giữ tham chiếu đến các TextView trong layout item_user.xml
         public UserViewHolder(@NonNull View itemView) {
-            super(itemView);
+            super(itemView); // itemView: layout của từng dòng (item) trong RecyclerView
             // Giả định id trong item_user.xml là tvUsername, tvEmail, tvRole
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvEmail = itemView.findViewById(R.id.tvEmail);
@@ -93,29 +88,28 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
     }
 
-    // --- BẮT ĐẦU SỬA ĐỔI 4: Thêm các phương thức quản lý dữ liệu ---
     public void addUser(User user) {
-        users.add(user);
-        notifyItemInserted(users.size() - 1);
+        users.add(user); // Thêm user mới vào danh sách dữ liệu (List<User>)
+        notifyItemInserted(users.size() - 1); // Báo cho RecyclerView biết có item mới để cập nhật đúng vị trí cuối
     }
+
 
     public void updateUser(User updatedUser) {
         for (int i = 0; i < users.size(); i++) {
-            // Dùng một thuộc tính không đổi như username để tìm và cập nhật
-            if (users.get(i).getUsername().equals(updatedUser.getUsername())) {
-                users.set(i, updatedUser);
-                notifyItemChanged(i);
+            // Dùng thuộc tính id để tìm và cập nhật
+            if (users.get(i).getId().equals(updatedUser.getId())) {
+                users.set(i, updatedUser); // Thay user cũ bằng dữ liệu mới
+                notifyItemChanged(i); // Cập nhật lại UI tại vị trí đó
                 break;
             }
         }
     }
 
     public void removeUser(User userToRemove) {
-        int position = users.indexOf(userToRemove);
+        int position = users.indexOf(userToRemove); // Tìm vị trí cần xóa
         if (position > -1) {
-            users.remove(position);
-            notifyItemRemoved(position);
+            users.remove(position); // Xóa khỏi danh sách dữ liệu
+            notifyItemRemoved(position); // Báo cho RecyclerView cập nhật lại UI, chạy animation xoá
         }
     }
-    // --- KẾT THÚC SỬA ĐỔI 4 ---
 }

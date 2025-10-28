@@ -46,36 +46,43 @@ public class EditProfileActivity extends AppCompatActivity {
         etAddress = findViewById(R.id.etAddress);
         spGender = findViewById(R.id.spGender);
 
+        // Khởi tạo spinner giới tính
         ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_dropdown_item,
-                new String[]{"Male","Female","Other"});
+                this, android.R.layout.simple_spinner_dropdown_item, new String[]{"Male","Female","Other"});
         spGender.setAdapter(genderAdapter);
 
-        findViewById(R.id.btnBack).setOnClickListener(v -> onBackPressed());
+        // Tìm nút Back
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
 
+        // Lấy thông tin user hiện tại
+        // Lấy user hiện đang đăng nhập (nếu có)
         if (auth.getCurrentUser() != null) {
             userId = auth.getCurrentUser().getUid();
-            loadUserData();
+            loadUserData(); // tải thông tin của user từ Firestore và điền vào các ô text trong form.
         }
 
         findViewById(R.id.btnSave).setOnClickListener(v -> {
             if (validate()) {
-                saveUserData();
+                saveUserData(); // lưu lên firestore
             }
         });
     }
 
     private void loadUserData() {
-        DocumentReference docRef = firestore.collection("users").document(userId);
-        docRef.get()
+        // Lấy tham chiếu đến tài liệu người dùng trong Firestore
+        DocumentReference docRef = firestore.collection("users").document(userId); // truy cập tới users (nơi lưu thông tin tất cả)
+        docRef.get() // gửi yêu cầu đọc dữ liệu đến Firestore, lấy thông tin của document đó.
+                // documentSnapshot: bản sao của document vừa đọc được
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
+                        // gán dữ liệu từ firestore lên giao diện
                         etName.setText(documentSnapshot.getString("name"));
                         etUsername.setText(documentSnapshot.getString("username"));
                         etPhone.setText(documentSnapshot.getString("phone"));
                         etEmail.setText(documentSnapshot.getString("email"));
                         etAddress.setText(documentSnapshot.getString("address"));
 
+                        // gán giá trị giới tính
                         String gender = documentSnapshot.getString("gender");
                         if (gender != null) {
                             switch (gender) {
@@ -86,6 +93,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
                     }
                 })
+                // Xử lí lỗi
                 .addOnFailureListener(e ->
                         Toast.makeText(this, "Lỗi tải dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
@@ -98,6 +106,7 @@ public class EditProfileActivity extends AppCompatActivity {
         String address = Objects.requireNonNull(etAddress.getText()).toString().trim();
         String gender = spGender.getSelectedItem().toString();
 
+        // Gom dữ liệu thành 1 map dạng key-value rồi gửi lên firestore (key: trường mới, value: gtri vừa nhập)
         Map<String, Object> updatedData = new HashMap<>();
         updatedData.put("name", name);
         updatedData.put("username", username);
@@ -106,38 +115,45 @@ public class EditProfileActivity extends AppCompatActivity {
         updatedData.put("address", address);
         updatedData.put("gender", gender);
 
+        // Cập nhật dữ liệu lên firestore
         firestore.collection("users").document(userId)
                 .update(updatedData)
+                // được gọi khi cập nhật thành công
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
 
-                    // 🟢 Gửi thông báo hồ sơ
-                    NotificationManagerFirebase.getInstance()
-                            .addNotification("Cập nhật hồ sơ thành công!", "profile", R.drawable.user);
+                    // Gửi thông báo hồ sơ đã cập nhật thành công
+                    NotificationManagerFirebase.getInstance().addNotification("Cập nhật hồ sơ thành công!", "profile", R.drawable.user);
 
                     finish();
                 })
-                .addOnFailureListener(e ->
-                        Toast.makeText(this, "Cập nhật thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> Toast.makeText(this, "Cập nhật thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
-    /** 🔔 Ghi thông báo khi người dùng cập nhật hồ sơ */
+    // thông báo khi người dùng cập nhật hồ sơ
     private void addProfileUpdateNotification() {
         if (userId == null) return;
 
         Map<String, Object> noti = new HashMap<>();
+        // ghi nội dung thông báo
         noti.put("message", "Cập nhật hồ sơ thành công");
+        // ghi thời gian gửi thông báo
         noti.put("time", new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(new Date()));
+        // ghi biểu tượng gửi thông báo
         noti.put("icon", "profile_update");
 
+        // thêm thông báo vào firestore
         firestore.collection("users")
+                // chọn tài liệu người dùng hiện tại
                 .document(userId)
                 .collection("notifications")
+                // thêm 1 doc mới vào noti
                 .add(noti)
                 .addOnSuccessListener(doc -> {})
                 .addOnFailureListener(e -> {});
     }
 
+    // kiểm tra dữ liệu người dùng nhập
     private boolean validate() {
         if (Objects.requireNonNull(etName.getText()).toString().trim().isEmpty()) {
             etName.setError("Required"); return false;
