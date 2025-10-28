@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Giỏ hàng"
             android:textStyle="bold"
-            android:textSize="22sp"
+            android:textSize="23sp"
             android:textColor="@color/text_primary"
             android:layout_gravity="center"
             android:paddingBottom="10dp"/>

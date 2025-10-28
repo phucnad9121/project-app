@@ -1,4 +1,4 @@
-package com.example.project_btl;
+package com.example.project_btl.admin;
 
 public class User {
     private String id;

@@ -95,7 +95,7 @@ public class SignInactivity extends AppCompatActivity {
         btnRecoverPassword.setOnClickListener(v -> recoverPassword());
     }
 
-    // ================= METHODS =================
+
 
     // Lưu mật khẩu nếu checked
     private void saveLogin(String email, String password) {

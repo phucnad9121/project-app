@@ -130,21 +130,8 @@
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
-                <Space android:layout_width="220dp" android:layout_height="wrap_content"/>
+                <Space android:layout_width="200dp" android:layout_height="wrap_content"/>
 
-<!--                <ImageView-->
-<!--                    android:layout_width="18dp"-->
-<!--                    android:layout_height="18dp"-->
-<!--                    android:src="@drawable/star"-->
-<!--                    android:contentDescription="rating"/>-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tvRating"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="4.8"-->
-<!--                    android:layout_marginStart="6dp"-->
-<!--                    android:textSize="14sp"/>-->
                 <RatingBar
                     android:id="@+id/productRating"
                     style="?android:attr/ratingBarStyleSmall"

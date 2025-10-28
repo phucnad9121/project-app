@@ -1,17 +1,11 @@
-package com.example.project_btl;
+package com.example.project_btl.cart;
 
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.project_btl.ProductModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 public class CartManagerFirebase {
     private static CartManagerFirebase instance;
@@ -49,8 +43,8 @@ public class CartManagerFirebase {
         cartItem.put("price", product.getPrice());
         cartItem.put("quantity", product.getQuantity());
         cartItem.put("selectedSize", product.getSelectedSize());
-        cartItem.put("image", product.getImage());
         cartItem.put("type", product.getType());
+        cartItem.put("imageUrl", product.getImageUrl());
 
         cartRef.document(product.getId())
                 .set(cartItem)
@@ -68,39 +62,13 @@ public class CartManagerFirebase {
                 .addOnFailureListener(Throwable::printStackTrace);
     }
 
-    public void updateQuantity(ProductModel product) {
+    public void updateQuantity(String productId, int newQuantity) {
         CollectionReference cartRef = getCartRef();
         if (cartRef == null) return;
 
-        Map<String, Object> updateMap = new HashMap<>();
-        updateMap.put("quantity", product.getQuantity());
-
-        cartRef.document(product.getId())
-                .update(updateMap)
+        cartRef.document(productId)
+                .update("quantity", newQuantity) // Chỉ cập nhật trường số lượng
                 .addOnSuccessListener(aVoid -> {})
                 .addOnFailureListener(Throwable::printStackTrace);
-    }
-
-    public void loadCartItems(OnCartLoadedListener listener) {
-        CollectionReference cartRef = getCartRef();
-        if (cartRef == null) {
-            listener.onLoaded(new ArrayList<>());
-            return;
-        }
-
-        cartRef.get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<ProductModel> list = new ArrayList<>();
-                    for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
-                        ProductModel p = doc.toObject(ProductModel.class);
-                        if (p != null) list.add(p);
-                    }
-                    listener.onLoaded(list);
-                })
-                .addOnFailureListener(e -> listener.onLoaded(new ArrayList<>()));
-    }
-
-    public interface OnCartLoadedListener {
-        void onLoaded(List<ProductModel> items);
     }
 }

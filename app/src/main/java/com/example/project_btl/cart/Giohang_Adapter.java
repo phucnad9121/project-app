@@ -28,6 +28,8 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
     public interface Listener {
         void onItemsChanged();
         void onItemRemoved(int position);
+
+        void onQuantityChanged(int position, int newQuantity);
     }
 
     private final List<ProductModel> items;
@@ -41,7 +43,7 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_gh, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_cart, parent, false);
         return new VH(v);
     }
 
@@ -58,7 +60,7 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
         });
 
         // Thông tin sản phẩm
-        // ✅ THAY ĐỔI TẠI ĐÂY: DÙNG GLIDE ĐỂ TẢI URL
+        // DÙNG GLIDE ĐỂ TẢI URL
         if (it.getImageUrl() != null && !it.getImageUrl().isEmpty()) {
             Glide.with(h.itemView.getContext())
                     .load(it.getImageUrl())
@@ -76,15 +78,23 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
 
         // Tăng/giảm số lượng (Req 3: Đã bỏ check số lượng)
         h.btnPlus.setOnClickListener(v -> {
-            it.setQuantity(it.getQuantity() + 1);
-            notifyItemChanged(h.getAdapterPosition());
-            listener.onItemsChanged();
+            int newQuantity = it.getQuantity() + 1;
+            it.setQuantity(newQuantity); // Cập nhật local để UI thay đổi
+            notifyItemChanged(h.getAdapterPosition()); // Vẽ lại item này
+
+            // Báo cho Activity biết để cập nhật Firebase
+            listener.onQuantityChanged(h.getAdapterPosition(), newQuantity);
+            listener.onItemsChanged(); // Báo cho Activity tính lại tổng tiền
         });
         h.btnMinus.setOnClickListener(v -> {
             if (it.getQuantity() > 1) {
-                it.setQuantity(it.getQuantity() - 1);
-                notifyItemChanged(h.getAdapterPosition());
-                listener.onItemsChanged();
+                int newQuantity = it.getQuantity() - 1;
+                it.setQuantity(newQuantity); // Cập nhật local
+                notifyItemChanged(h.getAdapterPosition()); // Vẽ lại item
+
+                // Báo cho Activity biết để cập nhật Firebase
+                listener.onQuantityChanged(h.getAdapterPosition(), newQuantity);
+                listener.onItemsChanged(); // Báo cho Activity tính lại tổng tiền
             }
         });
 
@@ -92,8 +102,6 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
         h.btnRemove.setOnClickListener(v -> {
             int p = h.getAdapterPosition();
             if (p != RecyclerView.NO_POSITION) {
-                items.remove(p);
-                notifyItemRemoved(p);
                 listener.onItemRemoved(p);
             }
         });
@@ -119,8 +127,6 @@ public class Giohang_Adapter extends RecyclerView.Adapter<Giohang_Adapter.VH> {
                     .setTitle("Xóa sản phẩm")
                     .setMessage("Bạn có chắc chắn muốn xóa?")
                     .setPositiveButton("Xóa", (d, w) -> {
-                        items.remove(p);
-                        notifyItemRemoved(p);
                         listener.onItemRemoved(p);
                     })
                     .setNegativeButton("Hủy", null)

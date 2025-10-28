@@ -3,12 +3,12 @@ package com.example.project_btl;
 import java.io.Serializable;
 
 public class ProductModel implements Serializable {
-    private String id;          // ID sản phẩm (dùng cho SQL)
+    private String id;    // ID sản phẩm (dùng cho SQL)
     private String name;
     private String selectedSize;
     private Long price;
     private int image;
-    private String imageUrl; // ✅ ảnh online (dùng nếu lấy từ Firestore)
+    private String imageUrl; // ảnh online (dùng nếu lấy từ Firestore)
     private String description;
     private String moreInfor;
     private float rating;
@@ -36,24 +36,6 @@ public class ProductModel implements Serializable {
         this.checked = false;
         this.type = type;
     }
-    
-    // constructor với thêm reservedQuantity
-//    public ProductModel(String id, String name, Long price, int image, float rating,
-//                        String description, String moreInfor, int quantity, int reservedQuantity,
-//                        String selectedSize, String type) {
-//        this.id = id;
-//        this.name = name;
-//        this.price = price;
-//        this.image = image;
-//        this.rating = rating;
-//        this.description = description;
-//        this.moreInfor = moreInfor;
-//        this.quantity = Math.max(1, quantity);
-//        this.reservedQuantity = reservedQuantity;
-//        this.selectedSize = selectedSize;
-//        this.checked = false;
-//        this.type = type;
-//    }
 
     // getter & setter
     public String getId() { return id; }

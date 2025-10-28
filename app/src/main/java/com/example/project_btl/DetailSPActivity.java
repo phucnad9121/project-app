@@ -16,14 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.project_btl.CheckOut.CheckOutActivity;
+import com.example.project_btl.cart.CartManagerFirebase;
 import com.example.project_btl.cart.MainActivity_giohang;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 public class DetailSPActivity extends AppCompatActivity {
     private ImageView productImage;
     private TextView productName, productPrice, tvQuantity, moTa, ttBoSung;
@@ -31,9 +30,10 @@ public class DetailSPActivity extends AppCompatActivity {
     private RadioGroup rgSizeGiay, rgSizeClothes;
     private ImageButton btnGiam, btnTang, btnGioHang, btnBack;
     private MaterialButton btnBuyNow;
-    private int quantity = 1; // ✅ (Req 1) Đây là SỐ LƯỢNG MUA, không phải số lượng tồn kho
+    private int quantity = 1; // Đây là SỐ LƯỢNG MUA, không phải số lượng tồn kho
     private FirebaseFirestore db;
     private String userId;
+    private CartManagerFirebase cartManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +44,9 @@ public class DetailSPActivity extends AppCompatActivity {
         }
 
         db = FirebaseFirestore.getInstance();
+        cartManager = CartManagerFirebase.getInstance();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        } else {
-            userId = "guest";
         }
 
         // Ánh xạ View
@@ -87,7 +86,7 @@ public class DetailSPActivity extends AppCompatActivity {
             moTa.setText(product.getDescription());
             ttBoSung.setText(product.getMoreInfor());
 
-            // ✅ (Req 1) Luôn set số lượng mua là 1 khi mở
+            // Luôn set số lượng mua là 1 khi mở
             quantity = 1;
             tvQuantity.setText(String.valueOf(quantity));
 
@@ -96,7 +95,7 @@ public class DetailSPActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> finish());
 
-        // ✅ (Req 1) Tăng/Giảm SỐ LƯỢNG MUA (biến local 'quantity')
+        // Tăng/Giảm SỐ LƯỢNG MUA (biến local 'quantity')
         btnTang.setOnClickListener(v -> {
             quantity++;
             // KHÔNG set product.setQuantity(quantity);
@@ -118,46 +117,28 @@ public class DetailSPActivity extends AppCompatActivity {
                 Toast.makeText(this, "Lỗi: Sản phẩm không có ID", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            // ✅ (Req 2) Lấy size đã chọn
+            // 1 Lấy size đã chọn
             String size = getSelectedSize();
 
-            // Tạo map để lưu Firestore
-            Map<String, Object> cartItem = new HashMap<>();
-            cartItem.put("id", product.getId());
-            cartItem.put("name", product.getName());
-            cartItem.put("price", product.getPrice());
-            cartItem.put("imageUrl", product.getImageUrl());
-            cartItem.put("type", product.getType());
+            // 2 Cập nhật số lượng và size vào đối tượng product
+            // (Vì hàm addToCart của bạn nhận vào cả 1 ProductModel)
+            product.setQuantity(quantity);
+            product.setSelectedSize(size);
 
-            // ✅ (Req 1) Lưu SỐ LƯỢNG MUA (biến local 'quantity')
-            cartItem.put("quantity", quantity);
+            // 3 Gọi CartManager để thêm
+            cartManager.addToCart(product);
 
-            // ✅ (Req 2) Lưu SIZE ĐÃ CHỌN (biến local 'size')
-            cartItem.put("selectedSize", size);
-
-            // Dùng ID sản phẩm làm ID document trong giỏ hàng
-            db.collection("users")
-                    .document(userId)
-                    .collection("cartItems")
-                    .document(product.getId())
-                    .set(cartItem)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(DetailSPActivity.this, MainActivity_giohang.class);
-                        startActivity(intent);
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Lỗi khi thêm giỏ hàng", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    });
+            // 4 Thông báo và chuyển trang
+            Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(DetailSPActivity.this, MainActivity_giohang.class);
+            startActivity(intent);
         });
 
         //Bấm buy now sẽ hiển thị luôn form thanh toán
         btnBuyNow.setOnClickListener(v -> {
             if (product == null) return;
 
-            // ✅ (Req 2) Lấy size đã chọn
+            // Lấy size đã chọn
             String size = getSelectedSize();
 
             // Tạo 1 bản copy của product để gửi đi
@@ -171,7 +152,7 @@ public class DetailSPActivity extends AppCompatActivity {
             productToBuy.setMoreInfor(product.getMoreInfor());
             productToBuy.setRating(product.getRating());
 
-            // ✅ (Req 1 & 2) Set số lượng MUA và size ĐÃ CHỌN
+            // Set số lượng MUA và size ĐÃ CHỌN
             productToBuy.setSelectedSize(size);
             productToBuy.setQuantity(quantity);
 

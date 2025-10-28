@@ -34,19 +34,17 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity_giohang extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     private CheckBox checkboxSelectAll;
     private Button btnDeleteSelected, btnBuySelected, btnApplyCoupon;
     private EditText edtCoupon;
     private TextView tvSubtotal, tvDiscount, tvTotal;
-
     private List<ProductModel> items = new ArrayList<>();
-    private Giohang_Adapter adapter;
-
     private FirebaseFirestore db;
     private String userId;
     private String role;
+    private Giohang_Adapter adapter;
+    private CartManagerFirebase cartManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +65,11 @@ public class MainActivity_giohang extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         db = FirebaseFirestore.getInstance();
 
+        // them khoi tao
+        cartManager = CartManagerFirebase.getInstance();
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null)
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        else userId = "guest";
-
 
         role = getIntent().getStringExtra("USER_ROLE");
         if (role == null) role = "user";
@@ -82,7 +81,21 @@ public class MainActivity_giohang extends AppCompatActivity {
             }
 
             @Override
-            public void onItemRemoved(int position) {}
+            public void onItemRemoved(int position) {
+                if (position >= 0 && position < items.size()) {
+                    String productId = items.get(position).getId();
+                    cartManager.removeFromCart(productId);
+                }
+            }
+
+            @Override
+            public void onQuantityChanged(int position, int newQuantity) {
+                // Code mới: Lấy ID và gọi CartManager để cập nhật
+                if (position >= 0 && position < items.size()) {
+                    String productId = items.get(position).getId();
+                    cartManager.updateQuantity(productId, newQuantity);
+                }
+            }
         });
         recyclerView.setAdapter(adapter);
 
@@ -104,10 +117,7 @@ public class MainActivity_giohang extends AppCompatActivity {
 
             for (ProductModel p : toDelete) {
                 if (p.getId() != null && !p.getId().isEmpty()) {
-                    db.collection("users").document(userId)
-                            .collection("cartItems")
-                            .document(p.getId())
-                            .delete();
+                    cartManager.removeFromCart(p.getId());
                 }
             }
         });
@@ -115,6 +125,7 @@ public class MainActivity_giohang extends AppCompatActivity {
         btnBuySelected.setOnClickListener(v -> proceedToCheckout());
         btnApplyCoupon.setOnClickListener(v -> recalcTotal());
 
+        // menu , chuyen tab menu
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_cart);
 
